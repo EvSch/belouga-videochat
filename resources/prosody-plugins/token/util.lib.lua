@@ -279,6 +279,12 @@ function Util:process_and_verify_token(session)
         -- Binds domain name to the session
         session.jitsi_meet_domain = claims["sub"];
 
+	if claims["guest"] ~= nil then
+	  session.is_guest = claims["guest"];
+	else 
+	  session.is_guest = true;
+	end
+
         -- Binds the user details to the session if available
         if claims["context"] ~= nil then
           if claims["context"]["user"] ~= nil then

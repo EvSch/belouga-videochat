@@ -6,38 +6,38 @@ var config = {
 
     hosts: {
         // XMPP domain.
-        domain: 'jitsi-meet.example.com',
+        domain: 'live.staging.belouga.org',
 
         // When using authentication, domain for guest users.
-        // anonymousdomain: 'guest.example.com',
+        anonymousdomain: 'guest.live.staging.belouga.org',
 
         // Domain for authenticated users. Defaults to <domain>.
-        // authdomain: 'jitsi-meet.example.com',
+        // authdomain: 'secure.live.staging.belouga.org',
 
         // Jirecon recording component domain.
-        // jirecon: 'jirecon.jitsi-meet.example.com',
+        jirecon: 'jirecon.live.staging.belouga.org',
 
         // Call control component (Jigasi).
-        // call_control: 'callcontrol.jitsi-meet.example.com',
+        call_control: 'callcontrol.live.staging.belouga.org',
 
         // Focus component domain. Defaults to focus.<domain>.
-        // focus: 'focus.jitsi-meet.example.com',
+        // focus: 'focus.live.staging.belouga.org',
 
         // XMPP MUC domain. FIXME: use XEP-0030 to discover it.
-        muc: 'conference.jitsi-meet.example.com'
+        muc: 'conference.live.staging.belouga.org'
     },
 
     // BOSH URL. FIXME: use XEP-0156 to discover it.
-    bosh: '//jitsi-meet.example.com/http-bind',
+    bosh: '//live.staging.belouga.org/http-bind',
 
     // Websocket URL
     // websocket: 'wss://jitsi-meet.example.com/xmpp-websocket',
 
     // The name of client node advertised in XEP-0115 'c' stanza
-    clientNode: 'http://jitsi.org/jitsimeet',
+    clientNode: 'https://live.staging.belouga.org/',
 
     // The real JID of focus participant - can be overridden here
-    // focusUserJid: 'focus@auth.jitsi-meet.example.com',
+    // focusUserJid: 'focus@auth.live.staging.belouga.org',
 
 
     // Testing / experimental features.
@@ -49,10 +49,10 @@ var config = {
 
         // P2P test mode disables automatic switching to P2P when there are 2
         // participants in the conference.
-        p2pTestMode: false
+        p2pTestMode: false,
 
         // Enables the test specific features consumed by jitsi-meet-torture
-        // testMode: false
+        testMode: true
 
         // Disables the auto-play behavior of *all* newly created video element.
         // This is useful when the client runs on a host with limited resources.
@@ -90,7 +90,7 @@ var config = {
 
     // Start the conference in audio only mode (no video is being received nor
     // sent).
-    // startAudioOnly: false,
+    startAudioOnly: true,
 
     // Every participant after the Nth will start audio muted.
     // startAudioMuted: 10,
@@ -179,29 +179,29 @@ var config = {
     // Recording
 
     // Whether to enable file recording or not.
-    // fileRecordingsEnabled: false,
+    fileRecordingsEnabled: true,
     // Enable the dropbox integration.
-    // dropbox: {
-    //     appKey: '<APP_KEY>' // Specify your app key here.
+    dropbox: {
+         appKey: 'yjn7jn9ej5fotj5', // Specify your app key here.
     //     // A URL to redirect the user to, after authenticating
     //     // by default uses:
     //     // 'https://jitsi-meet.example.com/static/oauth.html'
-    //     redirectURI:
-    //          'https://jitsi-meet.example.com/subfolder/static/oauth.html'
-    // },
+         redirectURI:
+              'https://live.staging.belouga.org/static/oauth.html'
+     },
     // When integrations like dropbox are enabled only that will be shown,
     // by enabling fileRecordingsServiceEnabled, we show both the integrations
     // and the generic recording service (its configuration and storage type
     // depends on jibri configuration)
-    // fileRecordingsServiceEnabled: false,
+    fileRecordingsServiceEnabled: true,
     // Whether to show the possibility to share file recording with other people
     // (e.g. meeting participants), based on the actual implementation
     // on the backend.
-    // fileRecordingsServiceSharingEnabled: false,
+    fileRecordingsServiceSharingEnabled: true,
 
     // Whether to enable live streaming or not.
-    // liveStreamingEnabled: false,
-
+    liveStreamingEnabled: true,
+    hiddenDomain: 'recorder.live.staging.belouga.org',
     // Transcription (in interface_config,
     // subtitles and buttons can be configured)
     // transcribingEnabled: false,
@@ -258,7 +258,7 @@ var config = {
 
     // Whether to use a welcome page or not. In case it's false a random room
     // will be joined when no room is specified.
-    enableWelcomePage: true,
+    enableWelcomePage: false,
 
     // Enabling the close page will ignore the welcome page redirection when
     // a call is hangup.
@@ -276,10 +276,10 @@ var config = {
     enableUserRolesBasedOnToken: false,
 
     // Whether or not some features are checked based on token.
-    // enableFeaturesBasedOnToken: false,
+    enableFeaturesBasedOnToken: false,
 
     // Enable lock room for all moderators, even when userRolesBasedOnToken is enabled and participants are guests.
-    // lockRoomGuestEnabled: false,
+    lockRoomGuestEnabled: false,
 
     // When enabled the password used for locking a room is restricted to up to the number of digits specified
     // roomPasswordNumberOfDigits: 10,
@@ -390,7 +390,7 @@ var config = {
         // shard: "shard1",
         // region: "europe",
         // userRegion: "asia"
-    }
+    },
 
     // Information for the chrome extension banner
     // chromeExtensionBanner: {
@@ -409,20 +409,20 @@ var config = {
     // Local Recording
     //
 
-    // localRecording: {
+    localRecording: {
     // Enables local recording.
     // Additionally, 'localrecording' (all lowercase) needs to be added to
     // TOOLBAR_BUTTONS in interface_config.js for the Local Recording
     // button to show up on the toolbar.
     //
-    //     enabled: true,
+         enabled: true,
     //
 
     // The recording format, can be one of 'ogg', 'flac' or 'wav'.
-    //     format: 'flac'
+         format: 'wav'
     //
 
-    // }
+    }
 
     // Options related to end-to-end (participant to participant) ping.
     // e2eping: {
