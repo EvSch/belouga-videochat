@@ -503,7 +503,7 @@
         "onBy": "{{name}} started the recording",
         "pending": "Preparing to record the meeting...",
         "rec": "REC",
-        "serviceDescription": "Your recording will be saved by the recording service",
+        "serviceDescription": "Your recording will automatically be saved in your Belouga profile.",
         "serviceName": "Recording service",
         "signIn": "Sign in",
         "signOut": "Sign out",

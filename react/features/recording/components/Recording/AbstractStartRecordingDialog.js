@@ -11,6 +11,7 @@ import {
     getDropboxData,
     isEnabled as isDropboxEnabled
 } from '../../../dropbox';
+import { getLocalParticipant } from '../../../base/participants';
 import { RECORDING_TYPES } from '../../constants';
 import { toggleRequestingSubtitles } from '../../../subtitles';
 
@@ -52,6 +53,11 @@ type Props = {
      * The dropbox access token.
      */
     _token: string,
+
+    /**
+     * The ID of the participant that started the recording.
+     */
+    _recordingStarter: string,
 
     /**
      * The redux dispatch function.
@@ -247,7 +253,7 @@ class AbstractStartRecordingDialog extends Component<Props, State> {
      * @returns {boolean} - True (to note that the modal should be closed).
      */
     _onSubmit() {
-        const { _autoCaptionOnRecord, _conference, _isDropboxEnabled, _token, dispatch } = this.props;
+        const { _autoCaptionOnRecord, _conference, _isDropboxEnabled, _token, _recordingStarter, dispatch } = this.props;
         let appData;
         const attributes = {};
 
@@ -257,6 +263,8 @@ class AbstractStartRecordingDialog extends Component<Props, State> {
                     === RECORDING_TYPES.DROPBOX) {
             appData = JSON.stringify({
                 'file_recording_metadata': {
+                    'start_timestamp': Date.now(),
+                    'recording_starter': _recordingStarter,
                     'upload_credentials': {
                         'service_name': RECORDING_TYPES.DROPBOX,
                         'token': _token
@@ -267,6 +275,8 @@ class AbstractStartRecordingDialog extends Component<Props, State> {
         } else {
             appData = JSON.stringify({
                 'file_recording_metadata': {
+                    'start_timestamp': Date.now(),
+                    'recording_starter': _recordingStarter,
                     'share': this.state.sharingEnabled
                 }
             });
@@ -329,7 +339,8 @@ export function mapStateToProps(state: Object) {
         _fileRecordingsServiceEnabled: fileRecordingsServiceEnabled,
         _fileRecordingsServiceSharingEnabled: fileRecordingsServiceSharingEnabled,
         _isDropboxEnabled: isDropboxEnabled(state),
-        _token: state['features/dropbox'].token
+        _token: state['features/dropbox'].token,
+        _recordingStarter: getLocalParticipant(state)
     };
 }
 

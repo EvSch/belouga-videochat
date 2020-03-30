@@ -206,13 +206,20 @@ var interfaceConfig = {
     * If this is set to false, the banner will not be rendered at all. If set to true, the check for extension(s)
     * being already installed is done before rendering.
     */
-    SHOW_CHROME_EXTENSION_BANNER: false
+    SHOW_CHROME_EXTENSION_BANNER: false,
 
     /**
      * How many columns the tile view can expand to. The respected range is
      * between 1 and 5.
      */
     // TILE_VIEW_MAX_COLUMNS: 5,
+
+
+    /**
+     * Whether or not the jitsi meet app could be opened in a mobile browser.
+     * Defaults to false.
+     */
+    OPEN_IN_MOBILE_BROWSER: true
 
     /**
      * Specify custom URL for downloading android mobile app.

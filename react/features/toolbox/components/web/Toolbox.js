@@ -965,10 +965,6 @@ class Toolbox extends Component<Props, State> {
                 && <OverflowMenuProfileItem
                     key = 'profile'
                     onClick = { this._onToolbarToggleProfile } />,
-            this._shouldShowButton('videoquality')
-                && <OverflowMenuVideoQualityItem
-                    key = 'videoquality'
-                    onClick = { this._onToolbarOpenVideoQuality } />,
             this._shouldShowButton('fullscreen')
                 && <OverflowMenuItem
                     accessibilityLabel = { t('toolbar.accessibilityLabel.fullScreen') }
@@ -979,9 +975,9 @@ class Toolbox extends Component<Props, State> {
             <LiveStreamButton
                 key = 'livestreaming'
                 showLabel = { true } />,
-            <RecordButton
+            /*<RecordButton
                 key = 'record'
-                showLabel = { true } />,
+                showLabel = { true } />,*/
             this._shouldShowButton('sharedvideo')
                 && <OverflowMenuItem
                     accessibilityLabel = { t('toolbar.accessibilityLabel.sharedvideo') }
@@ -997,6 +993,10 @@ class Toolbox extends Component<Props, State> {
                 key = 'videobackgroundblur'
                 showLabel = { true }
                 visible = { this._shouldShowButton('videobackgroundblur') && !_screensharing } />,
+            this._shouldShowButton('videoquality')
+                && <OverflowMenuVideoQualityItem
+                    key = 'videoquality'
+                    onClick = { this._onToolbarOpenVideoQuality } />,
             <SettingsButton
                 key = 'settings'
                 showLabel = { true }
@@ -1101,14 +1101,17 @@ class Toolbox extends Component<Props, State> {
                 );
             case 'tileview':
                 return <TileViewButton showLabel = { true } />;
-            case 'localrecording':
+            case 'recording':
                 return (
-                    <OverflowMenuItem
-                        accessibilityLabel = { t('toolbar.accessibilityLabel.localRecording') }
+                  <RecordButton
+                      key = 'record'
+                      showLabel = { true } />
+                    /*<OverflowMenuItem
+                        accessibilityLabel = { t('toolbar.accessibilityLabel.recording') }
                         icon = { IconRec }
-                        key = 'localrecording'
-                        onClick = { this._onToolbarOpenLocalRecordingInfoDialog }
-                        text = { t('localRecording.dialogTitle') } />
+                        key = 'recording'
+                        //onClick = { this._onToolbarOpenLocalRecordingInfoDialog }
+                        text = { t('toolbar.accessibilityLabel.recording') } />*/
                 );
             default:
                 return null;
@@ -1170,8 +1173,8 @@ class Toolbox extends Component<Props, State> {
         if (this._shouldShowButton('tileview')) {
             buttonsRight.push('tileview');
         }
-        if (this._shouldShowButton('localrecording')) {
-            buttonsRight.push('localrecording');
+        if (this._shouldShowButton('recording')) {
+            buttonsRight.push('recording');
         }
 
         const movedButtons = [];
@@ -1242,11 +1245,8 @@ class Toolbox extends Component<Props, State> {
                         visible = { this._shouldShowButton('camera') } />
                 </div>
                 <div className = 'button-group-right'>
-                    { buttonsRight.indexOf('localrecording') !== -1
-                        && <LocalRecordingButton
-                            onClick = {
-                                this._onToolbarOpenLocalRecordingInfoDialog
-                            } />
+                    { buttonsRight.indexOf('recording') !== -1
+                        && <RecordButton />
                     }
                     { buttonsRight.indexOf('tileview') !== -1
                         && <TileViewButton /> }

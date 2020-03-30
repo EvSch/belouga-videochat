@@ -54,10 +54,10 @@ MiddlewareRegistry.register(store => next => action => {
  */
 function _overwriteLocalParticipant(
         { dispatch, getState },
-        { avatarURL, email, name, features }) {
+        { avatarURL, email, id, name, features }) {
     let localParticipant;
 
-    if ((avatarURL || email || name)
+    if ((avatarURL || email || id || name)
             && (localParticipant = getLocalParticipant(getState))) {
         const newProperties: Object = {
             id: localParticipant.id,
@@ -69,6 +69,9 @@ function _overwriteLocalParticipant(
         }
         if (email) {
             newProperties.email = email;
+        }
+        if (id) {
+            newProperties.userId = id;
         }
         if (name) {
             newProperties.name = name;
@@ -183,10 +186,10 @@ function _setJWT(store, next, action) {
  */
 function _undoOverwriteLocalParticipant(
         { dispatch, getState },
-        { avatarURL, name, email }) {
+        { avatarURL, name, email, id }) {
     let localParticipant;
 
-    if ((avatarURL || name || email)
+    if ((avatarURL || name || email || id)
             && (localParticipant = getLocalParticipant(getState))) {
         const newProperties: Object = {
             id: localParticipant.id,
@@ -198,6 +201,9 @@ function _undoOverwriteLocalParticipant(
         }
         if (email === localParticipant.email) {
             newProperties.email = undefined;
+        }
+        if (id === localParticipant.userId) {
+            newProperties.userId = undefined;
         }
         if (name === localParticipant.name) {
             newProperties.name = undefined;

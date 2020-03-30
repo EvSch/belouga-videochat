@@ -171,7 +171,7 @@ class StartRecordingDialogContent extends Component<Props> {
             t
         } = this.props;
 
-        const controlDisabled = selectedRecordingService !== RECORDING_TYPES.JITSI_REC_SERVICE;
+        const controlDisabled = false;
         let mainContainerClasses = 'recording-header recording-header-line';
 
         if (controlDisabled) {
@@ -203,7 +203,7 @@ class StartRecordingDialogContent extends Component<Props> {
                 </Text>
                 <Switch
                     className = 'recording-switch'
-                    disabled = { controlDisabled || isValidating }
+                    disabled = { controlDisabled }
                     onValueChange
                         = { onSharingSettingChanged }
                     style = { styles.switch }
@@ -234,11 +234,11 @@ class StartRecordingDialogContent extends Component<Props> {
                 ? (
                     <Switch
                         className = 'recording-switch'
-                        disabled = { isValidating }
-                        onValueChange = { this._onRecordingServiceSwitchChange }
+                        disabled = { true }
+                        //onValueChange = { this._onRecordingServiceSwitchChange }
                         style = { styles.switch }
                         trackColor = {{ false: ColorPalette.lightGrey }}
-                        value = { this.props.selectedRecordingService === RECORDING_TYPES.JITSI_REC_SERVICE } />
+                        value = { true } />
                 ) : null;
 
         return (
@@ -392,10 +392,10 @@ class StartRecordingDialogContent extends Component<Props> {
         } = this.props;
 
         // act like group, cannot toggle off
-        if (selectedRecordingService
+        /*if (selectedRecordingService
                 === RECORDING_TYPES.DROPBOX) {
             return;
-        }
+        }*/
 
         onChange(RECORDING_TYPES.DROPBOX);
 

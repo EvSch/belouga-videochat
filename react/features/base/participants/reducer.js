@@ -192,6 +192,7 @@ function _participantJoined({ participant }) {
         loadableAvatarUrl,
         local,
         name,
+        userId,
         pinned,
         presence,
         role
@@ -225,6 +226,7 @@ function _participantJoined({ participant }) {
         local: local || false,
         name,
         pinned: pinned || false,
+        userId,
         presence,
         role: role || PARTICIPANT_ROLE.NONE
     };

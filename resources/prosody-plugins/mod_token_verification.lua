@@ -61,12 +61,13 @@ local function verify_user(session, stanza)
         return true; -- we need to just return non nil
     elseif session.is_guest == true then
 	if session.room_created == nil then
-		log("error", "Token %s is a guest user, must wait for owner to join: %s",
-            	tostring(session.auth_token), tostring(stanza.attr.to));
-        	session.send(
-            		st.error_reply(
-                	stanza, "auth", "not-authorized", "Validated as guest user."));
-		return true;
+		return nil;
+		--log("error", "Token %s is a guest user, must wait for owner to join: %s",
+    --        	tostring(session.auth_token), tostring(stanza.attr.to));
+    --    	session.send(
+    --        		st.error_reply(
+    --            	stanza, "auth", "not-authorized", "Validated as guest user."));
+		--return true;
 	end
     end
 	log("debug",
@@ -90,7 +91,7 @@ module:hook("muc-occupant-pre-join", function(event)
 		local affiliations = room._affiliations;
 		for k,v in pairs(affiliations) do
 			if(string.find(k, 'focus') == nil) then
-				if(v == 'owner' or v == 'moderator' or v == 'participant') then 
+				if(v == 'owner' or v == 'moderator' or v == 'participant') then
 					origin.room_created = true;
 				end
 			end

@@ -48,8 +48,10 @@ export type Props = AbstractButtonProps & {
 export default class AbstractRecordButton<P: Props>
     extends AbstractButton<P, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.recording';
-    label = 'dialog.startRecording';
+    label = this._isToggled() ? 'dialog.stopRecording' : 'dialog.startRecording';
     toggledLabel = 'dialog.stopRecording';
+    tooltip = this._isToggled() ? 'localRecording.stop' : 'localRecording.start';
+    disabledTooltip = 'Recording is only available for CLC members!';
 
     /**
      * Handles clicking / pressing the button.

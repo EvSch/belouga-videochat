@@ -57,13 +57,20 @@ export function getDeepLinkingPage(state) {
     }
 
     if (isMobileBrowser()) { // mobile
-        const mobileAppPromo
-            = typeof interfaceConfig === 'object'
-                && interfaceConfig.MOBILE_APP_PROMO;
+      if (typeof interfaceConfig === 'object') {
+        const {
+            OPEN_IN_MOBILE_BROWSER: openInMobileBrowser = true,
+            MOBILE_APP_PROMO: mobileAppPromo = true
+        } = interfaceConfig;
 
-        return Promise.resolve(
-            typeof mobileAppPromo === 'undefined' || Boolean(mobileAppPromo)
-                ? DeepLinkingMobilePage : NoMobileApp);
+        if (openInMobileBrowser) {
+          return Promise.resolve();
+        } else {
+          return Promise.resolve(
+              typeof mobileAppPromo === 'undefined' || Boolean(mobileAppPromo)
+                  ? DeepLinkingMobilePage : NoMobileApp);
+        }
+      }
     }
 
     // desktop

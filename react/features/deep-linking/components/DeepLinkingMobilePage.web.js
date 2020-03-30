@@ -116,7 +116,7 @@ class DeepLinkingMobilePage extends Component<Props> {
                 <div className = 'header'>
                     <img
                         className = 'logo'
-                        src = 'images/logo-deep-linking.png' />
+                        src = 'images/jitsilogo.png' />
                 </div>
                 <div className = { `${_SNS}__body` }>
                     {
@@ -131,8 +131,7 @@ class DeepLinkingMobilePage extends Component<Props> {
                     </p>
                     <a
                         { ...onOpenLinkProperties }
-                        href = { this._generateDownloadURL() }
-                        onClick = { this._onDownloadApp }>
+                        href = '#'>
                         <button className = { downloadButtonClassName }>
                             { t(`${_TNS}.downloadApp`) }
                         </button>
@@ -140,8 +139,7 @@ class DeepLinkingMobilePage extends Component<Props> {
                     <a
                         { ...onOpenLinkProperties }
                         className = { `${_SNS}__href` }
-                        href = { generateDeepLinkingURL() }
-                        onClick = { this._onOpenApp }>
+                        href = '#'>
                         {/* <button className = { `${_SNS}__button` }> */}
                         { t(`${_TNS}.openApp`) }
                         {/* </button> */}

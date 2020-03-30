@@ -389,7 +389,10 @@ function _raiseHandUpdated({ dispatch, getState }, conference, participantId, ne
             titleArguments: {
                 name: getParticipantDisplayName(getState, pid)
             },
-            titleKey: 'notify.raisedHand'
+            titleKey: 'notify.raisedHand',
+            isDismissAllowed: false,
+            customActionNameKey: 'Call on ' + getParticipantDisplayName(getState, pid),
+            customActionHandler: getParticipantDisplayName(getState, pid)
         }, NOTIFICATION_TIMEOUT));
     }
 }
