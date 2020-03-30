@@ -31,7 +31,7 @@ var interfaceConfig = {
     APP_NAME: 'Belouga Videochat',
     NATIVE_APP_NAME: 'Belouga Videochat',
     PROVIDER_NAME: 'Belouga',
-    LANG_DETECTION: false, // Allow i18n to detect the system language
+    LANG_DETECTION: true, // Allow i18n to detect the system language
     INVITATION_POWERED_BY: true,
 
     /**
@@ -207,6 +207,11 @@ var interfaceConfig = {
     * being already installed is done before rendering.
     */
     SHOW_CHROME_EXTENSION_BANNER: false,
+
+    /**
+     * When enabled, the kick participant button will not be presented for users without a JWT
+     */
+    // HIDE_KICK_BUTTON_FOR_GUESTS: false
 
     /**
      * How many columns the tile view can expand to. The respected range is
