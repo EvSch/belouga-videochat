@@ -83,3 +83,4 @@ export function _mapStateToProps(state: Object, ownProps: Props): Object {
 }
 export default translate(connect(_mapStateToProps)(
     ClosedCaptionButton));
+//export default translate(connect(_abstractMapStateToProps)(ClosedCaptionButton));
