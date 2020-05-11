@@ -199,7 +199,7 @@
         "kickTitle": "Ouch! {{participantDisplayName}} kicked you out of the meeting",
         "liveStreaming": "Live Streaming",
         "liveStreamingDisabledForGuestTooltip": "Guests can't start live streaming.",
-        "liveStreamingDisabledTooltip": "Start live stream disabled.",
+        "liveStreamingDisabledTooltip": "No livestream on Belouga's schedule right now.",
         "lockMessage": "Failed to lock the conference.",
         "lockRoom": "Add meeting $t(lockRoomPasswordUppercase)",
         "lockTitle": "Lock failed",

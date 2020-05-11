@@ -193,7 +193,8 @@ export default class AbstractStartLiveStreamDialog<P: Props>
      * closing, true to close the modal.
      */
     _onSubmit() {
-        const { broadcasts, selectedBoundStreamID } = this.state;
+        let appData;
+        /*const { broadcasts, selectedBoundStreamID } = this.state;
         const key
             = (this.state.streamKey || this.props._streamKey || '').trim();
 
@@ -208,15 +209,19 @@ export default class AbstractStartLiveStreamDialog<P: Props>
                 broadcast => broadcast.boundStreamID === selectedBoundStreamID);
 
             selectedBroadcastID = selectedBroadcast && selectedBroadcast.id;
-        }
+        }*/
+
+        appData = JSON.stringify({
+            'rtmp_url': 'rtmp://172.31.19.167:1935/Prod+Video+Chat/i-0e4ec952977edd2d9'
+        });
 
         sendAnalytics(
             createLiveStreamingDialogEvent('start', 'confirm.button'));
 
         this.props._conference.startRecording({
-            broadcastId: selectedBroadcastID,
+            streamId: 1,
             mode: JitsiRecordingConstants.mode.STREAM,
-            streamId: key
+            appData
         });
 
         return true;

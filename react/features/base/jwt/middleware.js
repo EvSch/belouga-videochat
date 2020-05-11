@@ -143,6 +143,7 @@ function _setJWT(store, next, action) {
 
                 action.jwt = jwt;
                 action.issuer = iss;
+                action.isGuest = jwtPayload.guest;
                 if (context) {
                     const user = _user2participant(context.user);
 

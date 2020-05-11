@@ -83,7 +83,6 @@ class StartLiveStreamDialog
      * @inheritdoc
      */
     render() {
-        const { _googleApiApplicationClientID } = this.props;
 
         return (
             <Dialog
@@ -93,15 +92,7 @@ class StartLiveStreamDialog
                 onSubmit = { this._onSubmit }
                 titleKey = 'liveStreaming.start'
                 width = { 'small' }>
-                <div className = 'live-stream-dialog'>
-                    { _googleApiApplicationClientID
-                        ? this._renderYouTubePanel() : null }
-                    <StreamKeyForm
-                        onChange = { this._onStreamKeyChange }
-                        value = {
-                            this.state.streamKey || this.props._streamKey
-                        } />
-                </div>
+                Are you sure you would like to start live streaming?
             </Dialog>
         );
     }
