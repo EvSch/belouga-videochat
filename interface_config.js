@@ -47,13 +47,14 @@ var interfaceConfig = {
      * jwt.
      */
     TOOLBAR_BUTTONS: [
-        'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
+        'microphone', 'camera', 'desktop', 'fullscreen',
         'fodeviceselection', 'hangup', 'profile', 'info', 'chat', 'recording',
-        'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
-        'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
-        'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone',
+        'livestreaming', 'etherpad', 'sharedvideo', 'settings',
+        'videoquality', 'filmstrip', 'feedback', 'stats', 'shortcuts',
+        'tileview', 'download', 'help', 'mute-everyone',
         'e2ee'
     ],
+    //REMOVED SETTINGS OPTIONS TO BE ADDED BACK LATER: 'closedcaptions', 'raisehand', 'invite', 'videobackgroundblur'
 
     SETTINGS_SECTIONS: [ 'devices', 'language', 'moderator', 'profile', 'calendar' ],
 
@@ -225,7 +226,7 @@ var interfaceConfig = {
      * Whether or not the jitsi meet app could be opened in a mobile browser.
      * Defaults to false.
      */
-    OPEN_IN_MOBILE_BROWSER: true
+    OPEN_IN_MOBILE_BROWSER: true,
 
     /**
      * Specify custom URL for downloading android mobile app.
