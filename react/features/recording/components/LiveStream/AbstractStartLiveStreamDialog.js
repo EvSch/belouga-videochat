@@ -212,7 +212,7 @@ export default class AbstractStartLiveStreamDialog<P: Props>
         }*/
 
         appData = JSON.stringify({
-            'rtmp_url': 'rtmp://172.31.19.167:1935/Prod+Video+Chat/i-0e4ec952977edd2d9'
+            'rtmp_url': 'rtmp://localhost:1935/show/stream'
         });
 
         sendAnalytics(
