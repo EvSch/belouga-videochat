@@ -98,7 +98,8 @@ export function _abstractMapStateToProps(state: Object, ownProps: Object) {
       } = state['features/base/config'];
       const { features = {} } = getLocalParticipant(state);
       if (enableFeaturesBasedOnToken) {
-          visible = String(features.closedcaptions) === 'true';
+          //visible = String(features.closedcaptions) === 'true';
+          visible = true;
           disabledByFeatures = String(features.closedcaptions) === 'disabled';
       }
     }

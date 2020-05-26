@@ -51,10 +51,10 @@ var interfaceConfig = {
         'fodeviceselection', 'hangup', 'profile', 'info', 'chat', 'recording',
         'livestreaming', 'etherpad', 'sharedvideo', 'settings',
         'videoquality', 'filmstrip', 'feedback', 'stats', 'shortcuts',
-        'tileview', 'download', 'help', 'mute-everyone',
+        'tileview', 'download', 'help', 'mute-everyone', 'closedcaptions',
         'e2ee'
     ],
-    //REMOVED SETTINGS OPTIONS TO BE ADDED BACK LATER: 'closedcaptions', 'raisehand', 'invite', 'videobackgroundblur'
+    //REMOVED SETTINGS OPTIONS TO BE ADDED BACK LATER: 'raisehand', 'invite', 'videobackgroundblur'
 
     SETTINGS_SECTIONS: [ 'devices', 'language', 'moderator', 'profile', 'calendar' ],
 

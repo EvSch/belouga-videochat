@@ -183,6 +183,22 @@ function handle_get_room (event)
 	return { status_code = 200; body = json.encode(occupants_json); };
 end;
 
+function getNbConfPart()
+    local result={};
+
+    for key, value in pairs(prosody.full_sessions) do
+            if value["jitsi_bosh_query_room"] then
+                if result[value["jitsi_bosh_query_room"]] then
+                        result[value["jitsi_bosh_query_room"]] = result[value["jitsi_bosh_query_room"]] + 1;
+                else
+                        result[value["jitsi_bosh_query_room"]] = 1;
+                end
+            end
+    end
+
+    return { status_code = 200; body = json.encode(result); };
+end
+
 function module.load()
     module:depends("http");
 	module:provides("http", {
@@ -191,7 +207,7 @@ function module.load()
 			["GET room-size"] = function (event) return async_handler_wrapper(event,handle_get_room_size) end;
 			["GET sessions"] = function () return tostring(it.count(it.keys(prosody.full_sessions))); end;
 			["GET room"] = function (event) return async_handler_wrapper(event,handle_get_room) end;
+      ["GET room-names"] = function (event) return async_handler_wrapper(event,getNbConfPart) end;
 		};
 	});
 end
-
