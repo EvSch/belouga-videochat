@@ -132,7 +132,7 @@ function mapStateToProps(state) {
         _dialIn: state['features/invite'],
         _locked: locked,
         _password: password,
-        _showE2ee: Boolean(e2eeSupported)
+        _showE2ee: false //manually setting false for now, was: Boolean(e2eeSupported)
     };
 }
 
