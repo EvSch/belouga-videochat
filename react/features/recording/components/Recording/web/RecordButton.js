@@ -3,15 +3,14 @@
 import { translate } from '../../../../base/i18n';
 import { IconToggleRecording, IconRec } from '../../../../base/icons';
 import { connect } from '../../../../base/redux';
-
 import AbstractRecordButton, {
     _mapStateToProps as _abstractMapStateToProps,
-    type Props as AbstractProps
+    type Props
 } from '../AbstractRecordButton';
 
 declare var interfaceConfig: Object;
 
-type Props = AbstractProps & {
+/*type Props = AbstractProps & {
 
     /**
      * True if the button should be disabled, false otherwise.
@@ -19,12 +18,12 @@ type Props = AbstractProps & {
      * NOTE: On web, if the feature is not disabled on purpose, then we still
      * show the button but disabled and with a tooltip rendered on it,
      * explaining why it's not available.
-     */
+     *
     _disabled: boolean,
 
     /**
      * Tooltip for the button when it's disabled in a certain way.
-     */
+     *
     _fileRecordingsDisabledTooltipKey: ?string
 }
 
@@ -75,36 +74,14 @@ export function _mapStateToProps(state: Object, ownProps: Props): Object {
     const abstractProps = _abstractMapStateToProps(state, ownProps);
     let { visible } = ownProps;
 
-    const _disabledByFeatures = abstractProps.disabledByFeatures;
-    let _disabled = false;
-    let _fileRecordingsDisabledTooltipKey;
-
-    if (!abstractProps.visible
-            && _disabledByFeatures !== undefined && !_disabledByFeatures) {
-        _disabled = true;
-
-        // button and tooltip
-        if (state['features/base/jwt'].isGuest) {
-            _fileRecordingsDisabledTooltipKey
-                = 'dialog.recordingDisabledForGuestTooltip';
-        } else {
-            _fileRecordingsDisabledTooltipKey
-                = 'dialog.recordingDisabledTooltip';
-        }
-    }
-
     if (typeof visible === 'undefined') {
-        visible = interfaceConfig.TOOLBAR_BUTTONS.includes('recording')
-            && (abstractProps.visible
-                    || Boolean(_fileRecordingsDisabledTooltipKey));
+        visible = interfaceConfig.TOOLBAR_BUTTONS.includes('recording') && abstractProps.visible;
     }
 
     return {
         ...abstractProps,
-        visible,
-        _disabled,
-        _fileRecordingsDisabledTooltipKey
+        visible
     };
 }
 
-export default translate(connect(_mapStateToProps)(RecordButton));
+export default translate(connect(_mapStateToProps)(AbstractRecordButton));

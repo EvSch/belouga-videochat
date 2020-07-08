@@ -12,8 +12,8 @@ import {
     isEnabled as isDropboxEnabled
 } from '../../../dropbox';
 import { getLocalParticipant } from '../../../base/participants';
-import { RECORDING_TYPES } from '../../constants';
 import { toggleRequestingSubtitles } from '../../../subtitles';
+import { RECORDING_TYPES } from '../../constants';
 
 type Props = {
 

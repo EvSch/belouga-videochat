@@ -1,8 +1,8 @@
 // @flow
 
 import { createToolbarEvent, sendAnalytics } from '../../analytics';
+import { isLocalParticipantModerator } from '../../base/participants';
 import { AbstractButton, type AbstractButtonProps } from '../../base/toolbox';
-
 import { toggleRequestingSubtitles } from '../actions';
 import {
     getLocalParticipant
