@@ -44,6 +44,10 @@ var config = {
     //
 
     testing: {
+        // Disables the End to End Encryption feature. Useful for debugging
+        // issues related to insertable streams.
+        // disableE2EE: false,
+
         // P2P test mode disables automatic switching to P2P when there are 2
         // participants in the conference.
         p2pTestMode: false,
@@ -106,6 +110,11 @@ var config = {
     // Enabling it (with #params) will disable local audio output of remote
     // participants and to enable it back a reload is needed.
     // startSilent: false
+
+    // Sets the preferred target bitrate for the Opus audio codec by setting its
+    // 'maxaveragebitrate' parameter. Currently not available in p2p mode.
+    // Valid values are in the range 6000 to 510000
+    // opusMaxAvgBitrate: 20000,
 
     // Video
 
@@ -306,7 +315,7 @@ var config = {
     // When 'true', it shows an intermediate page before joining, where the user can configure their devices.
     // prejoinPageEnabled: false,
 
-    // If true, shows the unsafe roon name warning label when a room name is
+    // If true, shows the unsafe room name warning label when a room name is
     // deemed unsafe (due to the simplicity in the name) and a password is not
     // set or the lobby is not enabled.
     // enableInsecureRoomNameWarning: false,
@@ -396,6 +405,15 @@ var config = {
 
         // The Amplitude APP Key:
         // amplitudeAPPKey: '<APP_KEY>'
+
+        // Configuration for the rtcstats server:
+        // In order to enable rtcstats one needs to provide a endpoint url.
+        // rtcstatsEndpoint: wss://rtcstats-server-pilot.jitsi.net/,
+
+        // The interval at which rtcstats will poll getStats, defaults to 1000ms.
+        // If the value is set to 0 getStats won't be polled and the rtcstats client
+        // will only send data related to RTCPeerConnection events.
+        // rtcstatsPolIInterval: 1000
 
         // Array of script URLs to load as lib-jitsi-meet "analytics handlers".
         // scriptURLs: [
@@ -504,7 +522,7 @@ var config = {
     /**
      External API url used to receive branding specific information.
      If there is no url set or there are missing fields, the defaults are applied.
-     None of the fieds are mandatory and the response must have the shape:
+     None of the fields are mandatory and the response must have the shape:
      {
          // The hex value for the colour used as background
          backgroundColor: '#fff',
