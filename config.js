@@ -37,7 +37,9 @@ var config = {
     clientNode: 'https://live.staging.belouga.org/',
 
     // The real JID of focus participant - can be overridden here
-    // focusUserJid: 'focus@auth.live.staging.belouga.org',
+    // Do not change username - FIXME: Make focus username configurable
+    // https://github.com/jitsi/jitsi-meet/issues/7376
+    // focusUserJid: 'focus@auth.jitsi-meet.example.com',
 
 
     // Testing / experimental features.
@@ -114,7 +116,7 @@ var config = {
     // Sets the preferred target bitrate for the Opus audio codec by setting its
     // 'maxaveragebitrate' parameter. Currently not available in p2p mode.
     // Valid values are in the range 6000 to 510000
-    // opusMaxAvgBitrate: 20000,
+    // opusMaxAverageBitrate: 20000,
 
     // Video
 
