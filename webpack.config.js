@@ -3,6 +3,7 @@
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const process = require('process');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 /**
  * The URL of the Jitsi Meet deployment to be proxy to in the context of
@@ -12,7 +13,7 @@ const devServerProxyTarget
     = process.env.WEBPACK_DEV_SERVER_PROXY_TARGET || 'https://live.staging.belouga.org';
 
 const analyzeBundle = process.argv.indexOf('--analyze-bundle') !== -1;
-const detectCircularDeps = process.argv.indexOf('--detect-circular-deps') !== -1;
+const detectCircularDeps = false;
 
 const minimize
     = process.argv.indexOf('-p') !== -1
@@ -104,6 +105,28 @@ const config = {
             loader: 'expose-loader?$!expose-loader?jQuery',
             test: /\/node_modules\/jquery\/.*\.js$/
         }, {
+            test: /\.(png|jpe?g|gif|ttf|woff|woff2|eot)$/i,
+            use: [
+              {
+                loader: 'file-loader',
+                options: {
+                  emitFile: false
+                },
+              },
+            ],
+        }, {
+            test: /\.s[ac]ss$/i,
+            use: [
+              // Writes CSS to separate file
+              MiniCssExtractPlugin.loader,
+              // Translates CSS into CommonJS
+              'css-loader',
+              //Fixes relative urls.
+              //'resolve-url-loader',
+              // Compiles Sass to CSS
+              'sass-loader'
+            ],
+          },{
             // Allow CSS to be imported into JavaScript.
 
             test: /\.css$/,
@@ -152,6 +175,18 @@ const config = {
         publicPath: '/libs/',
         sourceMapFilename: `[name].${minimize ? 'min' : 'js'}.map`
     },
+    optimization: {
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    },
+  },
     plugins: [
         analyzeBundle
             && new BundleAnalyzerPlugin({
@@ -163,7 +198,13 @@ const config = {
                 allowAsyncCycles: false,
                 exclude: /node_modules/,
                 failOnError: false
-            })
+            }),
+        new MiniCssExtractPlugin({
+          // Options similar to the same options in webpackOptions.output
+          // both options are optional
+          filename: '[name].css',
+          chunkFilename: '[name].chunk.css',
+        }),
     ].filter(Boolean),
     resolve: {
         alias: {
@@ -174,7 +215,7 @@ const config = {
         ],
         extensions: [
             '.web.js',
-
+            '.css',
             // Webpack defaults:
             '.js',
             '.json'
@@ -188,6 +229,16 @@ module.exports = [
             'app.bundle': './app.js'
         },
         performance: getPerformanceHints(4 * 1024 * 1024)
+    }),
+    Object.assign({}, config, {
+        entry: {
+            'all': './css/main.scss'
+        },
+        output: Object.assign({}, config.output, {
+            filename: '[name].scss',
+            sourceMapFilename: '[name].map.scss'
+        }),
+        performance: getPerformanceHints(1 * 1024 * 1024)
     }),
     Object.assign({}, config, {
         entry: {
