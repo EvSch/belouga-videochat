@@ -183,7 +183,7 @@ class Filmstrip extends Component <Props> {
         case LAYOUTS.VERTICAL_FILMSTRIP_VIEW:
             // Adding 18px for the 2px margins, 2px borders on the left and right and 5px padding on the left and right.
             // Also adding 7px for the scrollbar.
-            filmstripStyle.maxWidth = (interfaceConfig.FILM_STRIP_MAX_HEIGHT || 120) + 25;
+            filmstripStyle.maxWidth = (interfaceConfig.FILM_STRIP_MAX_HEIGHT || 120) + 350;
             break;
         case LAYOUTS.TILE_VIEW: {
             // The size of the side margins for each tile as set in CSS.

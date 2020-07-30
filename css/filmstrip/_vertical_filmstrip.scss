@@ -1,7 +1,7 @@
 .vertical-filmstrip .filmstrip {
     &.hide-videos {
         .remote-videos-container {
-            opacity: 0;
+            opacity: 1;
             pointer-events: none;
         }
     }
@@ -26,7 +26,7 @@
     flex-direction: column-reverse;
     height: 100%;
     width: 100%;
-    padding: ($desktopAppDragBarHeight - 5px) 5px 10px;
+    padding: ($desktopAppDragBarHeight - 5px) 15px 10px;
     /**
      * fixed positioning is necessary for remote menus and tooltips to pop
      * out of the scrolling filmstrip. AtlasKit dialogs and tooltips use
@@ -38,6 +38,7 @@
     transition: height .3s ease-in;
     right: 0;
     z-index: $filmstripVideosZ;
+    background: #FFF; 
 
     &.reduce-height {
         height: calc(100% - #{$newToolbarSizeWithPadding});
@@ -83,11 +84,16 @@
         justify-content: flex-start;
 
         #filmstripLocalVideoThumbnail {
-            width: calc(100% - 15px);
+            width: 100%;
 
             .videocontainer {
                 height: 0px;
                 width: 100%;
+                border-radius: 25px;
+                box-sizing: border-box;
+                overflow: hidden;
+                background: #00bb;
+                margin: 0;
     }
         }
 
@@ -99,7 +105,7 @@
      */
     #filmstripLocalVideo,
     #filmstripRemoteVideos {
-        padding: 0;
+        padding: 10px;
     }
 
     #filmstripRemoteVideos {
@@ -114,13 +120,27 @@
 
         #filmstripRemoteVideosContainer {
             @include minHWAutoFix();
-            flex-direction: column-reverse;
+            // flex-direction: column-reverse;
             overflow: visible;
-            width: calc(100% - 8px); // 8px for margin + border of the thumbnails
+            width: 100%;
+            position: relative;
 
             .videocontainer {
                 height: 0px;
                 width: 100%;
+                border-radius: 25px;
+                box-sizing: border-box;
+                transition: .2s ease-in-out;
+                // box-shadow: 0 0 15px rgba(22, 43, 53, 0);
+                border: none;
+                flex-basis: 50%;
+                flex-grow: 1;
+                max-width: 270px;
+                height: 200px;
+                padding-top: 0 !important;
+                box-shadow: 0 0 15px rgba(22,43,53,.4) !important;
+                // overflow: hidden;
+
             }
         }
     }
@@ -189,7 +209,7 @@
     .vertical-filmstrip {
         #remoteVideos #filmstripRemoteVideos {
             #filmstripRemoteVideosContainer {
-                width: calc(100% - 15px) // 8 px - margins + border of the thumbnails; 7px - for the scroll
+                width: 100% // 8 px - margins + border of the thumbnails; 7px - for the scroll
             }
         }
     }

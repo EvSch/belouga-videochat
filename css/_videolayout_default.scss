@@ -5,13 +5,15 @@
 #videospace {
     display: block;
     height: 100%;
-    width: 100%;
+    // width: 100%;
     min-height: 100%;
     position: absolute;
     top: 0px;
     left: 0px;
     right: 0px;
     overflow: hidden;
+    width: calc(100% - 470px);
+    background: #FFF;
 }
 
 #largeVideoBackgroundContainer,
@@ -38,7 +40,7 @@
 
     &__background {
         @include topLeft();
-        background-color: black;
+        // background-color: black;
         border-radius: $borderRadius;
         width: 100%;
         height: 100%;
@@ -216,8 +218,18 @@
 }
 
 #largeVideoContainer {
-    height: 100%;
-    width: 100%;
+    // height: 100%;
+    // width: 100%;
+    width: 97%;
+    height: auto;
+    position: absolute;
+    top: 25px;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 0 14px rgba(0, 0, 0, .26);
 }
 
 #largeVideoWrapper {
@@ -264,19 +276,30 @@
 .videocontainer .editdisplayname {
     display: inline-block;
     position: absolute;
-    left: 10%;
-    width: 80%;
-    top: 50%;
-    @include transform(translateY(-40%));
-    color: $participantNameColor;
+    left: 0;
+    width: 85%;
+    right: 0;
+    top: 0;
+    margin: 0 auto;
+    transform: none;
+    // color: $participantNameColor;
+    color: #FFF;
+    font-weight: 600;
     text-align: center;
     text-overflow: ellipsis;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 100;
     overflow: hidden;
     white-space: nowrap;
     line-height: $thumbnailToolbarHeight;
     z-index: $zindex2;
+    background: $blue;
+    font-weight: 600;
+    border-radius: 0;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 #alwaysOnTop .displayname {
@@ -636,7 +659,7 @@
     }
 
     video {
-        opacity: 0.2;
+        opacity: 1;
         visibility: visible;
     }
 }
