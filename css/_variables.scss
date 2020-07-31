@@ -2,6 +2,7 @@
 
 
 $blue: #26a5e4;
+$belougaBlue: #00bbf1;
 
 
 /**
@@ -96,9 +97,11 @@ $modalTextColor: #333;
 $chatActionsSeparatorColor: rgb(173, 105, 112);
 $chatHeaderBackgroundColor: rgba(42, 58, 75, 0.9);
 $chatInputSeparatorColor: #A4B8D1;
-$chatLocalMessageBackgroundColor: rgb(4, 98, 178);
+// $chatLocalMessageBackgroundColor: rgb(4, 98, 178);
+$chatLocalMessageBackgroundColor: #2c4152;
 $chatPrivateMessageBackgroundColor: rgb(153, 69, 77);
-$chatRemoteMessageBackgroundColor:  rgb(86, 101, 114);
+// $chatRemoteMessageBackgroundColor:  rgb(86, 101, 114);
+$chatRemoteMessageBackgroundColor:  #FFF;
 $sidebarWidth: 375px;
 
  /**

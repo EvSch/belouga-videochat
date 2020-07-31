@@ -1,23 +1,29 @@
 #sideToolbarContainer {
-    background-color: $newToolbarBackgroundColor;
+    // background-color: $newToolbarBackgroundColor;
+    background-color:#f1f1f1;
     box-sizing: border-box;
     color: #FFF;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    left: -$sidebarWidth;
+    height: 94%;
+    left: initial;
     overflow: hidden;
-    position: absolute;
-    top: 0;
+    position: absolute; 
     width: $sidebarWidth;
     z-index: $sideToolbarContainerZ;
+    top: 70px;
+    border-top-left-radius: 10px;
+    border: 1px solid #DDD;
+    right: 0;
+    margin-right: -400px;
+
 
     /**
      * The sidebar (chat) is off-screen when hidden. Move it flush to the left
      * side of the window when it should be visible.
      */
     &.slideInExt {
-        left: 0;
+        margin-right: 0;
     }
 }
 
@@ -31,6 +37,8 @@
     text-align: left;
     width: $sidebarWidth;
     word-wrap: break-word;
+    color: #666;
+    @include font-smoothing();
 
     a {
         display: block;
@@ -103,6 +111,7 @@
     position: relative;
     width: 100%;
     z-index: 1;
+    display: none;
 
     .chat-close {
         align-items: center;
@@ -126,9 +135,15 @@
 }
 
 #chat-input {
-    border-top: 1px solid $chatInputSeparatorColor;
     display: flex;
     padding: 5px 10px;
+    margin-bottom: 70px;
+    background: #FFF;
+    width: 87%;
+    margin: 0 auto 50px;
+    border-radius: 10px;
+    border: 1px solid #DDD;
+    align-items: center;
 
     * {
         background-color: transparent;
@@ -141,13 +156,19 @@
 
 .usrmsg-form {
     flex: 1;
+    display: flex;
+    align-items: center;
+    svg {
+        fill: $belougaBlue;
+        color: $belougaBlue;
+    }
 }
 
 #usermsg {
     border: 0px none;
     border-radius:0;
     box-shadow: none;
-    color: white;
+    color: #333;
     font-size: 15px;
     padding: 10px;
     overflow-y: auto;
@@ -178,11 +199,12 @@
 
     .display-name {
         font-size: 13px;
-        font-weight: bold;
-        margin-bottom: 5px;
+        font-weight: 600;
+        margin-bottom: 0;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        color: #777;
     }
 }
 
@@ -194,6 +216,12 @@
     margin-top: 3px;
     max-width: 100%;
     position: relative;
+    margin: 10px;
+    margin-bottom: 0;
+    color: #666;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .18);
+    padding: 10px;
+    @include font-smoothing(); 
 
     &.localuser {
         background-color: $chatLocalMessageBackgroundColor;
@@ -311,12 +339,26 @@
     display: flex;
     flex-direction: column;
 
+    .name-time {
+        margin: 6px 67px 20px 0;
+        font-size: .7rem;
+        flex-basis: 100%;
+        .timestamp {
+
+        }
+    }
+
     &.local {
         align-items: flex-end;
+        .chatmessage-wrapper {
+            flex-direction: row-reverse;
+        }
 
         .chatmessage {
             background-color: $chatLocalMessageBackgroundColor;
             border-radius: 6px 0px 6px 6px;
+            color: #FFF;
+
 
             &.privatemessage {
                 background-color: $chatPrivateMessageBackgroundColor;
@@ -324,7 +366,8 @@
         }
 
         .display-name {
-            display: none;
+            // display: none;
+            text-align: right;
         }
 
         .timestamp {
@@ -346,6 +389,17 @@
 
     .chatmessage-wrapper {
         max-width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        .avatar {
+            height: 50px !important;
+            width: 50px !important;
+            font-weight: 500;
+            color: #FFF;
+            text {
+                fill: #FFF;
+            }
+        }
 
         .replywrapper {
             display: flex;
@@ -372,7 +426,8 @@
         border-radius: 0px 6px 6px 6px;
         display: inline-block;
         margin-top: 3px;
-        color: white;
+        color: #666;
+
 
         &.privatemessage {
             background-color: $chatPrivateMessageBackgroundColor;

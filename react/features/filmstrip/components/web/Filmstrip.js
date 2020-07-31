@@ -1,5 +1,6 @@
 /* @flow */
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers, faCommentsAlt } from '@fortawesome/pro-solid-svg-icons';
 import _ from 'lodash';
 import React, { Component } from 'react';
 import type { Dispatch } from 'redux';
@@ -10,12 +11,14 @@ import {
     sendAnalytics
 } from '../../../analytics';
 import { translate } from '../../../base/i18n';
-import { Icon, IconMenuDown, IconMenuUp } from '../../../base/icons';
+import { Icon, IconChat, IconMenuDown, IconMenuUp } from '../../../base/icons';
 import { connect } from '../../../base/redux';
+import { CHAT_SIZE, ChatCounter, toggleChat } from '../../../chat';
 import { dockToolbox } from '../../../toolbox';
 import { getCurrentLayout, LAYOUTS } from '../../../video-layout';
 import { setFilmstripHovered, setFilmstripVisible } from '../../actions';
 import { shouldRemoteVideosBeVisible } from '../../functions';
+
 
 import Toolbar from './Toolbar';
 
@@ -89,6 +92,12 @@ type Props = {
     dispatch: Dispatch<any>,
 
     /**
+     * Whether or not the chat feature is currently displayed.
+     */
+    _chatOpen: boolean,
+
+
+    /**
      * Invoked to obtain translated strings.
      */
     t: Function
@@ -100,7 +109,7 @@ type Props = {
  *
  * @extends Component
  */
-class Filmstrip extends Component <Props> {
+class Filmstrip extends Component <Props,State> {
     _isHovered: boolean;
 
     _notifyOfHoveredStateUpdate: Function;
@@ -130,6 +139,7 @@ class Filmstrip extends Component <Props> {
         this._isHovered = false;
 
         // Bind event handlers so they are only bound once for every instance.
+        this._onToolbarToggleChat = this._onToolbarToggleChat.bind(this);
         this._onMouseOut = this._onMouseOut.bind(this);
         this._onMouseOver = this._onMouseOver.bind(this);
         this._onShortcutToggleFilmstrip = this._onShortcutToggleFilmstrip.bind(this);
@@ -183,7 +193,7 @@ class Filmstrip extends Component <Props> {
         case LAYOUTS.VERTICAL_FILMSTRIP_VIEW:
             // Adding 18px for the 2px margins, 2px borders on the left and right and 5px padding on the left and right.
             // Also adding 7px for the scrollbar.
-            filmstripStyle.maxWidth = (interfaceConfig.FILM_STRIP_MAX_HEIGHT || 120) + 350;
+            filmstripStyle.maxWidth = (interfaceConfig.FILM_STRIP_MAX_HEIGHT || 120) + 255;
             break;
         case LAYOUTS.TILE_VIEW: {
             // The size of the side margins for each tile as set in CSS.
@@ -246,6 +256,37 @@ class Filmstrip extends Component <Props> {
             </div>
         );
     }
+
+    
+    /**
+     * Dispatches an action to toggle the display of chat.
+     *
+     * @private
+     * @returns {void}
+     */
+    _doToggleChat() {
+        this.props.dispatch(toggleChat());
+    }
+
+    _onToolbarToggleChat: () => void;
+
+    /**
+     * Creates an analytics toolbar event and dispatches an action for toggling
+     * the display of chat.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onToolbarToggleChat() {
+        sendAnalytics(createToolbarEvent(
+            'toggle.chat',
+            {
+                enable: !this.props._chatOpen
+            }));
+
+        this._doToggleChat();
+    }
+
 
     /**
      * Dispatches an action to change the visibility of the filmstrip.
@@ -342,16 +383,34 @@ class Filmstrip extends Component <Props> {
      */
     _renderToggleButton() {
         const icon = this.props._visible ? IconMenuDown : IconMenuUp;
-        const { t } = this.props;
+        const { t, _chatOpen } = this.props;
 
         return (
             <div className = 'filmstrip__toolbar'>
                 <button
+                    className = { _chatOpen ? '' : 'active' }
+                    onClick = { _chatOpen ? this._onToolbarToggleChat : null }
+                    // aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
+                    id = 'toggleParticipantsButton'>
+                    <FontAwesomeIcon
+                        icon = { faUsers }
+                        size = { '2x' } /> Participants
+                </button>
+                <button
+                    className = { _chatOpen ? 'active' : '' }
+                    // aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
+                    id = 'toggleChatButton'
+                    onClick = { _chatOpen ? null : this._onToolbarToggleChat }>
+                    <FontAwesomeIcon
+                        icon = { faCommentsAlt }
+                        size = { '2x' } /> Chat
+                </button>
+                {/* <button
                     aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
                     id = 'toggleFilmstripButton'
                     onClick = { this._onToolbarToggleFilmstrip }>
                     <Icon src = { icon } />
-                </button>
+                </button> */}
             </div>
         );
     }
@@ -381,6 +440,7 @@ function _mapStateToProps(state) {
     const { gridDimensions = {}, filmstripWidth } = state['features/filmstrip'].tileViewDimensions;
 
     return {
+        _chatOpen: state['features/chat'].isOpen,
         _className: className,
         _columns: gridDimensions.columns,
         _currentLayout: getCurrentLayout(state),

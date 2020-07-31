@@ -29,6 +29,7 @@
     right: 0;
     transition: bottom .3s ease-in;
     width: 100%;
+    bottom: 0;
 
 
     &.visible {
@@ -43,12 +44,12 @@
     }
 
     &.shift-right {
-        margin-left: $sidebarWidth;
-        width: calc(100% - #{$sidebarWidth});
+        // margin-left: $sidebarWidth;
+        // width: calc(100% - #{$sidebarWidth});
     }
 
     .toolbox-background {
-        background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+        // background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
         transition: bottom .3s ease-in;
         height: 160px;
         width: 100%;
@@ -62,11 +63,9 @@
         box-sizing: border-box;
         display: flex;
         justify-content: space-between;
-        margin-left: auto;
-        margin-right: auto;
         padding: 20px 16px;
         position: relative;
-        width: 100%;
+        width: calc(100% - 375px);
         z-index: $toolbarZ;
 
         .button-group-center,
@@ -75,19 +74,36 @@
             display: flex;
             width: 33%;
         }
+        .button-group-left {
+            display: none;
+        }
 
         .button-group-center {
-            justify-content: center;
+            justify-content: flex-start;
+            width: 100%;
+            height: 100px;
+            margin: 0 30px;
 
             .toolbox-button {
+                > div {
+            
+
+                }
 
                 .toolbox-icon {
-                    background-color: #fff;
-                    border-radius: 50%;
-                    border: 1px solid #d1dbe8;
                     margin: 0px 4px;
-                    width: 38px;
-                    height: 38px;
+                    border-radius: 50%;
+                    background: #FFF;
+                    padding: 2px;
+                    width: 50px;
+                    height: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid #d1dbe8;
+                    .jitsi-icon {
+
+                    }
 
                     &:hover {
                         background-color: #daebfa;
@@ -96,7 +112,7 @@
 
                     &.toggled {
                         background: #2a3a4b;
-                        border: 1px solid #5e6d7a;
+                        border: 1px solid rgba(255, 255, 255, 0);
 
                         svg {
                             fill: red;
@@ -122,8 +138,8 @@
                     .toolbox-icon {
                         background-color: $hangupColor;
                         border: 1px solid $hangupColor;
-                        width: 40px;
-                        height: 40px;
+                        // width: 40px;
+                        // height: 40px;
 
                         &:hover {
                             background-color: $hangupColor;
@@ -139,6 +155,7 @@
 
         .button-group-right {
             justify-content: flex-end;
+            display: none;
         }
 
         .overflow-menu {

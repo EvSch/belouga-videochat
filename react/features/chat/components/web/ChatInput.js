@@ -1,5 +1,8 @@
 // @flow
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane } from '@fortawesome/pro-solid-svg-icons';
+
 import React, { Component } from 'react';
 import Emoji from 'react-emoji-render';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -133,6 +136,9 @@ class ChatInput extends Component<Props, State> {
                         onKeyDown = { this._onDetectSubmit }
                         placeholder = { this.props.t('chat.messagebox') }
                         value = { this.state.message } />
+                    <FontAwesomeIcon
+                        icon = { faPaperPlane }
+                        size = { '2x' } />
                 </div>
             </div>
         );

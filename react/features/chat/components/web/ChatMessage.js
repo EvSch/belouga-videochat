@@ -1,8 +1,12 @@
+/* global APP */
+
 // @flow
 
 import React from 'react';
 import { toArray } from 'react-emoji-render';
+import { Provider } from 'react-redux';
 
+import { Avatar as AvatarDisplay } from '../../../base/avatar';
 
 import { translate } from '../../../base/i18n';
 import { Linkify } from '../../../base/react';
@@ -37,12 +41,18 @@ class ChatMessage extends AbstractChatMessage<Props> {
             }
         });
 
+        // console.log('the props:', this.props)
+
         return (
             <div className = 'chatmessage-wrapper'>
+                <Provider store = { APP.store }>
+                    <AvatarDisplay
+                        className = 'userAvatar'
+                        participantId = { this.props.message.id } />
+                </Provider>
                 <div className = { `chatmessage ${message.privateMessage ? 'privatemessage' : ''}` }>
                     <div className = 'replywrapper'>
                         <div className = 'messagecontent'>
-                            { this.props.showDisplayName && this._renderDisplayName() }
                             <div className = 'usermessage'>
                                 { processedMessage }
                             </div>
@@ -59,7 +69,10 @@ class ChatMessage extends AbstractChatMessage<Props> {
                             ) }
                     </div>
                 </div>
-                { this.props.showTimestamp && this._renderTimestamp() }
+                <div className = 'name-time'>
+                    { this.props.showDisplayName ? this._renderDisplayName() : 'Me' }
+                    { this.props.showTimestamp && this._renderTimestamp() }
+                </div>
             </div>
         );
     }

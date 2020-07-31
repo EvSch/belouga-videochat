@@ -100,10 +100,10 @@ StateListenerRegistry.register(
 
         if (isChatOpen) {
             // $FlowFixMe
-            document.body.classList.add('shift-right');
+            // document.body.classList.add('shift-right');
         } else {
             // $FlowFixMe
-            document.body.classList.remove('shift-right');
+            // document.body.classList.remove('shift-right');
         }
 
         if (shouldDisplayTileView(state)) {

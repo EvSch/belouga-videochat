@@ -41,7 +41,7 @@ body {
 */
 @media (min-width: 480px + $sidebarWidth) {
     .shift-right [class^="Modal__FillScreen"] {
-        padding-left: $sidebarWidth;
+        // padding-left: $sidebarWidth;
     }
 }
 
@@ -50,7 +50,7 @@ body {
  * padding the container.
 */
 .shift-right [class^="styledFlagGroup-"] {
-    padding-left: $sidebarWidth;
+    // padding-left: $sidebarWidth;
 }
 
 .jitsi-icon svg {

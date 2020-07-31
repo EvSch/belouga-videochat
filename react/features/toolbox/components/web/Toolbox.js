@@ -354,7 +354,7 @@ class Toolbox extends Component<Props, State> {
     render() {
         const { _chatOpen, _visible, _visibleButtons } = this.props;
         const rootClassNames = `new-toolbox ${_visible ? 'visible' : ''} ${
-            _visibleButtons.size ? '' : 'no-buttons'} ${_chatOpen ? 'shift-right' : ''}`;
+            _visibleButtons.size ? '' : 'no-buttons'}`;
 
         return (
             <div

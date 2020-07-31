@@ -18,6 +18,11 @@
     animation:         $animations;
 }
 
+@mixin font-smoothing() {
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
 @mixin flex() {
     display: -webkit-box;
     display: -moz-box;
