@@ -1312,9 +1312,10 @@ class Toolbox extends Component<Props, State> {
                     }
                 </div>
                 <div className = 'button-group-center'>
-                    { this._renderAudioButton() }
                     <HangupButton
                         visible = { this._shouldShowButton('hangup') } />
+                    { this._renderAudioButton() }
+
                     { this._renderVideoButton() }
                 </div>
                 <div className = 'button-group-right'>

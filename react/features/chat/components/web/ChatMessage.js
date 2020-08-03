@@ -20,6 +20,35 @@ import PrivateMessageButton from '../PrivateMessageButton';
  * Renders a single chat message.
  */
 class ChatMessage extends AbstractChatMessage<Props> {
+
+    /**
+     * Initializes a new {@code ChatMessage} instance.
+     *
+     * @param {Object} props - The read-only properties with which the new
+     * instance is to be initialized.
+     */
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            timestamp: this._getFormattedTimestamp()
+        };
+    }
+
+
+    /**
+     * Sets the timestamp refresh interval.
+     *
+     * @inheritdoc
+     * @returns {void}
+     */
+    componentDidMount() {
+
+        setInterval(() => {
+            this.setState({ timestamp: this._getFormattedTimestamp() });
+        }, 30000);
+    }
+
     /**
      * Implements React's {@link Component#render()}.
      *
@@ -117,7 +146,7 @@ class ChatMessage extends AbstractChatMessage<Props> {
     _renderTimestamp() {
         return (
             <div className = 'timestamp'>
-                { this._getFormattedTimestamp() }
+                { this.state.timestamp }
             </div>
         );
     }

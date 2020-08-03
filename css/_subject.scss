@@ -1,31 +1,46 @@
 .subject {
-    top: -120px;
     transition: top .3s ease-in;
-    height: 95px;
-    width: 100%;
-    pointer-events: none;
-    position: absolute;
-    padding: 25px 140px 0 140px;
     text-align: center;
     font-size: 17px;
-    color: #fff;
+    color: #666;
     z-index: $zindex10;
     overflow: hidden;
     text-overflow: ellipsis;
     box-sizing: border-box;
     white-space: nowrap;
+    @include font-smoothing();
     // background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
 
     &.visible {
-        top: 0px;
+        // top: 0px;
     }
 
     &-text {
         vertical-align: middle;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        font-size: .9rem;
+        font-weight: 600;
+        svg {
+            cursor: pointer;
+            font-size: 1.4rem;
+            padding: 8px 10px;
+            background: #feffff;
+            color: #21b8f3;
+            border-radius: 10px;
+            margin-left: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+            transition: .15s;
+            &:hover {
+                background: #eefaff;
+            }
+
+        }
     }
 
     &-conference-timer {
-        display: block;
+        display: none;
         font-size: 15px;
         opacity: 0.6;
     }

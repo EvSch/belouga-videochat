@@ -236,6 +236,32 @@
     margin: 0 auto;
     border-radius: 10px;
     box-shadow: 0 0 14px rgba(0, 0, 0, .26);
+    overflow: visible; 
+    .header-wrapper {
+        position: absolute;
+        z-index: 11;
+        width: 95%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        top: -65px;
+        align-items: center;
+        .jitsi-icon svg {
+            // fill: #555;
+            cursor: pointer;
+            font-size: 1.4rem;
+            padding: 8px 10px;
+            background: #feffff;
+            color: #21b8f3;
+            border-radius: 10px;
+            margin-left: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+            transition: .15s;
+            &:hover {
+                background: #eefaff;
+            }
+        }
+    }
 }
 
 #largeVideoWrapper {
