@@ -293,8 +293,10 @@
     max-height: 0;
     overflow: hidden;
     position: absolute;
-    width: $sidebarWidth;
-
+    width: calc(#{$sidebarWidth} - 40px);
+    left: -5px;
+    bottom: 50px;
+    border-radius: 10px;
     /**
      * CSS transitions do not apply for auto dimensions. So to produce the css
      * accordion effect for showing and hiding the smiley-panel, while allowing
@@ -308,9 +310,13 @@
     }
 
     #smileysContainer {
-        background-color: $newToolbarBackgroundColor;
+        // background-color: $newToolbarBackgroundColor;
+        background: #FFF;
         border-bottom: 1px solid;
         border-top: 1px solid;
+        display: block;
+        padding: 8px 3px;
+        border: none;
     }
 }
 

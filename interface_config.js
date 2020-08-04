@@ -45,7 +45,7 @@ var interfaceConfig = {
     CONNECTION_INDICATOR_DISABLED: false,
 
     DEFAULT_BACKGROUND: '#00bbf1',
-    DEFAULT_LOCAL_DISPLAY_NAME: 'Me!',
+    DEFAULT_LOCAL_DISPLAY_NAME: 'Me',
     DEFAULT_LOGO_URL: 'images/watermark.png',
     DEFAULT_REMOTE_DISPLAY_NAME: 'Belouga Guest',
 

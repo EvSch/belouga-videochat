@@ -1,12 +1,18 @@
 /* @flow */
-import { faPaperclip } from '@fortawesome/pro-solid-svg-icons';
+import { faPaperclip, faCommentsAlt, faUsers } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
 
+import {
+    createShortcutEvent,
+    createToolbarEvent,
+    sendAnalytics
+} from '../../../analytics';
 import { getConferenceName } from '../../../base/conference/functions';
 import { i18next } from '../../../base/i18n';
 import { getParticipantCount } from '../../../base/participants/functions';
 import { connect } from '../../../base/redux';
+import { CHAT_SIZE, ChatCounter, toggleChat } from '../../../chat';
 import {
     NOTIFICATION_TIMEOUT,
     showNotification
@@ -31,6 +37,11 @@ type Props = {
      * Whether then participant count should be shown or not.
      */
     _showParticipantCount: boolean,
+
+    /**
+     * Whether or not the chat feature is currently displayed.
+     */
+    _chatOpen: boolean,
 
     /**
      * The redux {@code dispatch} function.
@@ -74,6 +85,8 @@ class Subject extends Component<Props> {
         const prettyMeetingLink = `${window.location.hostname}/${_subject.replace(/ /g, '')}`;
 
         this._onCopyShareLink = this._onCopyShareLink.bind(this);
+        this._onToolbarToggleChat = this._onToolbarToggleChat.bind(this);
+
 
         this.state = {
             meetingLink,
@@ -88,27 +101,78 @@ class Subject extends Component<Props> {
      * @returns {ReactElement}
      */
     render() {
-        const { _showParticipantCount, _visible } = this.props;
+        const { _showParticipantCount, _visible, _chatOpen } = this.props;
        
 
         return (
             <div className = 'header-wrapper'>
-                <div className = { 'subject visible' }>
-                    <span className = 'subject-text'>
-                        { this.state.prettyMeetingLink }
-                        <FontAwesomeIcon
-                            icon = { faPaperclip }
-                            onClick = { this._onCopyShareLink }
-                            size = { '1x' } />
-                    </span>
-                    { _showParticipantCount && <ParticipantsCount /> }
-                    <ConferenceTimer />
+                <div className = 'header-left'>
+                    <div className = { 'subject visible' }>
+                        <span className = 'subject-text'>
+                            { this.state.prettyMeetingLink }
+                            <FontAwesomeIcon
+                                icon = { faPaperclip }
+                                onClick = { this._onCopyShareLink }
+                                size = { '1x' } />
+                        </span>
+                        { _showParticipantCount && <ParticipantsCount /> }
+                        <ConferenceTimer />
+                    </div>
+                    <TileViewButton />
                 </div>
-                <TileViewButton />
-
+                <div className = 'right-toolbar'>
+                    <button
+                        className = { _chatOpen ? '' : 'active' }
+                        onClick = { _chatOpen ? this._onToolbarToggleChat : null }
+                        // aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
+                        id = 'toggleParticipantsButton'>
+                        <FontAwesomeIcon
+                            icon = { faUsers }
+                            size = { '2x' } /> Participants
+                    </button>
+                    <button
+                        className = { _chatOpen ? 'active' : '' }
+                        // aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
+                        id = 'toggleChatButton'
+                        onClick = { _chatOpen ? null : this._onToolbarToggleChat }>
+                        <FontAwesomeIcon
+                            icon = { faCommentsAlt }
+                            size = { '2x' } /> Chat
+                    </button>
+                </div>
+ 
             </div>
 
         );
+    }
+
+    /**
+     * Dispatches an action to toggle the display of chat.
+     *
+     * @private
+     * @returns {void}
+     */
+    _doToggleChat() {
+        this.props.dispatch(toggleChat());
+    }
+
+    _onToolbarToggleChat: () => void;
+
+    /**
+     * Creates an analytics toolbar event and dispatches an action for toggling
+     * the display of chat.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onToolbarToggleChat() {
+        sendAnalytics(createToolbarEvent(
+            'toggle.chat',
+            {
+                enable: !this.props._chatOpen
+            }));
+
+        this._doToggleChat();
     }
 
     /**
@@ -156,6 +220,7 @@ function _mapStateToProps(state) {
 
     return {
         _showParticipantCount: participantCount > 2,
+        _chatOpen: state['features/chat'].isOpen,
         _subject: getConferenceName(state),
         _visible: isToolboxVisible(state) && participantCount > 1
     };

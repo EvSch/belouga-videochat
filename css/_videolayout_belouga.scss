@@ -1,0 +1,347 @@
+#videoconference_page {
+    .remotevideomenu {
+        display: none;
+    }
+    .header-wrapper {
+        position: absolute;
+        z-index: 11;
+        width: 98%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        top: -65px;
+        align-items: center;
+        box-sizing: border-box;
+        position: fixed;
+        top: 0;
+        padding: 6px 10px; 
+        .toolbox-button {
+            margin-left: 20px;
+        }
+        .jitsi-icon svg {
+            // fill: #555;
+            cursor: pointer;
+            font-size: 1.4rem;
+            padding: 8px 10px;
+            background: #feffff;
+            color: #21b8f3;
+            border-radius: 10px;
+            margin-left: 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+            transition: .15s;
+            &:hover {
+                background: #eefaff;
+            }
+        }
+        .header-left {
+            width: calc(100% - 400px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .right-toolbar {
+            flex-basis: 100%;
+            height: 70px;
+            background: #FFF;
+            width: 95%;
+            margin: 0 auto 0 5px;
+            top: 0;
+            color: #00bbf1;
+            flex-direction: row;
+            align-items: center;
+            @include font-smoothing();
+            flex-grow: 0;
+            right: 0;
+            position: absolute;
+            display: flex;
+            width: 375px;
+            button {
+                font-size: 14px;
+                line-height: 1.2;
+                text-align: center;
+                background: transparent;
+                opacity: 0.7;
+                height: auto;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+                border: none;
+                outline: none;
+
+                -webkit-appearance: none;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                i {
+                    cursor: pointer;
+                }
+            }
+            button, .jitsi-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #777;
+                font-weight: 600;
+                &.jitsi-icon {
+                    margin-right: 5px;
+                }
+                svg {
+                    fill: #777;
+                    margin-right: 8px;
+
+                }
+                &.active {
+                    color: #00bbf1;
+                    svg {
+                        fill: #00bbf1;
+                    }
+                }
+
+            }
+        }
+    }
+    .subject {
+        display: flex;
+        align-items: center; 
+
+    }
+    .new-toolbox {
+        .toolbox-content {
+            .button-group-center {
+                .toolbox-button {
+                    .toolbox-icon {
+                        border: 1px solid rgba(209, 219, 232, 0);
+                    }
+                }
+            }
+        }
+    }
+    &.vertical-filmstrip {
+
+        .filmstrip__toolbar {
+            flex-basis: 100%;
+            height: 50px;
+            background: #FFF;
+            width: 100%;
+            margin: 0 auto;
+            top: 0;
+            color: #00bbf1;
+            flex-direction: row;
+            align-items: center;
+            @include font-smoothing();
+        }
+        .filmstrip {
+
+            &.hide-videos {
+                .remote-videos-container {
+                    opacity: 1;
+                    pointer-events: none;
+                }
+            }
+
+            /*
+            * Firefox sets flex items to min-height: auto and min-width: auto,
+            * preventing flex children from shrinking like they do on other browsers.
+            * Setting min-height and min-width 0 is a workaround for the issue so
+            * Firefox behaves like other browsers.
+            * https://bugzilla.mozilla.org/show_bug.cgi?id=1043520
+            */
+            @mixin minHWAutoFix() {
+                min-height: 0;
+                min-width: 0;
+            }
+
+            @extend %align-right;
+            // align-items: flex-end;
+            bottom: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            width: 100%;
+            padding: ($desktopAppDragBarHeight - 5px) 0 10px 0;
+            /**
+            * fixed positioning is necessary for remote menus and tooltips to pop
+            * out of the scrolling filmstrip. AtlasKit dialogs and tooltips use
+            * a library called popper which will position its elements fixed if
+            * any parent is also fixed.
+            */
+            position: fixed;
+            top: 0;
+            transition: height .3s ease-in;
+            right: 0;
+            z-index: $filmstripVideosZ;
+            background: #FFF; 
+            background: #f5f5f5;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            display: block;
+            max-width: 375px;
+            padding: 70px 0 10px 0;
+            #filmstripRemoteVideos {
+                padding-left: 15px;
+                padding-right: 25px;
+                padding-top: 10px;
+            }
+        }
+    }
+    .filmstrip {
+
+        .filmstrip__toolbar {
+            z-index: 2;
+            position: absolute;
+            width: 50px;
+            left: 0;
+            height: 96px;
+            transform: translateY(-50%);
+            top: 50%;
+            display: flex;
+            background: #00bbf1;
+            color: #FFF;
+            .jitsi-icon svg {
+                color: #FFF;
+                fill: #FFF;
+
+            }
+        }
+       .filmstrip__videos {
+            .displayNameContainer {
+                visibility: visible;
+            }
+            .videocontainer {
+                background: rgba(42, 77, 95, 0.6);
+                &:hover {
+                    cursor: hand;
+                    box-shadow: 0 0 15px rgba(22,43,53,.4) !important;
+                    transform: scale(1.04);
+                    z-index: 15;
+                }
+                .indicator-container {
+                    float: none;
+                    width: 35px;
+                    height: 35px;
+                    margin: 0 4px;
+                    border-radius: 0;
+                    overflow: hidden;
+                    // border: 2px solid rgba(210, 210, 210, .7);
+                    padding: 2px; 
+                    &.connection-indicator, &.show-connection-indicator {
+                        display: none;
+                    }
+                    .jitsi-icon {
+                        svg {
+                            fill: #FFF;
+                            height: 20px;
+                            width: 20px;
+                        }
+                    }
+                }
+                .videocontainer__toolbar {
+
+                    pointer-events: none;
+                    text-align: left;
+                    bottom: 30px;
+                    .toolbar-icon {
+                        pointer-events: all;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, .2);
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                    }
+                }
+                .moderator-icon {
+                    position: absolute;
+                    right: 0;
+                    bottom: 20px;
+                    .indicator-container {
+                    }
+
+                    .toolbar-icon {
+                        background: #25e825;
+                        svg {
+                            color: #ecffec;
+                            fill: none;
+                        }
+                    }
+                }
+               
+            }
+                
+       }
+    }
+    &.tile-view {
+        #videospace {
+            width: 100%;
+            #largeVideoContainer {
+                width: 97%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                border-radius: 0;
+                background: #FFF!important;
+            }
+            &.sidebar-open {
+                width: calc(100% - 375px);
+
+            }
+        }
+    
+        .filmstrip.shift-right {
+            width: calc(100% - 375px);
+        }
+        .remotevideomenu {
+            display: none;
+        }
+        .filmstrip__toolbar {
+            display: flex;
+        }
+        .filmstrip__videos .videocontainer:hover {
+            transform: scale(1.03);
+        }
+        .filmstrip {
+            left: initial;
+            @extend %align-right;
+            // align-items: flex-end;
+            bottom: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            width: 100%;
+            padding: ($desktopAppDragBarHeight - 5px) 0 10px 0;
+            /**
+            * fixed positioning is necessary for remote menus and tooltips to pop
+            * out of the scrolling filmstrip. AtlasKit dialogs and tooltips use
+            * a library called popper which will position its elements fixed if
+            * any parent is also fixed.
+            */
+            position: fixed;
+            top: 0;
+            transition: height .3s ease-in;
+            left: 0;
+            z-index: $filmstripVideosZ;
+            background: #FFF; 
+            background: #f5f5f5;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            display: block;
+            max-width: none;
+            &.shift-right {
+                // margin-left: $sidebarWidth;
+                width: calc(100% - #{$sidebarWidth});
+
+                #filmstripRemoteVideos {
+                    width: calc(100vw - #{$sidebarWidth});
+                }
+            }
+        }
+        
+    }
+}

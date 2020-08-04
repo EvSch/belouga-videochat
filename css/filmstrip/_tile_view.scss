@@ -75,7 +75,7 @@
         z-index: $filmstripVideosZ;
 
         &.shift-right {
-            margin-left: $sidebarWidth;
+            // margin-left: $sidebarWidth;
             width: calc(100% - #{$sidebarWidth});
 
             #filmstripRemoteVideos {

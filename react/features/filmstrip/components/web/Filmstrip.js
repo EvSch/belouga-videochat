@@ -1,6 +1,6 @@
 /* @flow */
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers, faCommentsAlt } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import _ from 'lodash';
 import React, { Component } from 'react';
 import type { Dispatch } from 'redux';
@@ -109,7 +109,7 @@ type Props = {
  *
  * @extends Component
  */
-class Filmstrip extends Component <Props,State> {
+class Filmstrip extends Component <Props> {
     _isHovered: boolean;
 
     _notifyOfHoveredStateUpdate: Function;
@@ -383,11 +383,11 @@ class Filmstrip extends Component <Props,State> {
      */
     _renderToggleButton() {
         const icon = this.props._visible ? IconMenuDown : IconMenuUp;
-        const { t, _chatOpen } = this.props;
+        const { t } = this.props;
 
         return (
             <div className = 'filmstrip__toolbar'>
-                <button
+                {/* <button
                     className = { _chatOpen ? '' : 'active' }
                     onClick = { _chatOpen ? this._onToolbarToggleChat : null }
                     // aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
@@ -404,13 +404,13 @@ class Filmstrip extends Component <Props,State> {
                     <FontAwesomeIcon
                         icon = { faCommentsAlt }
                         size = { '2x' } /> Chat
-                </button>
-                {/* <button
+                </button> */}
+                <button
                     aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
                     id = 'toggleFilmstripButton'
                     onClick = { this._onToolbarToggleFilmstrip }>
                     <Icon src = { icon } />
-                </button> */}
+                </button>
             </div>
         );
     }

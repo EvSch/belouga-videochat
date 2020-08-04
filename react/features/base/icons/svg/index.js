@@ -60,6 +60,7 @@ export { default as IconMicDisabled } from './mic-disabled.svg';
 export { default as IconMicrophone } from './microphone.svg';
 export { default as IconMicrophoneEmpty } from './microphone-empty.svg';
 export { default as IconModerator } from './star.svg';
+export { default as IconModeratorShield } from './user-shield-solid.svg';
 export { default as IconMuteEveryone } from './mute-everyone.svg';
 export { default as IconMuteEveryoneElse } from './mute-everyone-else.svg';
 export { default as IconNotificationJoin } from './navigate_next.svg';

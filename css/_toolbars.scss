@@ -28,8 +28,9 @@
     position: absolute;
     right: 0;
     transition: bottom .3s ease-in;
-    width: 100%;
+    width: 400px;
     bottom: 0;
+    
 
 
     &.visible {
@@ -65,7 +66,7 @@
         justify-content: space-between;
         padding: 20px 16px;
         position: relative;
-        width: calc(100% - 375px);
+        width: 100%;
         z-index: $toolbarZ;
 
         .button-group-center,
