@@ -1,8 +1,12 @@
+/* eslint-disable react/jsx-indent-props */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable indent */
 // @flow
 
 import React, { Component } from 'react';
 
 import { connect, equals } from '../../../base/redux';
+import MuteEveryoneButton from '../../../toolbox/components/web/MuteEveryoneButton';
 import { SettingsButton } from '../../../settings';
 import {
     AudioMuteButton,
@@ -42,9 +46,12 @@ class Toolbar extends Component<Props> {
     render() {
         return (
             <div
-                className = 'filmstrip-toolbox'
-                id = 'new-toolbox'>
-                <HangupButton
+                className = 'filmstrip-toolbox'>
+                    <MuteEveryoneButton
+                    key = 'mute-everyone'
+                    showLabel = { false }
+                    visible = { this._shouldShowButton('mute-everyone') } />
+                {/* <HangupButton
                     tooltipPosition = 'left'
                     visible = { this._shouldShowButton('hangup') } />
                 <AudioMuteButton
@@ -55,7 +62,7 @@ class Toolbar extends Component<Props> {
                     visible = { this._shouldShowButton('camera') } />
                 <SettingsButton
                     tooltipPosition = 'left'
-                    visible = { this._shouldShowButton('fodeviceselection') } />
+                    visible = { this._shouldShowButton('fodeviceselection') } /> */}
             </div>
         );
     }

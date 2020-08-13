@@ -72,6 +72,11 @@ type Props = AbstractProps & {
     _iAmRecorder: boolean,
 
     /**
+     * Whether the chat is open
+     */
+    _sidebarOpen: boolean,
+
+    /**
      * Returns true if the 'lobby screen' is visible.
      */
     _isLobbyScreenVisible: boolean,
@@ -188,13 +193,14 @@ class Conference extends AbstractConference<Props, *> {
             _iAmRecorder,
             _isLobbyScreenVisible,
             _layoutClassName,
+            _sidebarOpen,
             _showPrejoin
         } = this.props;
         const hideLabels = filmstripOnly || _iAmRecorder;
 
         return (
             <div
-                className = { _layoutClassName }
+                className = { ` ${_layoutClassName} ${ _sidebarOpen ? 'sidebar-open' : ''} ` }
                 id = 'videoconference_page'
                 onMouseMove = { this._onShowToolbar }>
 
@@ -277,6 +283,7 @@ class Conference extends AbstractConference<Props, *> {
 function _mapStateToProps(state) {
     return {
         ...abstractMapStateToProps(state),
+        _sidebarOpen: state['features/chat'].isOpen || getCurrentLayout(state) === LAYOUTS.VERTICAL_FILMSTRIP_VIEW,
         _iAmRecorder: state['features/base/config'].iAmRecorder,
         _isLobbyScreenVisible: state['features/base/dialog']?.component === LobbyScreen,
         _layoutClassName: LAYOUT_CLASSNAMES[getCurrentLayout(state)],

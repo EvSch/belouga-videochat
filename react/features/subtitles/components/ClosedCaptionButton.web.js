@@ -32,8 +32,10 @@ class ClosedCaptionButton
     icon = IconClosedCaption;
     tooltip = 'transcribing.ccButtonTooltip';
     disabledTooltip = 'Join the CLC for live transcription/captions!';
-    label = 'toolbar.startSubtitles';
-    toggledLabel = 'toolbar.stopSubtitles';
+    label = 'Turn On Subtitles';
+    toggledLabel = 'Turn Off Subtitles';
+    classes = 'btn-cc btn-green';
+
 
     /**
      * Returns the tooltip that should be displayed when the button is disabled.

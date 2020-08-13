@@ -83,6 +83,13 @@ export default class AbstractButton<P: Props, S: *> extends Component<P, S> {
     accessibilityLabel: string;
 
     /**
+     * Classes passed to button
+     *
+     * @abstract
+     */
+    classes: string;
+
+    /**
      * The icon of this button.
      *
      * @abstract
@@ -272,8 +279,10 @@ export default class AbstractButton<P: Props, S: *> extends Component<P, S> {
             label: this._getLabel(),
             styles: this._getStyles(),
             toggled: this._isToggled(),
-            tooltip: this._getTooltip()
+            tooltip: this._getTooltip(),
+            classes: this.classes
         };
+        // console.log(props)
 
         return (
             <ToolboxItem

@@ -1,5 +1,8 @@
 // @flow
-
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faAngleUp, faAngleDown, faPresentation } from '@fortawesome/pro-light-svg-icons';
+import { faStop } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
 
 import {
@@ -114,6 +117,12 @@ type Props = {
      * Whether or not a dialog is displayed.
      */
     _dialog: boolean,
+
+     /**
+     * Whether or not additional features are open
+     */
+    _featuresOpen: boolean,
+
 
     /**
      * Whether or not call feedback can be sent.
@@ -250,9 +259,12 @@ class Toolbox extends Component<Props, State> {
         this._onToolbarToggleSharedVideo = this._onToolbarToggleSharedVideo.bind(this);
         this._onToolbarOpenLocalRecordingInfoDialog = this._onToolbarOpenLocalRecordingInfoDialog.bind(this);
         this._onShortcutToggleTileView = this._onShortcutToggleTileView.bind(this);
+        this._onToggleFeatures = this._onToggleFeatures.bind(this);
+
 
         this.state = {
-            windowWidth: window.innerWidth
+            windowWidth: window.innerWidth,
+            featuresOpen: false
         };
     }
 
@@ -354,7 +366,7 @@ class Toolbox extends Component<Props, State> {
     render() {
         const { _chatOpen, _visible, _visibleButtons } = this.props;
         const rootClassNames = `new-toolbox ${_visible ? 'visible' : ''} ${
-            _visibleButtons.size ? '' : 'no-buttons'}`;
+            _visibleButtons.size ? '' : 'no-buttons'} ${this.state.featuresOpen ? 'toolbox-expand' : ''}`;
 
         return (
             <div
@@ -445,6 +457,21 @@ class Toolbox extends Component<Props, State> {
     }
 
     /**
+     * Toggles the additional features menu
+     *
+     * @private
+     * @returns {void}
+     */
+    _doToggleFeatures() {
+        const featuresOpen = !this.state.featuresOpen;
+
+        this.setState({ featuresOpen });
+
+        // this.props.dispatch(setFullScreen(fullScreen));
+    }
+
+
+    /**
      * Dispatches an action to show or hide the profile edit panel.
      *
      * @private
@@ -485,6 +512,7 @@ class Toolbox extends Component<Props, State> {
     _doToggleScreenshare() {
         if (this.props._desktopSharingEnabled) {
             this.props.dispatch(toggleScreensharing());
+            this.setState({ featuresOpen: false });
         }
     }
 
@@ -629,6 +657,19 @@ class Toolbox extends Component<Props, State> {
             }));
 
         this._doToggleTileView();
+    }
+
+    _onToggleFeatures: () => void;
+
+
+    /**
+     * Handles the toggle features menu.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onToggleFeatures() {
+        this._doToggleFeatures();
     }
 
     _onShortcutToggleFullScreen: () => void;
@@ -937,20 +978,34 @@ class Toolbox extends Component<Props, State> {
 
         if (isInOverflowMenu) {
             return (
-                <OverflowMenuItem
+                <div
                     accessibilityLabel
                         = { t('toolbar.accessibilityLabel.shareYourScreen') }
-                    disabled = { _desktopSharingEnabled }
-                    icon = { IconShareDesktop }
-                    iconId = 'share-desktop'
+                    accessibilityRole = 'button'
+                    className = { `mf-button btn-blue ${_screensharing ? 'disabled' : ''}` }
                     key = 'desktop'
-                    onClick = { this._onToolbarToggleScreenshare }
-                    text = {
-                        t(`toolbar.${
-                            _screensharing
-                                ? 'stopScreenSharing' : 'startScreenSharing'}`
-                        )
-                    } />
+                    onClick = { this._onToolbarToggleScreenshare }>
+                    <FontAwesomeIcon
+                        icon = { faPresentation }
+                        size = { '2x' } />
+                    <span className = 'btn-text'>Share Your Screen</span>
+                    { /* <OverflowMenuItem
+                        accessibilityLabel
+                            = { t('toolbar.accessibilityLabel.shareYourScreen') }
+                        disabled = { _desktopSharingEnabled }
+                        icon = { IconShareDesktop }
+                        iconId = 'share-desktop'
+                        key = 'desktop'
+                        onClick = { this._onToolbarToggleScreenshare }
+                        text = {
+                            t(`toolbar.${
+                                _screensharing
+                                    ? 'stopScreenSharing' : 'startScreenSharing'}`
+                            )
+                        } />
+                    */ }
+                </div>
+ 
             );
         }
 
@@ -1006,9 +1061,9 @@ class Toolbox extends Component<Props, State> {
                     key = 'fullscreen'
                     onClick = { this._onToolbarToggleFullScreen }
                     text = { _fullScreen ? t('toolbar.exitFullScreen') : t('toolbar.enterFullScreen') } />,
-            <LiveStreamButton
-                key = 'livestreaming'
-                showLabel = { true } />,
+            // <LiveStreamButton
+            //     key = 'livestreaming'
+            //     showLabel = { true } />,
             /*<RecordButton
                 key = 'record'
                 showLabel = { true } />,*/
@@ -1319,21 +1374,42 @@ class Toolbox extends Component<Props, State> {
                     { this._renderVideoButton() }
                 </div>
                 <div className = 'button-group-right'>
-                    { buttonsRight.indexOf('recording') !== -1
+                    {
+                        this.props._screensharing
+                        && <div
+                            accessibilityRole = 'button'
+                            className = 'btn stop-screenshare'
+                            onClick = { this._onToolbarToggleScreenshare }>
+                            <FontAwesomeIcon
+                                icon = { faStop }
+                                size = { '2x' } />
+                            Stop Sharing
+                        </div>
+                    }
+                    <div
+                        accessibilityRole = 'button'
+                        className = 'btn more-features'
+                        onClick = { this._onToggleFeatures }>
+                        {this.state.featuresOpen ? 'Hide' : 'More'} Features
+                        <FontAwesomeIcon
+                            icon = { this.state.featuresOpen ? faAngleDown : faAngleUp }
+                            size = { '2x' } />
+                    </div>
+                    { false && buttonsRight.indexOf('recording') !== -1
                         && <RecordButton />
                     }
-                    { buttonsRight.indexOf('tileview') !== -1
+                    { false && buttonsRight.indexOf('tileview') !== -1
                         && <TileViewButton /> }
-                    { buttonsRight.indexOf('invite') !== -1
+                    { false && buttonsRight.indexOf('invite') !== -1
                         && <ToolbarButton
                             accessibilityLabel =
                                 { t('toolbar.accessibilityLabel.invite') }
                             icon = { IconInviteMore }
                             onClick = { this._onToolbarOpenInvite }
                             tooltip = { t('toolbar.invite') } /> }
-                    { buttonsRight.indexOf('security') !== -1
+                    { false && buttonsRight.indexOf('security') !== -1
                         && <SecurityDialogButton customClass = 'security-toolbar-button' /> }
-                    { buttonsRight.indexOf('overflowmenu') !== -1
+                    { false && buttonsRight.indexOf('overflowmenu') !== -1
                         && <OverflowMenuButton
                             isOpen = { _overflowMenuVisible }
                             onVisibilityChange = { this._onSetOverflowVisible }>
@@ -1344,8 +1420,29 @@ class Toolbox extends Component<Props, State> {
                             </ul>
                         </OverflowMenuButton> }
                 </div>
+                <div className = 'more-features-section'>
+                    { this._renderDesktopSharingButton(true) }
+
+                    <LiveStreamButton
+                        key = 'livestreaming'
+                        showLabel = { true }
+                        visible = { true } />
+        
+                    {/* <div
+                        accessibilityRole = 'button'
+                        className = 'mf-button btn-red'>
+                        <FontAwesomeIcon
+                            icon = { faYoutube }
+                            size = { '2x' } />
+                        <span className = 'btn-text'>Stream a Youtube Video</span>
+                    </div> */}
+
+                    <ClosedCaptionButton showLabel = { true } />
+
+                </div>
             </div>);
     }
+
 
     _shouldShowButton: (string) => boolean;
 
@@ -1373,9 +1470,11 @@ class Toolbox extends Component<Props, State> {
 function _mapStateToProps(state) {
     const { conference, locked } = state['features/base/conference'];
     let { desktopSharingEnabled } = state['features/base/conference'];
+    const { _requestingSubtitles } = state['features/subtitles'];
     const {
         callStatsID,
-        enableFeaturesBasedOnToken
+        enableFeaturesBasedOnToken,
+        transcribingEnabled
     } = state['features/base/config'];
     const sharedVideoStatus = state['features/shared-video'].status;
     const {
@@ -1385,6 +1484,7 @@ function _mapStateToProps(state) {
     const localParticipant = getLocalParticipant(state);
     const localRecordingStates = state['features/local-recording'];
     const localVideo = getLocalVideoTrack(state['features/base/tracks']);
+    
 
     let desktopSharingDisabledTooltipKey;
 

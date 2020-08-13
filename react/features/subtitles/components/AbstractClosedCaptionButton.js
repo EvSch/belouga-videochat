@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 // @flow
 
 import { createToolbarEvent, sendAnalytics } from '../../analytics';
@@ -70,6 +71,7 @@ export class AbstractClosedCaptionButton
     _isToggled() {
         return this.props._requestingSubtitles;
     }
+    
 }
 
 /**

@@ -53,8 +53,9 @@ export type Props = AbstractButtonProps & {
 export default class AbstractLiveStreamButton<P: Props> extends AbstractButton<P, *> {
     accessibilityLabel = 'dialog.accessibilityLabel.liveStreaming';
     icon = IconLiveStreaming;
-    label = 'dialog.startLiveStreaming';
-    toggledLabel = 'dialog.stopLiveStreaming';
+    label = 'Stream a YouTube Video';
+    toggledLabel = 'Stop YouTube Video';
+    classes = 'btn-livestream btn-red';
 
     /**
      * Returns the tooltip that should be displayed when the button is disabled.

@@ -36,6 +36,7 @@ class MuteEveryoneButton extends AbstractButton<Props, *> {
     icon = IconMuteEveryone;
     label = 'toolbar.muteEveryone';
     tooltip = 'toolbar.muteEveryone';
+    classes = 'btn-mute-all';
 
     /**
      * Handles clicking / pressing the button, and opens a confirmation dialog.
