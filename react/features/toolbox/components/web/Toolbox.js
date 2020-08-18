@@ -1428,9 +1428,9 @@ class Toolbox extends Component<Props, State> {
 
                     <LiveStreamButton
                         key = 'livestreaming'
-                        showLabel = { true }
-                        visible = { true } />
-        
+                        showLabel = { true } />
+
+
                     {/* <div
                         accessibilityRole = 'button'
                         className = 'mf-button btn-red'>

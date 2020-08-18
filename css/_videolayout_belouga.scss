@@ -355,7 +355,7 @@
             padding: 10px 16px;
             position: relative;
             width: 98%;
-            left: 9px;
+            left: 1px;
             margin: 0 auto;
             z-index: 350;
             align-items: center;
@@ -371,7 +371,7 @@
                 justify-content: flex-start;
                 width: 45%;
                 height: 60px;
-                margin: 20px 10px 0;
+                margin: 20px 0 0;
                 align-items: center;
                 .toolbox-button {
                     display: inline-flex;
@@ -485,7 +485,7 @@
         }
         #largeVideoContainer {
             bottom: 115px;
-            width: calc(100% - 40px);
+            width: calc(100% - 50px);
             height: auto;
             position: absolute;
             top: 85px;
@@ -550,7 +550,7 @@
             */
             position: fixed;
             top: 0;
-            transition: height .3s ease-in;
+            transition: none;
             right: 0;
             z-index: $filmstripVideosZ;
             background: #FFF; 
@@ -569,6 +569,7 @@
         }
     }
     .filmstrip {
+
         .filmstrip-toolbox {
             display: flex;
             align-items: center;
@@ -635,6 +636,8 @@
             }
             .videocontainer {
                 background: rgba(42, 77, 95, 0.6);
+                transition: none !important;
+
          
                 .videocontainer__toolbar {
                     opacity: 0;
@@ -736,7 +739,7 @@
         #videospace {
             width: 100%;
             #largeVideoContainer {
-                width: calc(100% - 40px);
+                width: calc(100% - 50px);
                 height: 100%;
                 top: 0;
                 left: 0;
@@ -797,7 +800,7 @@
             * any parent is also fixed.
             */
             position: fixed;
-            transition: height .3s ease-in;
+            transition: none;
             left: 0;
             z-index: $filmstripVideosZ;
             background: #FFF; 
