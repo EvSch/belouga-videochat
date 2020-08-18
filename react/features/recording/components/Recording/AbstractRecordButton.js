@@ -61,6 +61,7 @@ export default class AbstractRecordButton<P: Props> extends AbstractButton<P, *>
     toggledLabel = 'dialog.stopRecording';
     tooltip = this._isToggled() ? 'localRecording.stop' : 'localRecording.start';
     disabledTooltip = 'Recording is only available for CLC members!';
+    classes = 'btn-record';
 
     /**
      * Returns the tooltip that should be displayed when the button is disabled.

@@ -217,7 +217,7 @@ class Filmstrip extends Component <Props> {
         let toolbar = null;
 
         if (!this.props._hideToolbar) {
-            toolbar = <Toolbar />;
+            // toolbar = <Toolbar />;
             // toolbar = this.props._filmstripOnly ? <Toolbar /> : this._renderToggleButton();
         }
 

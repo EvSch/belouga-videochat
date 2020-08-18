@@ -4,6 +4,18 @@
 $blue: #26a5e4;
 $belougaBlue: #00bbf1;
 
+/* Responsive Breakpoints (See layout/_responsive for mixins) */
+$breakpoints: (
+  'xxsmall': ( max-width: 425px ),  /// is: old xsmall breakpoint
+  'xsmall' : ( max-width: 575px ),  /// was: $mobile and 425px, increased to match bootstrap's new sm breakpoint
+  'small-m1'  : ( max-width: 767px ),  /// $tablet - 2px
+  'actual-small'  : ( max-width: 768px ),  /// $tablet - 1px
+  'small'  : ( max-width: 769px ),  /// was: $tablet
+  'med'    : ( max-width: 992px ),  /// need this to correspond with Bootstrap breakpoints
+  'medium' : ( max-width: 1024px ), /// was: $medium
+  'large' : ( max-width: 1200px ), /// was: desktop
+  'xlarge'  : ( max-width: 1440px )  /// was: $desktop-large
+);
 
 /**
  * Style variables

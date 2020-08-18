@@ -1,5 +1,6 @@
 /* @flow */
-import { faPaperclip, faCommentsAlt, faUsers } from '@fortawesome/pro-solid-svg-icons';
+import { faStopwatch } from '@fortawesome/pro-light-svg-icons';
+import { faShareAlt, faCommentsAlt, faUsers, faExpand, faCompress } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
 
@@ -9,7 +10,7 @@ import {
     sendAnalytics
 } from '../../../analytics';
 import { getConferenceName } from '../../../base/conference/functions';
-import { i18next } from '../../../base/i18n';
+import { i18next, translate } from '../../../base/i18n';
 import { getParticipantCount } from '../../../base/participants/functions';
 import { connect } from '../../../base/redux';
 import { CHAT_SIZE, ChatCounter, toggleChat } from '../../../chat';
@@ -17,7 +18,13 @@ import {
     NOTIFICATION_TIMEOUT,
     showNotification
 } from '../../../notifications';
+import {
+    RecordButton
+} from '../../../recording';
 import { isToolboxVisible } from '../../../toolbox';
+import {
+    setFullScreen
+} from '../../../toolbox/actions';
 import {
     TileViewButton,
     shouldDisplayTileView,
@@ -47,6 +54,11 @@ type Props = {
      * The redux {@code dispatch} function.
      */
     dispatch: Dispatch<any>,
+
+    /**
+     * Whether or not the app is currently in full screen.
+     */
+    _fullScreen: boolean,
 
     /**
      * The subject or the of the conference.
@@ -86,6 +98,8 @@ class Subject extends Component<Props> {
 
         this._onCopyShareLink = this._onCopyShareLink.bind(this);
         this._onToolbarToggleChat = this._onToolbarToggleChat.bind(this);
+        this._onToolbarToggleFullScreen = this._onToolbarToggleFullScreen.bind(this);
+
 
 
         this.state = {
@@ -101,24 +115,54 @@ class Subject extends Component<Props> {
      * @returns {ReactElement}
      */
     render() {
-        const { _showParticipantCount, _visible, _chatOpen } = this.props;
+        const { _showParticipantCount, _visible, _chatOpen, _fullScreen, t } = this.props;
        
 
         return (
             <div className = 'header-wrapper'>
                 <div className = 'header-left'>
-                    <div className = { 'subject visible' }>
+                    <div className = 'subject visible'>
                         <span className = 'subject-text'>
-                            { this.state.prettyMeetingLink }
-                            <FontAwesomeIcon
-                                icon = { faPaperclip }
-                                onClick = { this._onCopyShareLink }
-                                size = { '1x' } />
+                            <span className = 'meeting-name'>
+                                { this.state.prettyMeetingLink }
+                            </span>
                         </span>
-                        { _showParticipantCount && <ParticipantsCount /> }
-                        <ConferenceTimer />
+                        <div className = 'participants-and-timer'>
+                            { _showParticipantCount && <ParticipantsCount /> }
+                            <div className = 'timer-wrapper'>
+                                <FontAwesomeIcon
+                                    icon = { faStopwatch }
+                                    size = { '1x' } />
+                                <ConferenceTimer />
+                            </div>
+                        </div>
                     </div>
-                    <TileViewButton />
+                    <div className = 'btn-container'>
+                        <RecordButton />
+                        <FontAwesomeIcon
+                            icon = { faShareAlt }
+                            onClick = { this._onCopyShareLink }
+                            size = { '1x' } />
+                        <div
+                            aria-disabled = { false }
+                            aria-label = { t('toolbar.accessibilityLabel.fullScreen') }
+                            className = 'toolbox-button'
+                            key = 'fullscreen'
+                            onClick = { this._onToolbarToggleFullScreen }
+                            role = 'button'
+                            tabIndex = '0'>
+                            { _fullScreen
+                                ? <FontAwesomeIcon
+                                    icon = { faCompress }
+                                    size = { '1x' } />
+                                : <FontAwesomeIcon
+                                    icon = { faExpand }
+                                    size = { '1x' } />
+                            }
+                            </div>
+                            
+                        <TileViewButton />
+                    </div>
                 </div>
                 <div className = 'right-toolbar'>
                     <button
@@ -138,6 +182,8 @@ class Subject extends Component<Props> {
                         <FontAwesomeIcon
                             icon = { faCommentsAlt }
                             size = { '2x' } /> Chat
+                        <ChatCounter />
+
                     </button>
                 </div>
  
@@ -145,6 +191,7 @@ class Subject extends Component<Props> {
 
         );
     }
+
 
     /**
      * Dispatches an action to toggle the display of chat.
@@ -154,6 +201,18 @@ class Subject extends Component<Props> {
      */
     _doToggleChat() {
         this.props.dispatch(toggleChat());
+    }
+
+    /**
+     * Dispatches an action to toggle screensharing.
+     *
+     * @private
+     * @returns {void}
+     */
+    _doToggleFullScreen() {
+        const fullScreen = !this.props._fullScreen;
+
+        this.props.dispatch(setFullScreen(fullScreen));
     }
 
     _onToolbarToggleChat: () => void;
@@ -173,6 +232,25 @@ class Subject extends Component<Props> {
             }));
 
         this._doToggleChat();
+    }
+
+    _onToolbarToggleFullScreen: () => void;
+
+    /**
+     * Creates an analytics toolbar event and dispatches an action for toggling
+     * full screen mode.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onToolbarToggleFullScreen() {
+        sendAnalytics(createToolbarEvent(
+            'toggle.fullscreen',
+                {
+                    enable: !this.props._fullScreen
+                }));
+
+        this._doToggleFullScreen();
     }
 
     /**
@@ -217,13 +295,17 @@ class Subject extends Component<Props> {
  */
 function _mapStateToProps(state) {
     const participantCount = getParticipantCount(state);
+    const {
+        fullScreen
+    } = state['features/toolbox'];
 
     return {
         _showParticipantCount: participantCount > 2,
         _chatOpen: state['features/chat'].isOpen,
+        _fullScreen: fullScreen,
         _subject: getConferenceName(state),
         _visible: isToolboxVisible(state) && participantCount > 1
     };
 }
 
-export default connect(_mapStateToProps)(Subject);
+export default translate(connect(_mapStateToProps)(Subject));

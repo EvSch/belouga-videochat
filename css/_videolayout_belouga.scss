@@ -1,5 +1,10 @@
 #videoconference_page {
-
+    .badge-round {
+        @include font-smoothing();
+        font-size: 12px;
+        min-width: 21px;
+        line-height: 20px;
+    }
     background: #FFF;
     #videospace {
         display: block;
@@ -13,6 +18,7 @@
         overflow: hidden;
         width: calc(100% - 385px); 
         background: #FFF;
+
     }
     .remotevideomenu {
         display: none;
@@ -20,7 +26,7 @@
     .header-wrapper {
         position: absolute;
         z-index: 11;
-        width: 98%;
+        width: calc(100% - 20px);
         display: flex;
         justify-content: space-between;
         flex-wrap: nowrap;
@@ -30,56 +36,160 @@
         position: fixed;
         top: 0;
         padding: 6px 10px; 
+        .subject-text {
+            vertical-align: middle;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            font-size: .9rem;
+            font-weight: 600;
+            svg {
+                margin-left: 20px;
+            }
+            .meeting-name {
+                @include respond-to(med) {
+                    display: none;
+                }
+            }
+        }
+        .participants-and-timer {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 20px;
+            color: #07a4ce;
+            font-weight: 600;
+            svg {
+                font-size: 1.2rem;
+                // color: #bbb;
+                color: #3da4e2;
+            }
+            .timer-wrapper, .participants-count {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 6px 10px 6px 17px;
+                border-radius: 40px;
+                border: 2px solid #ccebf5;
+                margin: 0 5px;
+                .subject-conference-timer {
+                    font-size: .9rem;
+                    opacity: 1;
+                    padding: 0 9px;
+                    display: inline-block;
+                }
+            }
+        }
         .participants-count {
+            direction: rtl;
+            // background: none;
+            // display: inline-flex;
+            // align-items: center;
+            // justify-content: center;
+            // padding: 0 20px;
+            .participants-count-number {
+                font-size: .9rem;
+                margin: 0 6px 0 10px;
+                color: #07a4ce;
+            }
             .participants-count-icon {
                 background: none; //url(/images/user-groups.svg);
-                height: 25px;
-                width: 25px;
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: cover; 
+                display: inline-flex;
+                align-items: center;
+                width: 25px;
+                object {
+                    width: 25px;
+                    height: 25px;
+                    path {
+                        fill: #07a4ce;
+                    }
+                }
             }
+
         }
         .toolbox-button {
             margin-left: 20px;
         }
-        .jitsi-icon svg {
-            // fill: #555;
-            cursor: pointer;
-            font-size: 1.4rem;
-            padding: 8px 10px;
-            background: #feffff;
-            color: #21b8f3;
-            border-radius: 10px;
-            margin-left: 0;
-            box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-            transition: .15s;
-            &:hover {
-                background: #eefaff;
-            }
-        }
+
+
         .header-left {
             width: calc(100% - 400px);
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            .subject {
+                display: flex;
+                align-items: center; 
+                padding: 8px 0;
+            }
+
+            .jitsi-icon svg, svg:not(.fa-stopwatch):not(.fa-users) {
+                // fill: #555;
+                // cursor: pointer;
+                // font-size: 1.4rem;
+                // padding: 8px 10px;
+                // background: #feffff;
+                // color: #21b8f3;
+                // border-radius: 30px;
+                // margin-left: 0;
+                // box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+                // transition: .15s;
+                cursor: pointer;
+                font-size: 1.0rem;
+                padding: 9px 1px;
+                background: #ffffff;
+                color: #03bbf1;
+                border-radius: 4px;
+                margin-left: 0;
+                transition: .15s;
+                width: 40px;
+                height: 22px;
+                &:hover {
+                    background: #eefaff;
+                }
+                &.fa-share-alt {
+                    margin-left: 20px;
+                }
+           
+            }
+            .btn-container {
+                display: flex;
+                align-items: center;
+                .btn-record {
+                    .toolbox-icon {
+                        background: #ffffff;
+                        border: none;
+                    }
+                    svg {
+                        height: 32px;
+                        width: 45px;
+                        fill: #d80303;
+                    }
+                }
+            }
         }
         .right-toolbar {
             flex-basis: 100%;
             height: 70px;
             background: #FFF;
+            // background: #f7f7f7;
+            border-bottom-left-radius: 15px;
             width: 95%;
             margin: 0 auto 0 5px;
             top: 0;
             color: #00bbf1;
             flex-direction: row;
-            align-items: stretch;
+            align-items: center;
             @include font-smoothing();
             flex-grow: 0;
             right: 0;
             position: absolute;
             display: flex;
-            width: 370px;
+            justify-content: center;
+            width: 385px;
             button {
                 font-size: 14px;
                 line-height: 1.2;
@@ -92,16 +202,17 @@
                 margin: 0;
                 border: none;
                 outline: none;
-
                 -webkit-appearance: none;
 
                 &:hover {
                     opacity: 1;
                 }
+      
 
                 i {
                     cursor: pointer;
                 }
+     
             }
             button, .jitsi-icon {
                 display: flex;
@@ -109,17 +220,37 @@
                 justify-content: center;
                 color: #777;
                 font-weight: 600;
-                border-radius: 0;
+                border-radius: 50px;
+                margin: 10px 20px;
+                padding: 0 20px;
+                box-sizing: content-box;
+                height: 45px;
+                width: fit-content;
+                text-align: center;
+                flex-grow: 1;
+                position: relative;
                 &.jitsi-icon {
                     margin-right: 5px;
                 }
                 svg {
                     fill: #777;
                     margin-right: 8px;
+                    font-size: 1.4rem;
 
                 }
+                &#toggleChatButton {
+                    .badge-round {
+                        position: absolute;
+                        z-index: 10;
+                        background-color: #25cdff;
+                        right: 3px;
+                        top: -3px;
+                    }
+                }
                 &.active {
-                    color: $belougaBlue;
+                    background-color: #e5f9ff;
+                    color: #00bbf1;
+                    opacity: 1;
                     // background: #ddf2ff;
                     svg {
                         fill: $belougaBlue;
@@ -129,17 +260,13 @@
             }
         }
     }
-    .subject {
-        display: flex;
-        align-items: center; 
 
-    }
     .new-toolbox {
         width: calc(100% - 385px);
         bottom: 0;
         transition: bottom .14s ease-in;
         height: 300px;
-        bottom: -213px;
+        bottom: -185px;
         .btn {
             cursor: pointer;
             transition: .2s;
@@ -242,9 +369,9 @@
             background: linear-gradient(175deg,#FFF 60%, #e7f6ff 90%);
             .button-group-center {
                 justify-content: flex-start;
-                width: 400px;
-                height: 65px;
-                margin: 0 10px 0;
+                width: 45%;
+                height: 60px;
+                margin: 20px 10px 0;
                 align-items: center;
                 .toolbox-button {
                     display: inline-flex;
@@ -253,10 +380,21 @@
                         border: 1px solid #afbed2;
                     }
                 }
+                .btn-record {
+                    .toolbox-icon {
+                        background: #ffffff;
+                        border: none;
+                    }
+                    svg {
+                        height: 51px;
+                        width: 54px;
+                        fill: #d80303;
+                    }
+                }
             }
             .button-group-right {
                 display: flex;
-                margin-top: 8px;
+                margin-top: 25px;
                 width: 50%;
                 @include font-smoothing();
                 font-size: .9rem;
@@ -303,6 +441,13 @@
                         background: #669cca;
                         color: #FFF;
                     }
+                    @include respond-to(small) {
+                        width: fit-content !important;
+                        .btn-text {
+                            display: none !important;
+                        }
+                    }
+           
                 }
 
             }
@@ -324,37 +469,28 @@
         }
     }
     &.vertical-filmstrip {
-        #filmstripLocalVideo,
+        #filmstripLocalVideo {
+            padding: 8px 0;
+            position: absolute;
+            left: -345px;
+            right: initial;
+            width: 300px;
+            bottom: 125px;
+            z-index: 200;
+        }
         #filmstripRemoteVideos {
             padding: 8px 0;
             padding-left: 25px;
             padding-right: 30px;
-            &#filmstripLocalVideo {
-                position: absolute;
-                left: -355px;
-                right: initial;
-                width: 300px;
-                bottom: 120px;
-                z-index: 200;
-
-                // Responsive style
-                //left: -295px;
-                // right: initial;
-                // width: 250px;
-                // top: 80px;
-                // z-index: 200;
-                // bottom: initial;
-
-            }
         }
         #largeVideoContainer {
             bottom: 115px;
-            width: 97%;
+            width: calc(100% - 40px);
             height: auto;
             position: absolute;
-            top: 70px;
+            top: 85px;
             bottom: 115px;
-            left: 18px;
+            left: 0;
             right: 0;
             margin: 0 auto;
             border-radius: 10px;
@@ -424,7 +560,7 @@
             align-items: flex-start;
             display: block;
             max-width: 375px;
-            padding: 70px 0 10px 0;
+            padding: 85px 0 10px 0;
             #filmstripRemoteVideos {
                 padding-left: 15px;
                 padding-right: 25px;
@@ -499,6 +635,7 @@
             }
             .videocontainer {
                 background: rgba(42, 77, 95, 0.6);
+         
                 .videocontainer__toolbar {
                     opacity: 0;
                     transition: .2s;
@@ -527,6 +664,10 @@
                     padding: 2px; 
                     &.connection-indicator, &.show-connection-indicator {
                         display: none;
+                    
+                    }
+                    #dominantspeakerindicator {
+                        display: none !important;
                     }
 
                     .jitsi-icon {
@@ -581,7 +722,8 @@
     }
     &.tile-view {
         .watermark {
-            top: 60px;
+            top: 50px;
+            left: 0;
         }
         &:not(.sidebar-open) {
             .new-toolbox {
@@ -594,18 +736,30 @@
         #videospace {
             width: 100%;
             #largeVideoContainer {
-                width: 97%;
+                width: calc(100% - 40px);
                 height: 100%;
                 top: 0;
                 left: 0;
                 border-radius: 0;
                 background: #FFF!important;
+                box-shadow: none;
             }
-            &.sidebar-open {
-                width: calc(100% - 385px);
+            // &.sidebar-open {
+            //     width: calc(100% - 385px);
 
-            }
+            // }
+ 
         }
+        #filmstripRemoteVideos {
+            align-items: center;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100vw;
+            margin: 0;
+        }
+  
     
         .filmstrip.shift-right {
             width: calc(100% - 375px);
@@ -632,9 +786,10 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: row;
-            height: 100%;
+            height: calc(100% - 190px);
             width: 100%;
-            padding: ($desktopAppDragBarHeight - 5px) 0 10px 0;
+            padding: 0 0 10px 0;
+            top: 80px;
             /**
             * fixed positioning is necessary for remote menus and tooltips to pop
             * out of the scrolling filmstrip. AtlasKit dialogs and tooltips use
@@ -642,7 +797,6 @@
             * any parent is also fixed.
             */
             position: fixed;
-            top: 0;
             transition: height .3s ease-in;
             left: 0;
             z-index: $filmstripVideosZ;
@@ -663,4 +817,17 @@
         }
         
     }
+
+
+    &.sidebar-open {
+        @include respond-to(med) {
+            .more-features {
+                width: fit-content !important;
+                .btn-text {
+                    display: none !important;
+                }
+            }
+        }
+    }
+
 }

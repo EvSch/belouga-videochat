@@ -1372,6 +1372,7 @@ class Toolbox extends Component<Props, State> {
                     { this._renderAudioButton() }
 
                     { this._renderVideoButton() }
+                    {/* <RecordButton /> */}
                 </div>
                 <div className = 'button-group-right'>
                     {
@@ -1390,7 +1391,9 @@ class Toolbox extends Component<Props, State> {
                         accessibilityRole = 'button'
                         className = 'btn more-features'
                         onClick = { this._onToggleFeatures }>
-                        {this.state.featuresOpen ? 'Hide' : 'More'} Features
+                        <span className = 'btn-text'>
+                            {this.state.featuresOpen ? 'Hide' : 'More'} Features
+                        </span>
                         <FontAwesomeIcon
                             icon = { this.state.featuresOpen ? faAngleDown : faAngleUp }
                             size = { '2x' } />

@@ -112,33 +112,33 @@
 
     }
 
-    /**
-     * Remove unnecssary padding that is normally used to prevent horizontal
-     * filmstrip from overlapping the left edge of the screen.
-     */
-    #filmstripLocalVideo,
-    #filmstripRemoteVideos {
-        padding: 8px 0;
-        padding-left: 25px;
-        padding-right: 30px;
-        &#filmstripLocalVideo {
-            position: absolute;
-            left: -355px;
-            right: initial;
-            width: 300px;
-            bottom: 108px;
-            z-index: 200;
+    // /**
+    //  * Remove unnecssary padding that is normally used to prevent horizontal
+    //  * filmstrip from overlapping the left edge of the screen.
+    //  */
+    // #filmstripLocalVideo,
+    // #filmstripRemoteVideos {
+    //     padding: 8px 0;
+    //     padding-left: 25px;
+    //     padding-right: 30px;
+    //     &#filmstripLocalVideo {
+    //         position: absolute;
+    //         left: -355px;
+    //         right: initial;
+    //         width: 300px;
+    //         bottom: 108px;
+    //         z-index: 200;
 
-            // Responsive style
-            //left: -295px;
-            // right: initial;
-            // width: 250px;
-            // top: 80px;
-            // z-index: 200;
-            // bottom: initial;
+    //         // Responsive style
+    //         //left: -295px;
+    //         // right: initial;
+    //         // width: 250px;
+    //         // top: 80px;
+    //         // z-index: 200;
+    //         // bottom: initial;
 
-        }
-    }
+    //     }
+    // }
 
     #filmstripRemoteVideos {
         @include minHWAutoFix();

@@ -23,6 +23,32 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+
+
+@mixin respond-to($name) {
+  // If the key exists in the map
+  @if map-has-key($breakpoints, $name) {
+    // Prints a media query based on the value
+    @media #{inspect(map-get($breakpoints, $name))} {
+      @content;
+    }
+  }
+  // If the key doesn't exist in the map
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}
+
+.mobile-only { display: block; }
+.desktop-only { display: none; }
+
+/* Larger than 415px */
+@include respond-to(xsmall) {
+  .mobile-only { display: none !important; }
+  .desktop-only { display: block !important; }
+}
+
 @mixin flex() {
     display: -webkit-box;
     display: -moz-box;

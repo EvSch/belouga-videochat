@@ -1,5 +1,6 @@
 // @flow
-
+import { faUsers } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { PureComponent } from 'react';
 import type { Dispatch } from 'redux';
 
@@ -77,9 +78,10 @@ class ParticipantsCount extends PureComponent<Props> {
                     {this.props.count}
                 </span>
                 <span className = 'participants-count-icon'>
-                    <object
-                        data = '/images/user-groups.svg'
-                        type = 'image/svg+xml' />
+                    <FontAwesomeIcon
+                        icon = { faUsers }
+                        size = { '2x' } />
+     
                 </span>
             </div>
         );
