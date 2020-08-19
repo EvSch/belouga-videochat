@@ -48,6 +48,7 @@ var interfaceConfig = {
     DEFAULT_LOCAL_DISPLAY_NAME: 'Me!',
     DEFAULT_LOGO_URL: 'images/watermark.png',
     DEFAULT_REMOTE_DISPLAY_NAME: 'Belouga Guest',
+    DEFAULT_WELCOME_PAGE_LOGO_URL: 'images/watermark.png',
 
     DISABLE_DOMINANT_SPEAKER_INDICATOR: false,
 
