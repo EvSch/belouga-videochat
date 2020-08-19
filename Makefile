@@ -9,6 +9,7 @@ NPM = npm
 OUTPUT_DIR = .
 STYLES_BUNDLE = css/all.bundle.css
 STYLES_DESTINATION = css/all.css
+STYLES_OTHER_DESTINATION = libs/all.css
 STYLES_MAIN = css/main.scss
 WEBPACK = ./node_modules/.bin/webpack
 WEBPACK_DEV_SERVER = ./node_modules/.bin/webpack-dev-server
@@ -75,6 +76,7 @@ deploy-rnnoise-binary:
 deploy-css:
 	$(NODE_SASS) $(STYLES_MAIN) $(STYLES_BUNDLE) && \
 	$(CLEANCSS) --skip-rebase $(STYLES_BUNDLE) > $(STYLES_DESTINATION) ; \
+	cp $(STYLES_DESTINATION) $(STYLES_OTHER_DESTINATION); \
 	rm $(STYLES_BUNDLE)
 
 deploy-local:
