@@ -14,7 +14,7 @@ import { translate } from '../../../base/i18n';
 import { Icon, IconChat, IconMenuDown, IconMenuUp } from '../../../base/icons';
 import { connect } from '../../../base/redux';
 import { CHAT_SIZE, ChatCounter, toggleChat } from '../../../chat';
-import { dockToolbox } from '../../../toolbox';
+import { dockToolbox } from '../../../toolbox/actions.web';
 import { getCurrentLayout, LAYOUTS } from '../../../video-layout';
 import { setFilmstripHovered, setFilmstripVisible } from '../../actions';
 import { shouldRemoteVideosBeVisible } from '../../functions';
@@ -258,7 +258,7 @@ class Filmstrip extends Component <Props> {
         );
     }
 
-    
+
     /**
      * Dispatches an action to toggle the display of chat.
      *

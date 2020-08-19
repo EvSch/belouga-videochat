@@ -22,7 +22,7 @@ import {
 import {
     RecordButton
 } from '../../../recording';
-import { isToolboxVisible } from '../../../toolbox';
+import { isToolboxVisible } from '../../../toolbox/functions.web';
 import {
     setFullScreen
 } from '../../../toolbox/actions';
@@ -116,7 +116,7 @@ class Subject extends Component<Props> {
      */
     render() {
         const { _showParticipantCount, _visible, _chatOpen, _fullScreen, t } = this.props;
-       
+
 
         return (
             <div className = 'header-wrapper'>
@@ -154,7 +154,7 @@ class Subject extends Component<Props> {
                                     size = { '1x' } />
                             }
                             </div>
-                            
+
                         <TileViewButton />
                     </div>
                 </div>
@@ -180,7 +180,7 @@ class Subject extends Component<Props> {
 
                     </button>
                 </div>
- 
+
             </div>
 
         );
