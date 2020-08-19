@@ -349,6 +349,7 @@
         margin: 6px 67px 20px 0;
         font-size: .7rem;
         flex-basis: 100%;
+        text-align: left;
         .timestamp {
 
         }
@@ -356,6 +357,9 @@
 
     &.local {
         align-items: flex-end;
+        .name-time {
+            text-align: right;
+        }
         .chatmessage-wrapper {
             flex-direction: row-reverse;
         }

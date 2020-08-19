@@ -14,6 +14,7 @@ import { i18next, translate } from '../../../base/i18n';
 import { getParticipantCount } from '../../../base/participants/functions';
 import { connect } from '../../../base/redux';
 import { CHAT_SIZE, ChatCounter, toggleChat } from '../../../chat';
+import { beginAddPeople } from '../../../invite';
 import {
     NOTIFICATION_TIMEOUT,
     showNotification
@@ -99,8 +100,7 @@ class Subject extends Component<Props> {
         this._onCopyShareLink = this._onCopyShareLink.bind(this);
         this._onToolbarToggleChat = this._onToolbarToggleChat.bind(this);
         this._onToolbarToggleFullScreen = this._onToolbarToggleFullScreen.bind(this);
-
-
+        this._onToolbarOpenInvite = this._onToolbarOpenInvite.bind(this);
 
         this.state = {
             meetingLink,
@@ -127,21 +127,15 @@ class Subject extends Component<Props> {
                                 { this.state.prettyMeetingLink }
                             </span>
                         </span>
-                        <div className = 'participants-and-timer'>
+                        {/* <div className = 'participants-and-timer'>
                             { _showParticipantCount && <ParticipantsCount /> }
-                            <div className = 'timer-wrapper'>
-                                <FontAwesomeIcon
-                                    icon = { faStopwatch }
-                                    size = { '1x' } />
-                                <ConferenceTimer />
-                            </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className = 'btn-container'>
                         <RecordButton />
                         <FontAwesomeIcon
                             icon = { faShareAlt }
-                            onClick = { this._onCopyShareLink }
+                            onClick = { this._onToolbarOpenInvite }
                             size = { '1x' } />
                         <div
                             aria-disabled = { false }
@@ -167,21 +161,21 @@ class Subject extends Component<Props> {
                 <div className = 'right-toolbar'>
                     <button
                         className = { _chatOpen ? '' : 'active' }
-                        onClick = { _chatOpen ? this._onToolbarToggleChat : null }
-                        // aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
-                        id = 'toggleParticipantsButton'>
+                        id = 'toggleParticipantsButton'
+                        onClick = { _chatOpen ? this._onToolbarToggleChat : null }>
                         <FontAwesomeIcon
                             icon = { faUsers }
-                            size = { '2x' } /> Participants
+                            size = { '2x' } />
+                        <span className = 'btn-text'>Participants</span>
                     </button>
                     <button
                         className = { _chatOpen ? 'active' : '' }
-                        // aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
                         id = 'toggleChatButton'
                         onClick = { _chatOpen ? null : this._onToolbarToggleChat }>
                         <FontAwesomeIcon
                             icon = { faCommentsAlt }
-                            size = { '2x' } /> Chat
+                            size = { '2x' } />
+                        <span className = 'btn-text'>Chat</span>
                         <ChatCounter />
 
                     </button>
@@ -213,6 +207,14 @@ class Subject extends Component<Props> {
         const fullScreen = !this.props._fullScreen;
 
         this.props.dispatch(setFullScreen(fullScreen));
+    }
+
+    _onToolbarOpenInvite: () => void;
+
+
+    _onToolbarOpenInvite() {
+        sendAnalytics(createToolbarEvent('invite'));
+        this.props.dispatch(beginAddPeople());
     }
 
     _onToolbarToggleChat: () => void;

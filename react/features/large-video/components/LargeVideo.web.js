@@ -1,10 +1,12 @@
 // @flow
-
+import { faStopwatch } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
 
 import { Watermarks } from '../../base/react';
 import { connect } from '../../base/redux';
 import { InviteMore, Subject } from '../../conference';
+import ConferenceTimer from '../../conference/components/ConferenceTimer';
 import { fetchCustomBrandingData } from '../../dynamic-branding';
 import { Captions } from '../../subtitles/';
 
@@ -76,9 +78,15 @@ class LargeVideo extends Component<Props> {
                     <div id = 'sharedVideoIFrame' />
                 </div>
                 <div id = 'etherpad' />
-
-                <Watermarks />
-
+                <div className = 'watermark-container'>
+                    <Watermarks />
+                    <div className = 'timer-wrapper'>
+                        <FontAwesomeIcon
+                            icon = { faStopwatch }
+                            size = { '1x' } />
+                        <ConferenceTimer />
+                    </div>
+                </div>
                 <div id = 'dominantSpeaker'>
                     <div className = 'dynamic-shadow' />
                     <div id = 'dominantSpeakerAvatarContainer' />

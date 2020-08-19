@@ -18,6 +18,46 @@
         overflow: hidden;
         width: calc(100% - 385px); 
         background: #FFF;
+        .watermark-container {
+            position: absolute;
+            z-index: 5;
+            top: 30px;
+            left: 30px;
+            > div {
+                display: inline-flex;
+                align-items: center;
+            }
+            .watermark {
+                position: relative;
+                top:initial;
+                left: initial;
+                width: 100px;
+            }
+            .timer-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4px;
+                border-radius: 40px;
+                margin: 5px auto;
+                font-size: .9rem;
+                color: #FFF;
+                opacity: .7;
+                width: fit-content;
+                position: relative;
+                left: -4px;
+                background: rgba(0, 0, 0, .37);
+                svg {
+                    margin-left: 7px;
+                }
+                .subject-conference-timer {
+                    font-size: .8rem;
+                    opacity: 1;
+                    padding: 0 9px;
+                    display: inline-block;
+                }
+            }
+        }
 
     }
     .remotevideomenu {
@@ -170,6 +210,10 @@
                     }
                 }
             }
+            @include respond-to(small) {
+                width: calc(100% - 220px);
+            }
+
         }
         .right-toolbar {
             flex-basis: 100%;
@@ -254,6 +298,22 @@
                     // background: #ddf2ff;
                     svg {
                         fill: $belougaBlue;
+                    }
+                }
+         
+
+            }
+            @include respond-to(small) {
+                width: fit-content;
+                button {
+                    flex-grow: 0;
+                    min-width: 40px;
+                    margin: 10px 20px 10px 0;
+                    svg {
+                        margin-right: 0 !important;
+                    }
+                    .btn-text {
+                        display: none !important;
                     }
                 }
 
@@ -472,10 +532,10 @@
         #filmstripLocalVideo {
             padding: 8px 0;
             position: absolute;
-            left: -345px;
+            left: -350px;
             right: initial;
             width: 300px;
-            bottom: 125px;
+            bottom: 130px;
             z-index: 200;
         }
         #filmstripRemoteVideos {
@@ -483,10 +543,11 @@
             padding-left: 25px;
             padding-right: 30px;
         }
+    
         #largeVideoContainer {
             bottom: 115px;
             width: calc(100% - 50px);
-            height: auto;
+            height: calc(100% - 212px);
             position: absolute;
             top: 85px;
             bottom: 115px;
@@ -496,6 +557,23 @@
             border-radius: 10px;
             box-shadow: 0 0 14px rgba(0, 0, 0, 0.26);
             overflow: hidden;
+            #largeVideoElementsContainer {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                #largeVideoWrapper, #largeVideoWrapper > video {
+                    position: absolute;
+                    left: 0 !important;
+                    right: 0 !important;
+                    bottom: 0 !important;
+                    top: 0 !important;
+                    z-index: 1;
+                    width: 100% !important;
+                    height: 100% !important;
+                }
+            }
         }
         .filmstrip__toolbar {
             flex-basis: 100%;
@@ -564,7 +642,8 @@
             #filmstripRemoteVideos {
                 padding-left: 15px;
                 padding-right: 25px;
-                padding-top: 10px;
+                padding-top: 0;
+                padding-bottom: 16px;
             }
         }
     }
@@ -628,11 +707,18 @@
             }
         }
        .filmstrip__videos {
+            &#remoteVideos {
+                border: none;
+            }
+
 
             .displayNameContainer {
                 visibility: visible;
                 transition: .2s;
                 opacity: 0;
+                .displayname {
+                    font-size: 12px;
+                }
             }
             .videocontainer {
                 background: rgba(42, 77, 95, 0.6);
@@ -675,7 +761,7 @@
 
                     .jitsi-icon {
                         svg {
-                            fill: #a7a0a0;
+                            fill: #e6e6e6;
                             height: 20px;
                             width: 20px;
                         }
@@ -761,6 +847,12 @@
             height: 100%;
             width: 100vw;
             margin: 0;
+            #filmstripRemoteVideosContainer {
+                video {
+                    object-fit: cover;
+                }
+            }
+
         }
   
     

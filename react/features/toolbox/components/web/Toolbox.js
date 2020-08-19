@@ -12,6 +12,7 @@ import {
     sendAnalytics
 } from '../../../analytics';
 import { openDialog, toggleDialog } from '../../../base/dialog';
+import { isMobileBrowser } from '../../../base/environment/utils';
 import { translate } from '../../../base/i18n';
 import {
     IconChat,
@@ -972,9 +973,10 @@ class Toolbox extends Component<Props, State> {
             t
         } = this.props;
 
-        if (!this._isDesktopSharingButtonVisible()) {
+        if (!this._isDesktopSharingButtonVisible() || isMobileBrowser()) {
             return null;
         }
+
 
         if (isInOverflowMenu) {
             return (
@@ -1429,7 +1431,6 @@ class Toolbox extends Component<Props, State> {
                     <LiveStreamButton
                         key = 'livestreaming'
                         showLabel = { true } />
-
 
                     {/* <div
                         accessibilityRole = 'button'
