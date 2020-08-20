@@ -1,4 +1,5 @@
 /* @flow */
+import InlineDialog from '@atlaskit/inline-dialog';
 import { faStopwatch } from '@fortawesome/pro-light-svg-icons';
 import { faShareAlt, faCommentsAlt, faUsers, faExpand, faCompress } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,8 +12,9 @@ import {
 } from '../../../analytics';
 import { getConferenceName } from '../../../base/conference/functions';
 import { i18next, translate } from '../../../base/i18n';
+import { IconArrowDown } from '../../../base/icons';
 import { getParticipantCount } from '../../../base/participants/functions';
-import { connect } from '../../../base/redux';
+import { connect, equals } from '../../../base/redux';
 import { CHAT_SIZE, ChatCounter, toggleChat } from '../../../chat';
 import { beginAddPeople } from '../../../invite';
 import {
@@ -22,10 +24,11 @@ import {
 import {
     RecordButton
 } from '../../../recording';
+import { setFullScreen } from '../../../toolbox/actions';
+import MuteEveryoneButton from '../../../toolbox/components/web/MuteEveryoneButton';
 import { isToolboxVisible } from '../../../toolbox/functions.web';
-import {
-    setFullScreen
-} from '../../../toolbox/actions';
+import { ToolboxButtonWithIcon } from '../../../base/toolbox/components';
+
 import {
     TileViewButton,
     shouldDisplayTileView,
@@ -75,8 +78,19 @@ type Props = {
     /**
      * Indicates whether the component should be visible or not.
      */
-    _visible: boolean
+    _visible: boolean,
+
+    /**
+     * What buttons are visible to the user
+     */
+    _visibleButtons: Set<string>,
 };
+
+declare var interfaceConfig: Object;
+
+// XXX: We are not currently using state here, but in the future, when
+// interfaceConfig is part of redux we will. This will have to be retrieved from the store.
+const visibleButtons = new Set(interfaceConfig.TOOLBAR_BUTTONS);
 
 /**
  * Subject react component.
@@ -101,10 +115,13 @@ class Subject extends Component<Props> {
         this._onToolbarToggleChat = this._onToolbarToggleChat.bind(this);
         this._onToolbarToggleFullScreen = this._onToolbarToggleFullScreen.bind(this);
         this._onToolbarOpenInvite = this._onToolbarOpenInvite.bind(this);
+        this._onToggleModeratorDialog = this._onToggleModeratorDialog.bind(this);
+
 
         this.state = {
             meetingLink,
-            prettyMeetingLink
+            prettyMeetingLink,
+            moderatorDialogIsOpen: false
         };
     }
 
@@ -116,7 +133,7 @@ class Subject extends Component<Props> {
      */
     render() {
         const { _showParticipantCount, _visible, _chatOpen, _fullScreen, t } = this.props;
-
+        const moderatorMenuContent = this._renderModeratorMenuContent();
 
         return (
             <div className = 'header-wrapper'>
@@ -167,6 +184,24 @@ class Subject extends Component<Props> {
                             icon = { faUsers }
                             size = { '2x' } />
                         <span className = 'btn-text'>Participants</span>
+                        { this._shouldShowButton('mute-everyone')
+                            && 
+                            <div className = 'participants-menu'>
+                                <InlineDialog
+                                    content = { moderatorMenuContent }
+                                    isOpen = { this.state.moderatorDialogIsOpen }
+                                    onClose = { () => {
+                                        this.setState({ moderatorDialogIsOpen: false });
+                                    } }
+                                    position = 'bottom right'>
+                                    <ToolboxButtonWithIcon
+                                        icon = { IconArrowDown }
+                                        iconDisabled = { false }
+                                        onIconClick = { this._onToggleModeratorDialog } />
+                                </InlineDialog>
+                            </div>
+                        }
+
                     </button>
                     <button
                         className = { _chatOpen ? 'active' : '' }
@@ -184,6 +219,37 @@ class Subject extends Component<Props> {
             </div>
 
         );
+    }
+
+    /**
+     * Toggles articipants moderation menu.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onToggleModeratorDialog() {
+        this.setState({ moderatorDialogIsOpen: !this.state.moderatorDialogIsOpen });
+    }
+
+    /**
+     * Returns the participants moderation menu.
+     *
+     * @returns  {ReactElement}
+     */
+    _renderModeratorMenuContent() {
+        return (
+            <div>
+                { this._shouldShowButton('mute-everyone')
+                && <div className = 'menu-item'>
+                    <MuteEveryoneButton
+                        key = 'mute-everyone'
+                        showLabel = { true }
+                        visible = { this._shouldShowButton('mute-everyone') } />
+                </div>
+                }
+            </div>
+        );
+
     }
 
 
@@ -281,6 +347,21 @@ class Subject extends Component<Props> {
     }
 
 
+    _shouldShowButton: (string) => boolean;
+
+    /**
+     * Returns if a button name has been explicitly configured to be displayed.
+     *
+     * @param {string} buttonName - The name of the button, as expected in
+     * {@link interfaceConfig}.
+     * @private
+     * @returns {boolean} True if the button should be displayed.
+     */
+    _shouldShowButton(buttonName) {
+        return this.props._visibleButtons.has(buttonName);
+    }
+
+
 }
 
 
@@ -301,12 +382,15 @@ function _mapStateToProps(state) {
         fullScreen
     } = state['features/toolbox'];
 
+    const buttons = new Set(interfaceConfig.TOOLBAR_BUTTONS);
+
     return {
         _showParticipantCount: participantCount > 2,
         _chatOpen: state['features/chat'].isOpen,
         _fullScreen: fullScreen,
         _subject: getConferenceName(state),
-        _visible: isToolboxVisible(state) && participantCount > 1
+        _visible: isToolboxVisible(state) && participantCount > 1,
+        _visibleButtons: equals(visibleButtons, buttons) ? visibleButtons : buttons
     };
 }
 

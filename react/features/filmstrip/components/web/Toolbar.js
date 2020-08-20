@@ -6,7 +6,6 @@
 import React, { Component } from 'react';
 
 import { connect, equals } from '../../../base/redux';
-import MuteEveryoneButton from '../../../toolbox/components/web/MuteEveryoneButton';
 import { SettingsButton } from '../../../settings';
 import {
     AudioMuteButton,
@@ -47,10 +46,6 @@ class Toolbar extends Component<Props> {
         return (
             <div
                 className = 'filmstrip-toolbox'>
-                    <MuteEveryoneButton
-                    key = 'mute-everyone'
-                    showLabel = { false }
-                    visible = { this._shouldShowButton('mute-everyone') } />
                 {/* <HangupButton
                     tooltipPosition = 'left'
                     visible = { this._shouldShowButton('hangup') } />

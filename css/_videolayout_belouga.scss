@@ -6,6 +6,18 @@
         line-height: 20px;
     }
     background: #FFF;
+    .transcription-subtitles {
+        background: rgba(0, 0, 0, .6);
+        padding: 20px;
+        border-radius: 5px;
+        opacity: 1;
+        font-size: 17px;
+        color: #FFF;
+        box-shadow: 0 0 20px rgba(0, 0, 0, .42);
+        span {
+            background: none;
+        }
+    }
     #videospace {
         display: block;
         height: 100%;
@@ -18,6 +30,9 @@
         overflow: hidden;
         width: calc(100% - 385px); 
         background: #FFF;
+        .large-video-labels {
+            top: 100px;
+        }
         .watermark-container {
             position: absolute;
             z-index: 5;
@@ -258,7 +273,9 @@
                 }
      
             }
-            button, .jitsi-icon {
+      
+            
+            button, > .jitsi-icon:not(.settings-button-small-icon) {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -282,6 +299,7 @@
                     font-size: 1.4rem;
 
                 }
+           
                 &#toggleChatButton {
                     .badge-round {
                         position: absolute;
@@ -302,6 +320,65 @@
                 }
          
 
+            }
+            .participants-menu {
+                width: 30px;
+                height: 50px;
+                text-align: right;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                >div>div:nth-child(2)>div>div {
+                    outline: 0;
+                    padding: 0;
+                }
+                .menu-item {
+                    min-width: 200px;
+
+                    li {
+                        padding: 10px;
+                        transition: .2s;
+                        list-style: none;
+                        > div {
+                            display: flex;
+                            align-items: center;
+                        }
+                        &:hover {
+
+                        }
+                    }
+
+                }
+            }
+            .settings-button-container {
+                position: static;
+                bottom: 0;
+                right: 0;
+                top: 0;
+                display: flex;
+                align-items: center;
+                .settings-button-small-icon {
+                    width: 19px;
+                    height: 19px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    right: 8px;
+                    bottom: 0;
+                    transition: .15s;
+                    background: #059fcc;
+                    border: none;
+                    position: static;
+                    &:hover {
+                        // transform: scale(1.1);
+                    }
+                    svg {
+                        margin: 0;
+                        width: 11px;
+                        height: 13px;
+                        fill: #FFF;
+                    }
+                }
             }
             @include respond-to(small) {
                 width: fit-content;
