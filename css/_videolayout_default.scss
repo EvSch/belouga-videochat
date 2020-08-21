@@ -408,7 +408,7 @@
 
 .connection-indicator {
     background: $connectionIndicatorBg;
-    display: none;
+    // display: none;
 
     &.status-high {
         background: green;

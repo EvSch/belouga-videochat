@@ -1,7 +1,7 @@
 // @flow
 
 import { translate } from '../../../../base/i18n';
-import { IconToggleRecording, IconRec } from '../../../../base/icons';
+import { IconToggleRecording, IconRec, IconStopRec } from '../../../../base/icons';
 import { connect } from '../../../../base/redux';
 import AbstractRecordButton, {
     _mapStateToProps as _abstractMapStateToProps,

@@ -1,11 +1,12 @@
 // @flow
-
+import { faStopCircle } from '@fortawesome/pro-light-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     createToolbarEvent,
     sendAnalytics
 } from '../../../analytics';
 import { openDialog } from '../../../base/dialog';
-import { IconRec } from '../../../base/icons';
+import { IconRec, IconStopRec } from '../../../base/icons';
 import { JitsiRecordingConstants } from '../../../base/lib-jitsi-meet';
 import {
     getLocalParticipant,
@@ -53,10 +54,11 @@ export type Props = AbstractButtonProps & {
  */
 export default class AbstractRecordButton<P: Props> extends AbstractButton<P, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.recording';
-    label = this._isToggled() ? 'dialog.stopRecording' : 'dialog.startRecording';
+    label = 'dialog.startRecording';
     icon = IconRec;
+    toggledIcon = IconStopRec;
     toggledLabel = 'dialog.stopRecording';
-    tooltip = this._isToggled() ? 'localRecording.stop' : 'localRecording.start';
+    tooltip = 'localRecording.start';
     disabledTooltip = 'Recording is only available for CLC members!';
     classes = 'btn-record';
 

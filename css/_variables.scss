@@ -301,3 +301,26 @@ $chromeExtensionBannerRightInMeeeting: 10px;
 */
 $smallScreen: 700px;
 $verySmallScreen: 500px;
+
+
+@-webkit-keyframes recording-pulse {
+    0% {
+        box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 0 0px rgba(255, 0, 0, .2);
+
+    }
+    100% {
+        box-shadow: 0 0 0 20px rgba(100, 0, 0, 0);
+    }
+}
+
+@keyframes recording-pulse {
+    0% {
+        box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 0 0px rgba(255, 0, 0, .2);
+
+    }
+    100% {
+        box-shadow: 0 0 0 20px rgba(100, 0, 0, 0);
+    }
+}

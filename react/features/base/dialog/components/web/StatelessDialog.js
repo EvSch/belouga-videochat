@@ -168,6 +168,10 @@ class StatelessDialog extends Component<Props> {
             this._renderCancelButton()
         ].filter(Boolean);
 
+        if (!buttons.length) {
+            return <></>;
+        }
+
         return (
             <ModalFooter showKeyline = { propsFromModalFooter.showKeyline } >
                 {

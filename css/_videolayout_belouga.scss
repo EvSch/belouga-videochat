@@ -1,3 +1,71 @@
+.atlaskit-portal {
+    @include font-smoothing();
+    div[role="dialog"] {
+        background: #FFF;
+        color: #656565;
+        font-size: 15px;
+        #modal-dialog-ok-button {
+            height: auto;
+            color: #FFF !important;
+            font-weight: 600;
+            align-items: center;
+            padding: 4px 15px;
+            height: auto;
+            &:hover {
+                background: #2c78da !important;
+            }
+        }
+        #modal-dialog-cancel-button {
+            color: #476877 !important;
+            height: auto;
+            margin-left: 7px;
+            &:hover {
+                background: #EEE !important;
+            }
+        }
+        .invite-more-dialog.header {
+            color: #656565;
+        }
+        .invite-more-dialog {
+            color: #656565;
+            font-size: 15px;
+            > div * {
+                color: #FFF;
+            }
+        }
+        .recording-dialog {
+            .recording-header {
+                align-items: center;
+            }
+        }
+        .recording-switch {
+            padding: 0 0 0 10px;
+            label {
+                > div { // Slide
+                    background: #8fa5c3;
+                    svg {
+                        color: #FFF;
+                    }
+                    > div { // Inner
+                        align-items: center;
+                        > span { // Handle
+                            background: #ffffff;
+                            bottom: initial;
+                            top: initial;
+                        }
+
+                    }
+                }
+                input:checked + div {
+                    background: #36B37E !important;
+                }
+                input[disabled] + div {
+                    background: #c1c1c1 !important;
+                }
+            }
+        }
+    }
+}
 #videoconference_page {
     .badge-round {
         @include font-smoothing();
@@ -174,6 +242,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 9px 6px 0;
+            box-sizing: border-box;
 
             .subject {
                 display: flex;
@@ -217,11 +287,25 @@
                     .toolbox-icon {
                         background: #ffffff;
                         border: none;
+                        &.toggled {
+                            svg {
+                                height: 36px;
+                                fill: #d80303;
+                                color: #d80303;
+                                animation: recording-pulse 3s infinite;
+                                background: none;
+                                border-radius: 50%;
+                                padding: 0;
+                                width: auto;
+                            }
+                        }
                     }
                     svg {
-                        height: 32px;
-                        width: 45px;
-                        fill: #d80303;
+                        height: 36px;
+                        width: auto;
+                        padding: 0;
+                        border-radius: 50%;
+                        fill: #bd0606;
                     }
                 }
             }
@@ -334,11 +418,19 @@
                 }
                 .menu-item {
                     min-width: 200px;
+                    background: #FFF;
+                    color: #13a2ce;
+                    transition: .2s;
+
+                    &:hover {
+                        background: #f1fbff;
+                    }
+
 
                     li {
-                        padding: 10px;
-                        transition: .2s;
+                        padding: 16px 8px;
                         list-style: none;
+                        
                         > div {
                             display: flex;
                             align-items: center;
@@ -828,10 +920,7 @@
                     overflow: hidden;
                     // border: 2px solid rgba(210, 210, 210, .7);
                     padding: 2px; 
-                    &.connection-indicator, &.show-connection-indicator {
-                        display: none;
-                    
-                    }
+         
                     #dominantspeakerindicator {
                         display: none !important;
                     }
@@ -842,6 +931,13 @@
                             height: 20px;
                             width: 20px;
                         }
+                    }
+                    &.connection-indicator, &.show-connection-indicator {
+                        // display: none;
+                        .jitsi-icon svg {
+                            width: 1em; height: 1em;
+                        }
+                    
                     }
                 }
                 .videocontainer__toolbar {

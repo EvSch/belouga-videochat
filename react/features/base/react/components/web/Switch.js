@@ -55,6 +55,7 @@ export default class Switch extends Component<Props> {
                     isChecked = { value }
                     isDisabled = { disabled }
                     onChange = { onValueChange }
+                    size = 'large'
                     { ...props } />
             </div>
         );
