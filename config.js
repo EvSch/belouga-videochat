@@ -248,6 +248,21 @@ var config = {
     //        low: 200000,
     //        standard: 500000,
     //        high: 1500000
+    //    },
+    //
+    //    // The options can be used to override default thresholds of video thumbnail heights corresponding to
+    //    // the video quality levels used in the application. At the time of this writing the allowed levels are:
+    //    //     'low' - for the low quality level (180p at the time of this writing)
+    //    //     'standard' - for the medium quality level (360p)
+    //    //     'high' - for the high quality level (720p)
+    //    // The keys should be positive numbers which represent the minimal thumbnail height for the quality level.
+    //    //
+    //    // With the default config value below the application will use 'low' quality until the thumbnails are
+    //    // at least 360 pixels tall. If the thumbnail height reaches 720 pixels then the application will switch to
+    //    // the high quality.
+    //    minHeightForQualityLvl: {
+    //        360: 'standard,
+    //        720: 'high'
     //    }
     // },
 
@@ -448,6 +463,12 @@ var config = {
         // amplitudeAPPKey: '<APP_KEY>'
 
         // Configuration for the rtcstats server:
+        // By enabling rtcstats server every time a conference is joined the rtcstats
+        // module connects to the provided rtcstatsEndpoint and sends statistics regarding
+        // PeerConnection states along with getStats metrics polled at the specified
+        // interval.
+        // rtcstatsEnabled: true,
+
         // In order to enable rtcstats one needs to provide a endpoint url.
         // rtcstatsEndpoint: wss://rtcstats-server-pilot.jitsi.net/,
 
@@ -608,6 +629,13 @@ var config = {
      requireDisplayName
      tokenAuthUrl
      */
+
+    /**
+     * This property can be used to alter the generated meeting invite links (in combination with a branding domain
+     * which is retrieved internally by jitsi meet) (e.g. https://meet.jit.si/someMeeting
+     * can become https://brandedDomain/roomAlias)
+     */
+    // brandingRoomAlias: null,
 
     // List of undocumented settings used in lib-jitsi-meet
     /**
