@@ -1,11 +1,16 @@
 -- Token moderation
--- this module looks for a field on incoming JWT tokens called "moderator". 
+-- this module looks for a field on incoming JWT tokens called "moderator".
 -- If it is true the user is added to the room as a moderator, otherwise they are set to a normal user.
 -- Note this may well break other affiliation based features like banning or login-based admins
 local log = module._log;
 local jid_bare = require "util.jid".bare;
 local json = require "cjson";
 local basexx = require "basexx";
+local um_is_admin = require "core.usermanager".is_admin;
+
+local function is_admin(jid)
+        return um_is_admin(jid, module.host);
+end
 
 log('info', 'Loaded token moderation plugin');
 -- Hook into room creation to add this wrapper to every new room
@@ -49,16 +54,16 @@ function setupAffiliation(room, origin, stanza)
                         if dotSecond then
                                 local bodyB64 = origin.auth_token:sub(dotFirst + 1, dotFirst + dotSecond - 1);
                                 local body = json.decode(basexx.from_url64(bodyB64));
-                                -- If user is a moderator, set their affiliation to be an owner
-                                if body["moderator"] == true then
-                                        room:set_affiliation("token_plugin", jid_bare(stanza.attr.from), "owner");
+                                local jid = jid_bare(stanza.attr.from);
+                                -- If user is a moderator or an admin, set their affiliation to be an owner
+                                if body["moderator"] == true or is_admin(jid) then
+                                        room:set_affiliation("token_plugin", jid, "owner");
                                 elseif body["guest"] == true then
-					room:set_affiliation("token_plugin", jid_bare(stanza.attr.from), "none");
-				else
-                                        room:set_affiliation("token_plugin", jid_bare(stanza.attr.from), "member");
+                                        room:set_affiliation("token_plugin", jid_bare(stanza.attr.from), "none");
+                                else
+                                        room:set_affiliation("token_plugin", jid, "member");
                                 end;
 			end;
 		end;
 	end;
 end;
-                        

@@ -112,6 +112,11 @@ type Props = {
     _desktopSharingEnabled: boolean,
 
     /**
+     * Whether or not Share Youtube permission is enabled.
+     */
+    _youtubeEnabled: boolean,
+
+    /**
      * Whether or not a dialog is displayed.
      */
     _dialog: boolean,
@@ -1014,7 +1019,7 @@ class Toolbox extends Component<Props, State> {
                 key = 'record'
                 showLabel = { true } />,*/
             this._shouldShowButton('sharedvideo')
-                && <OverflowMenuItem
+                && this.props._youtubeEnabled && <OverflowMenuItem
                     accessibilityLabel = { t('toolbar.accessibilityLabel.sharedvideo') }
                     icon = { IconShareVideo }
                     key = 'sharedvideo'
@@ -1401,6 +1406,8 @@ function _mapStateToProps(state) {
     const localParticipant = getLocalParticipant(state);
     const localRecordingStates = state['features/local-recording'];
     const localVideo = getLocalVideoTrack(state['features/base/tracks']);
+    const { features = {} } = localParticipant;
+    let youtubeEnabled = 'true';
 
     let desktopSharingDisabledTooltipKey;
 
@@ -1410,6 +1417,8 @@ function _mapStateToProps(state) {
         desktopSharingEnabled = getParticipants(state)
             .find(({ features = {} }) =>
                 String(features['screen-sharing']) === 'true') !== undefined;
+
+        youtubeEnabled = String(features.youtube) === 'true';
 
         // we want to show button and tooltip
         if (state['features/base/jwt'].isGuest) {
@@ -1429,6 +1438,7 @@ function _mapStateToProps(state) {
         _chatOpen: state['features/chat'].isOpen,
         _conference: conference,
         _desktopSharingEnabled: desktopSharingEnabled,
+        _youtubeEnabled: youtubeEnabled,
         _desktopSharingDisabledTooltipKey: desktopSharingDisabledTooltipKey,
         _dialog: Boolean(state['features/base/dialog'].component),
         _feedbackConfigured: Boolean(callStatsID),

@@ -31,7 +31,7 @@ var config = {
     bosh: '//live.staging.belouga.org/http-bind',
 
     // Websocket URL
-    // websocket: 'wss://jitsi-meet.example.com/xmpp-websocket',
+    websocket: 'wss://live.staging.belouga.org/xmpp-websocket',
 
     // The name of client node advertised in XEP-0115 'c' stanza
     clientNode: 'https://live.staging.belouga.org/',
@@ -55,7 +55,9 @@ var config = {
         p2pTestMode: false,
 
         // Enables the test specific features consumed by jitsi-meet-torture
-        testMode: true
+        testMode: false,
+
+        disableE2EE: true
 
         // Disables the auto-play behavior of *all* newly created video element.
         // This is useful when the client runs on a host with limited resources.
@@ -148,7 +150,7 @@ var config = {
     // Enable / disable layer suspension.  If enabled, endpoints whose HD
     // layers are not in use will be suspended (no longer sent) until they
     // are requested again.
-    // enableLayerSuspension: false,
+    enableLayerSuspension: true,
 
     // Every participant after the Nth will start video muted.
     // startVideoMuted: 10,
@@ -180,6 +182,8 @@ var config = {
 
     // Recording
 
+    etherpad_base: 'https://staging.belouga.org:9001/p/',
+
     // Whether to enable file recording or not.
     fileRecordingsEnabled: true,
     // Enable the dropbox integration.
@@ -206,7 +210,7 @@ var config = {
     hiddenDomain: 'recorder.live.staging.belouga.org',
     // Transcription (in interface_config,
     // subtitles and buttons can be configured)
-    // transcribingEnabled: false,
+    transcribingEnabled: true,
 
     // Enables automatic turning on captions when recording is started
     // autoCaptionOnRecord: false,
@@ -214,7 +218,7 @@ var config = {
     // Misc
 
     // Default value for the channel "last N" attribute. -1 for unlimited.
-    channelLastN: -1,
+    channelLastN: 30,
 
     // Provides a way to use different "last N" values based on the number of participants in the conference.
     // The keys in an Object represent number of participants and the values are "last N" to be used when number of
@@ -224,13 +228,13 @@ var config = {
     // 29 participants in the call and it will be lowered to 15 when the 30th participant joins. The 'channelLastN'
     // will be used as default until the first threshold is reached.
     //
-    // lastNLimits: {
-    //     5: 20,
-    //     30: 15,
-    //     50: 10,
-    //     70: 5,
-    //     90: 2
-    // },
+    lastNLimits: {
+        5: 20,
+        30: 15,
+        50: 10,
+        70: 5,
+        90: 2
+    },
 
     // Specify the settings for video quality optimizations on the client.
     // videoQuality: {
@@ -303,7 +307,7 @@ var config = {
     // Values can be 'datachannel', 'websocket', true (treat it as
     // 'datachannel'), undefined (treat it as 'datachannel') and false (don't
     // open any channel).
-    // openBridgeChannel: true,
+    openBridgeChannel: 'websocket',
 
 
     // UI
@@ -332,7 +336,7 @@ var config = {
     enableUserRolesBasedOnToken: false,
 
     // Whether or not some features are checked based on token.
-    enableFeaturesBasedOnToken: false,
+    enableFeaturesBasedOnToken: true,
 
     // Enable lock room for all moderators, even when userRolesBasedOnToken is enabled and participants are guests.
     lockRoomGuestEnabled: false,

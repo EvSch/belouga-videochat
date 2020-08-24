@@ -100,6 +100,13 @@ function _mapStateToProps(state, ownProps): Object {
     const enabled = getFeatureFlag(state, VIDEO_SHARE_BUTTON_ENABLED, true);
     const { visible = enabled } = ownProps;
 
+    const { enableFeaturesBasedOnToken } = state['features/base/config'];
+    const { features = {} } = getLocalParticipant(state);
+
+    if (enableFeaturesBasedOnToken) {
+        visible = visible && String(features.youtube) === 'true';
+    }
+
     if (ownerId !== localParticipantId) {
         return {
             _isDisabled: isSharingStatus(sharedVideoStatus),

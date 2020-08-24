@@ -67,15 +67,15 @@ local function verify_user(session, stanza)
                 stanza, "cancel", "not-allowed", "Room and token mismatched"));
         return true; -- we need to just return non nil
     elseif session.is_guest == true then
-	if session.room_created == nil then
-		return nil;
-		--log("error", "Token %s is a guest user, must wait for owner to join: %s",
-    --        	tostring(session.auth_token), tostring(stanza.attr.to));
-    --    	session.send(
-    --        		st.error_reply(
-    --            	stanza, "auth", "not-authorized", "Validated as guest user."));
-		--return true;
-	end
+			if session.room_created == nil then
+				--		return nil;
+				log("error", "Token %s is a guest user, must wait for owner to join: %s",
+				tostring(session.auth_token), tostring(stanza.attr.to));
+				session.send(
+					st.error_reply(
+					stanza, "auth", "not-authorized", "Validated as guest user."));
+				return true;
+			end
     end
 	log("debug",
         "allowed: %s to enter/create room: %s", user_jid, stanza.attr.to);
@@ -91,7 +91,7 @@ module:hook("muc-occupant-pre-join", function(event)
 	local origin, room, stanza = event.origin, event.room, event.stanza;
 	log("debug", "pre join: %s %s", tostring(room), tostring(stanza));
 	local room_string = jid.split(stanza.attr.to);
-	local roomaddress = room_string.."@conference.live.staging.belouga.org";
+	local roomaddress = room_string.."@conference.belouga.live";
 	local room = get_room_from_jid(roomaddress);
 	if room then
 		--log("debug", inspect(room));
