@@ -1,7 +1,7 @@
 /* @flow */
 import InlineDialog from '@atlaskit/inline-dialog';
 import { faStopwatch } from '@fortawesome/pro-light-svg-icons';
-import { faShareAlt, faCommentsAlt, faUsers, faExpand, faCompress } from '@fortawesome/pro-solid-svg-icons';
+import { faUserPlus, faCommentsAlt, faUsers, faExpand, faCompress } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
 
@@ -143,17 +143,17 @@ class Subject extends Component<Props> {
                             <span className = 'meeting-name'>
                                 { this.state.prettyMeetingLink }
                             </span>
+                            <FontAwesomeIcon
+                                icon = { faUserPlus }
+                                onClick = { this._onToolbarOpenInvite }
+                                size = { '1x' } />
                         </span>
                         {/* <div className = 'participants-and-timer'>
                             { _showParticipantCount && <ParticipantsCount /> }
                         </div> */}
                     </div>
                     <div className = 'btn-container'>
-                        <RecordButton />
-                        <FontAwesomeIcon
-                            icon = { faShareAlt }
-                            onClick = { this._onToolbarOpenInvite }
-                            size = { '1x' } />
+                     
                         <div
                             aria-disabled = { false }
                             aria-label = { t('toolbar.accessibilityLabel.fullScreen') }
@@ -173,6 +173,8 @@ class Subject extends Component<Props> {
                             </div>
 
                         <TileViewButton />
+                        <RecordButton />
+
                     </div>
                 </div>
                 <div className = 'right-toolbar'>

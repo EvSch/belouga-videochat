@@ -5,6 +5,7 @@
     overflow: visible;
     visibility: visible;
     width: 400px;
+    @include font-smoothing();
 
     h1, h2, h3, h4, h5, h6 {
         color: $auiDialogColor;
@@ -31,9 +32,9 @@
                 width: 100%;
 
                 h2 {
-                    font-size: em(20, 12);
+                    font-size: .9rem;
                     font-weight: $dialogTitleFontWeight;
-                    color: $auiDialogColor;
+                    color: #666;
                 }
 
                 &-main {
@@ -52,10 +53,13 @@
                 border-top: 1px solid $auiBorderColor;
                 border-radius: 0 0 5px 5px;
                 box-sizing: border-box;
-                height: 51px;
                 overflow: hidden;
-                padding: 10px 20px;
+                padding: 15px 20px;
                 width: 100%;
+                display: flex;
+                justify-content: flex-end;
+                height: 70px;
+                align-items: stretch;
 
                 &:empty {
                     height: 5px;

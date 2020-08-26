@@ -1,9 +1,10 @@
 .button-control {
     box-sizing: border-box;
     display: inline-block;
-    border: 1px solid $buttonBorder;
+    border: none;
     vertical-align: baseline;
-    height: 30px;
+    height: auto;
+    min-height: 30px;
     min-width: 60px;
     padding: 4px 10px;
     margin: 0;
@@ -16,6 +17,7 @@
     color: $buttonColor;
     font-weight: $buttonFontWeight;
     @include transition(background-color .1s ease-out);
+    border-radius: 3px;
 
     &[disabled] {
         color: #666;
@@ -28,7 +30,7 @@
     }
 
     &:hover {
-        border: 1px solid $buttonHoverBorder;
+        // border: 1px solid $buttonHoverBorder;
         background-color: $buttonHoverBackground;
         @include transition(background-color .1s ease-in);
     }
@@ -40,10 +42,10 @@
     &_light {
         color: $defaultDarkColor;
         background-color: $buttonLightBackground;
-        border: 1px solid $buttonLightBorder;
+        // border: 1px solid $buttonLightBorder;
 
         &:hover {
-            border: 1px solid $buttonLightHoverBorder;
+            // border: 1px solid $buttonLightHoverBorder;
             background-color: $buttonLightHoverBackground;
         }
     }
@@ -71,12 +73,18 @@
 
     &_primary {
         background-color: $primaryButtonBackground;
-        border: 1px solid $primaryButtonBackground;
-        color: $primaryButtonColor !important;
+        border: none;
+        // color: $primaryButtonColor !important;
         font-weight: $primaryButtonFontWeight;
+        border-radius: 3px;
+        color: #FFF !important;
+        font-weight: 600;
+        padding: 4px 15px;
+        font-size: .9rem;
+
 
         &:hover {
-            border: 1px solid $primaryButtonHoverBackground;
+            // border: 1px solid $primaryButtonHoverBackground;
             background-color: $primaryButtonHoverBackground;
         }
 

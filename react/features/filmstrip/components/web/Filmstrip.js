@@ -1,5 +1,5 @@
 /* @flow */
-import { faUsers, faCommentsAlt } from '@fortawesome/pro-solid-svg-icons';
+import { faUsers, faCommentsAlt, faArrowAltSquareRight, faArrowAltSquareLeft } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import _ from 'lodash';
 import React, { Component } from 'react';
@@ -44,6 +44,11 @@ type Props = {
      * The number of columns in tile view.
      */
     _columns: number,
+
+    /**
+     * The client window width
+     */
+    _clientWidth: number,
 
     /**
      * Whether the UI/UX is filmstrip-only.
@@ -208,6 +213,10 @@ class Filmstrip extends Component <Props> {
         }
         }
 
+        let fmWidth = this.props._clientWidth - 100;
+        fmWidth = fmWidth > 375 ? 375 : fmWidth;
+        filmstripStyle['--filmstrip-width'] = `${fmWidth}px`;
+
         let remoteVideosWrapperClassName = 'filmstrip__videos';
 
         if (this.props._hideScrollbar) {
@@ -223,9 +232,8 @@ class Filmstrip extends Component <Props> {
 
         return (
             <div
-                className = { `filmstrip ${this.props._className}` }
+                className = { `filmstrip ${this.props._className} ${this.props._visible ? '' : 'is-hidden'}` }
                 style = { filmstripStyle }>
-                { toolbar }
                 <div
                     className = { this.props._videosClassName }
                     id = 'remoteVideos'>
@@ -239,6 +247,8 @@ class Filmstrip extends Component <Props> {
                     <div
                         className = { remoteVideosWrapperClassName }
                         id = 'filmstripRemoteVideos'>
+                        { this._renderToggleButton() }
+
                         {/*
                           * XXX This extra video container is needed for
                           * scrolling thumbnails in Firefox; otherwise, the flex
@@ -383,36 +393,30 @@ class Filmstrip extends Component <Props> {
      * @returns {ReactElement}
      */
     _renderToggleButton() {
-        const icon = this.props._visible ? IconMenuDown : IconMenuUp;
+        const icon = this.props._visible
+            ? (<FontAwesomeIcon
+                icon = { faArrowAltSquareRight }
+                size = { '2x' } />)
+            : (<FontAwesomeIcon
+                icon = { faArrowAltSquareLeft }
+                size = { '2x' } />);
         const { t } = this.props;
 
         return (
-            <div className = 'filmstrip__toolbar'>
-                {/* <button
-                    className = { _chatOpen ? '' : 'active' }
-                    onClick = { _chatOpen ? this._onToolbarToggleChat : null }
-                    // aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
-                    id = 'toggleParticipantsButton'>
-                    <FontAwesomeIcon
-                        icon = { faUsers }
-                        size = { '2x' } /> Participants
-                </button>
-                <button
-                    className = { _chatOpen ? 'active' : '' }
-                    // aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
-                    id = 'toggleChatButton'
-                    onClick = { _chatOpen ? null : this._onToolbarToggleChat }>
-                    <FontAwesomeIcon
-                        icon = { faCommentsAlt }
-                        size = { '2x' } /> Chat
-                </button> */}
-                <button
-                    aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
-                    id = 'toggleFilmstripButton'
-                    onClick = { this._onToolbarToggleFilmstrip }>
-                    <Icon src = { icon } />
-                </button>
-            </div>
+            <>
+                <div className = 'filmstrip__toolbar'>
+                    <button
+                        aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
+                        id = 'toggleFilmstripButton'
+                        onClick = { this._onToolbarToggleFilmstrip }>
+                        {icon}
+                    </button>
+                </div>
+                <div className = 'filmstrip__header'>
+                    Current Participants
+                </div>
+            </>
+
         );
     }
 }
@@ -432,6 +436,8 @@ function _mapStateToProps(state) {
         = !isFilmstripOnly && state['features/toolbox'].visible && interfaceConfig.TOOLBAR_BUTTONS.length;
     const remoteVideosVisible = shouldRemoteVideosBeVisible(state);
     const { isOpen: shiftRight } = state['features/chat'];
+    const { clientHeight, clientWidth } = state['features/base/responsive-ui'];
+
     const className = `${remoteVideosVisible ? '' : 'hide-videos'} ${
         reduceHeight ? 'reduce-height' : ''
     } ${shiftRight ? 'shift-right' : ''}`.trim();
@@ -452,7 +458,8 @@ function _mapStateToProps(state) {
         _hovered: hovered,
         _rows: gridDimensions.rows,
         _videosClassName: videosClassName,
-        _visible: visible
+        _visible: visible,
+        _clientWidth: clientWidth
     };
 }
 

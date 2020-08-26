@@ -71,6 +71,7 @@ export { default as IconPin } from './enlarge.svg';
 export { default as IconPresentation } from './presentation.svg';
 export { default as IconRaisedHand } from './raised-hand.svg';
 export { default as IconRec } from './rec.svg';
+export { default as IconRecAlt } from './dot-circle-solid.svg';
 export { default as IconStopRec } from './stop-circle-solid.svg';
 export { default as IconRemoteControlStart } from './play.svg';
 export { default as IconRemoteControlStop } from './stop.svg';

@@ -58,7 +58,20 @@ export default class MessageContainer extends AbstractMessageContainer<Props> {
     render() {
         const groupedMessages = this._getMessagesGroupedBySender();
         const messages = groupedMessages.map((group, index) => {
-            const messageType = group[0] && group[0].messageType;
+            /*
+             * Match previous message with display name if possible to prevent local participant messages
+             * appearing as remote after dropping/re-joining meeting.
+             */
+            let messageType = group[0] && group[0].messageType;
+
+            if (this.props.localParticipant) {
+                const { name } = this.props.localParticipant;
+
+                if (group[0] && name === group[0].displayName) {
+                    messageType = 'local';
+                }
+            }
+            
 
             return (
                 <ChatMessageGroup

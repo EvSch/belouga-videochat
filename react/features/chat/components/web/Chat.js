@@ -113,6 +113,7 @@ class Chat extends AbstractChat<Props> {
         return (
             <>
                 <MessageContainer
+                    localParticipant = { this.props._localParticipant }
                     messages = { this.props._messages }
                     ref = { this._messageContainerRef } />
                 <MessageRecipient />
@@ -133,6 +134,9 @@ class Chat extends AbstractChat<Props> {
     _renderChatHeader() {
         return (
             <div className = 'chat-header'>
+                <span className = 'chat-header-title'>
+                    Meeting Chat
+                </span>
                 <div
                     className = 'chat-close'
                     onClick = { this.props._onToggleChat }>

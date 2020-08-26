@@ -525,6 +525,7 @@ class Toolbox extends Component<Props, State> {
      */
     _doToggleSharedVideo() {
         this.props.dispatch(toggleSharedVideo());
+        this.setState({ featuresOpen: false });
     }
 
     /**
@@ -1261,6 +1262,7 @@ class Toolbox extends Component<Props, State> {
             _chatOpen,
             _overflowMenuVisible,
             _raisedHand,
+            _sharingVideo,
             t
         } = this.props;
         const overflowMenuContent = this._renderOverflowMenuContent();
@@ -1405,6 +1407,18 @@ class Toolbox extends Component<Props, State> {
                             Stop Sharing
                         </div>
                     }
+                    {
+                        _sharingVideo
+                        && <div
+                            accessibilityRole = 'button'
+                            className = 'btn stop-screenshare'
+                            onClick = { this._onToolbarToggleSharedVideo }>
+                            <FontAwesomeIcon
+                                icon = { faStop }
+                                size = { '2x' } />
+                            Stop YouTube Video
+                        </div>
+                    }
                     <div
                         accessibilityRole = 'button'
                         className = 'btn more-features'
@@ -1447,6 +1461,20 @@ class Toolbox extends Component<Props, State> {
                     <LiveStreamButton
                         key = 'livestreaming'
                         showLabel = { true } />
+                    {
+                        this._shouldShowButton('sharedvideo')
+                        && <div
+                            accessibilityRole = 'button'
+                            className = 'mf-button btn-red'
+                            onClick = { this._onToolbarToggleSharedVideo }>
+                            <FontAwesomeIcon
+                                icon = { faYoutube }
+                                size = { '2x' } />
+                            <span className = 'btn-text'>
+                                { _sharingVideo ? t('toolbar.stopSharedVideo') : t('Share a YouTube Video') }
+                            </span>
+                        </div>
+                    }
 
                     {/* <div
                         accessibilityRole = 'button'
