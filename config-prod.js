@@ -208,7 +208,7 @@ var config = {
 
     // Whether to enable live streaming or not.
     liveStreamingEnabled: true,
-    hiddenDomain: 'recorder.belouga.live',
+    hiddenDomain: 'recorder.live.staging.belouga.org',
     // Transcription (in interface_config,
     // subtitles and buttons can be configured)
     transcribingEnabled: true,
