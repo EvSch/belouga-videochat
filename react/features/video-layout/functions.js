@@ -92,7 +92,7 @@ export function shouldDisplayTileView(state: Object = {}) {
 
     // None tile view mode is easier to calculate (no need for many negations), so we do
     // that and negate it only once.
-    const shouldDisplayNormalMode = Boolean(
+    /*const shouldDisplayNormalMode = Boolean(
 
         // Reasons for normal mode:
 
@@ -110,7 +110,9 @@ export function shouldDisplayTileView(state: Object = {}) {
 
         // There is a shared YouTube video in the meeting
         || isYoutubeVideoPlaying(state)
-    );
+    );*/
 
-    return !shouldDisplayNormalMode;
+    //Belouga override: Always display normal view unless tile mode is specifically requested
+    //return !shouldDisplayNormalMode;
+    return false;
 }

@@ -57,7 +57,7 @@ var interfaceConfig = {
     /**
      * If true, notifications regarding joining/leaving are no longer displayed.
      */
-    DISABLE_JOIN_LEAVE_NOTIFICATIONS: false,
+    DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
 
     /**
      * If true, presence status: busy, calling, connected etc. is not displayed.
@@ -89,7 +89,7 @@ var interfaceConfig = {
     DISPLAY_WELCOME_PAGE_CONTENT: true,
     DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
 
-    ENABLE_DIAL_OUT: true,
+    ENABLE_DIAL_OUT: false,
 
     ENABLE_FEEDBACK_ANIMATION: false, // Enables feedback star animation.
 
@@ -195,9 +195,10 @@ var interfaceConfig = {
         'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
         'livestreaming', 'etherpad', 'sharedvideo', 'settings',
         'videoquality', 'filmstrip', 'feedback', 'stats', 'shortcuts',
-        'tileview', 'download', 'help', 'mute-everyone', 'security'
+        'tileview', 'download', 'help', 'mute-everyone', 'security',
+        'invite'
     ],
-    //REMOVED SETTINGS OPTIONS TO BE ADDED BACK LATER: 'raisehand', 'invite', 'videobackgroundblur'
+    //REMOVED SETTINGS OPTIONS TO BE ADDED BACK LATER: 'raisehand', videobackgroundblur'
 
     TOOLBAR_TIMEOUT: 4000,
 
