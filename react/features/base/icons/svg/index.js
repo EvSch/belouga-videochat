@@ -34,6 +34,7 @@ export { default as IconDownload } from './download.svg';
 export { default as IconDragHandle } from './drag-handle.svg';
 export { default as IconE2EE } from './e2ee.svg';
 export { default as IconEdit } from './edit.svg';
+export { default as IconEllipsisV } from './ellipsis-v-solid.svg';
 export { default as IconEmail } from './envelope.svg';
 export { default as IconEventNote } from './event_note.svg';
 export { default as IconExclamation } from './exclamation.svg';

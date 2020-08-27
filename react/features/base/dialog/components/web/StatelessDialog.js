@@ -163,9 +163,10 @@ class StatelessDialog extends Component<Props> {
     _renderFooter(propsFromModalFooter) {
         // Filter out falsy (null) values because {@code ButtonGroup} will error
         // if passed in anything but buttons with valid type props.
+        let onlyCancel = this._renderCancelButton() && !this._renderOKButton();
         const buttons = [
             this._renderOKButton(),
-            this._renderCancelButton()
+            this._renderCancelButton(onlyCancel)
         ].filter(Boolean);
 
         if (!buttons.length) {
@@ -238,7 +239,7 @@ class StatelessDialog extends Component<Props> {
      * @returns {ReactElement|null} The Cancel button if enabled and dialog is
      * not modal.
      */
-    _renderCancelButton() {
+    _renderCancelButton(onlyCancel = false) {
         if (this.props.cancelDisabled
             || this.props.isModal
             || this.props.hideCancelButton) {
@@ -251,8 +252,8 @@ class StatelessDialog extends Component<Props> {
 
         return (
             <Button
-                appearance = 'subtle'
-                id = { CANCEL_BUTTON_ID }
+                appearance = { onlyCancel ? 'primary' : 'subtle' }
+                id = { onlyCancel ? OK_BUTTON_ID : CANCEL_BUTTON_ID }
                 key = 'cancel'
                 onClick = { this._onCancel }
                 type = 'button'>

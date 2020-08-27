@@ -1,5 +1,5 @@
 // @flow
-import { faUsers } from '@fortawesome/pro-light-svg-icons';
+import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { PureComponent } from 'react';
 import type { Dispatch } from 'redux';
@@ -72,17 +72,17 @@ class ParticipantsCount extends PureComponent<Props> {
     render() {
         return (
             <div
-                className = 'participants-count'
-                onClick = { this._onClick }>
+                className = 'participants-count'>
                 <span className = 'participants-count-number'>
                     {this.props.count}
                 </span>
-                <span className = 'participants-count-icon'>
+                {/* <span
+                    className = 'participants-info'
+                    onClick = { this._onClick }>
                     <FontAwesomeIcon
-                        icon = { faUsers }
+                        icon = { faInfoCircle }
                         size = { '2x' } />
-     
-                </span>
+                </span> */}
             </div>
         );
     }

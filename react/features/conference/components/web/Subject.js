@@ -1,6 +1,6 @@
 /* @flow */
 import InlineDialog from '@atlaskit/inline-dialog';
-import { faStopwatch } from '@fortawesome/pro-light-svg-icons';
+import { faStopwatch, faAnalytics } from '@fortawesome/pro-light-svg-icons';
 import { faUserPlus, faCommentsAlt, faUsers, faExpand, faCompress } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
@@ -11,11 +11,13 @@ import {
     sendAnalytics
 } from '../../../analytics';
 import { getConferenceName } from '../../../base/conference/functions';
+import { openDialog } from '../../../base/dialog';
 import { i18next, translate } from '../../../base/i18n';
-import { IconArrowDown } from '../../../base/icons';
+import { IconArrowDown, IconEllipsisV } from '../../../base/icons';
 import { getLocalParticipant, getParticipantById, PARTICIPANT_ROLE } from '../../../base/participants';
 import { getParticipantCount } from '../../../base/participants/functions';
 import { connect, equals } from '../../../base/redux';
+import { ToolboxButtonWithIcon } from '../../../base/toolbox/components';
 import { CHAT_SIZE, ChatCounter, toggleChat } from '../../../chat';
 import { beginAddPeople } from '../../../invite';
 import {
@@ -25,11 +27,10 @@ import {
 import {
     RecordButton
 } from '../../../recording';
+import { SpeakerStats } from '../../../speaker-stats';
 import { setFullScreen } from '../../../toolbox/actions';
 import MuteEveryoneButton from '../../../toolbox/components/web/MuteEveryoneButton';
 import { isToolboxVisible } from '../../../toolbox/functions.web';
-import { ToolboxButtonWithIcon } from '../../../base/toolbox/components';
-
 import {
     TileViewButton,
     shouldDisplayTileView,
@@ -54,6 +55,12 @@ type Props = {
      * Whether or not the chat feature is currently displayed.
      */
     _chatOpen: boolean,
+
+
+    /**
+     * Conference data
+     */
+    _conference: Object,
 
     /**
      * The redux {@code dispatch} function.
@@ -117,6 +124,8 @@ class Subject extends Component<Props> {
         this._onToolbarToggleFullScreen = this._onToolbarToggleFullScreen.bind(this);
         this._onToolbarOpenInvite = this._onToolbarOpenInvite.bind(this);
         this._onToggleModeratorDialog = this._onToggleModeratorDialog.bind(this);
+        this._onToggleSpeakerStats = this._onToggleSpeakerStats.bind(this);
+
 
 
         this.state = {
@@ -183,10 +192,6 @@ class Subject extends Component<Props> {
                         className = { _chatOpen ? '' : 'active' }
                         id = 'toggleParticipantsButton'
                         onClick = { _chatOpen ? this._onToolbarToggleChat : null }>
-                        <FontAwesomeIcon
-                            icon = { faUsers }
-                            size = { '2x' } />
-                        <span className = 'btn-text'>Participants</span>
                         { _isModerator
                             && <div className = 'participants-menu'>
                                 <InlineDialog
@@ -195,14 +200,20 @@ class Subject extends Component<Props> {
                                     onClose = { () => {
                                         this.setState({ moderatorDialogIsOpen: false });
                                     } }
-                                    position = 'bottom right'>
+                                    position = 'bottom left'>
                                     <ToolboxButtonWithIcon
-                                        icon = { IconArrowDown }
+                                        icon = { IconEllipsisV }
                                         iconDisabled = { false }
                                         onIconClick = { this._onToggleModeratorDialog } />
                                 </InlineDialog>
                             </div>
                         }
+                        <FontAwesomeIcon
+                            icon = { faUsers }
+                            size = { '2x' } />
+                        { <ParticipantsCount /> }
+                        {/* <span className = 'btn-text'>Participants</span> */}
+                       
 
                     </button>
                     <button
@@ -234,6 +245,18 @@ class Subject extends Component<Props> {
     }
 
     /**
+     * Handle speaker stats menu item.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onToggleSpeakerStats() {
+        const { dispatch, _conference } = this.props;
+
+        dispatch(openDialog(SpeakerStats, { conference: _conference }));
+    }
+
+    /**
      * Returns the participants moderation menu.
      *
      * @returns  {ReactElement}
@@ -247,6 +270,17 @@ class Subject extends Component<Props> {
                         showLabel = { true }
                         visible = { true } />
                 </div>
+                <div className = 'menu-item'>
+                    <li
+                        onClick = { this._onToggleSpeakerStats }
+                        role = 'button'>
+                        <FontAwesomeIcon
+                            icon = { faAnalytics }
+                            size = { '2x' } />
+                        Speaker stats
+                    </li>
+                </div>
+
             </div>
         );
 
@@ -360,6 +394,7 @@ class Subject extends Component<Props> {
  * }}
  */
 function _mapStateToProps(state) {
+    
     const participantCount = getParticipantCount(state);
     const {
         fullScreen
@@ -369,6 +404,7 @@ function _mapStateToProps(state) {
     const participant = getLocalParticipant(state);
 
     return {
+        _conference: state['features/base/conference'].conference,
         _showParticipantCount: participantCount > 2,
         _chatOpen: state['features/chat'].isOpen,
         _fullScreen: fullScreen,
