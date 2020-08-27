@@ -13,6 +13,7 @@ import {
 import { getConferenceName } from '../../../base/conference/functions';
 import { i18next, translate } from '../../../base/i18n';
 import { IconArrowDown } from '../../../base/icons';
+import { getLocalParticipant, getParticipantById, PARTICIPANT_ROLE } from '../../../base/participants';
 import { getParticipantCount } from '../../../base/participants/functions';
 import { connect, equals } from '../../../base/redux';
 import { CHAT_SIZE, ChatCounter, toggleChat } from '../../../chat';
@@ -132,7 +133,7 @@ class Subject extends Component<Props> {
      * @returns {ReactElement}
      */
     render() {
-        const { _showParticipantCount, _visible, _chatOpen, _fullScreen, t } = this.props;
+        const { _showParticipantCount, _visible, _chatOpen, _fullScreen, t, _isModerator } = this.props;
         const moderatorMenuContent = this._renderModeratorMenuContent();
 
         return (
@@ -186,9 +187,8 @@ class Subject extends Component<Props> {
                             icon = { faUsers }
                             size = { '2x' } />
                         <span className = 'btn-text'>Participants</span>
-                        { this._shouldShowButton('mute-everyone')
-                            && 
-                            <div className = 'participants-menu'>
+                        { _isModerator
+                            && <div className = 'participants-menu'>
                                 <InlineDialog
                                     content = { moderatorMenuContent }
                                     isOpen = { this.state.moderatorDialogIsOpen }
@@ -241,14 +241,12 @@ class Subject extends Component<Props> {
     _renderModeratorMenuContent() {
         return (
             <div>
-                { this._shouldShowButton('mute-everyone')
-                && <div className = 'menu-item'>
+                <div className = 'menu-item'>
                     <MuteEveryoneButton
                         key = 'mute-everyone'
                         showLabel = { true }
-                        visible = { this._shouldShowButton('mute-everyone') } />
+                        visible = { true } />
                 </div>
-                }
             </div>
         );
 
@@ -347,23 +345,6 @@ class Subject extends Component<Props> {
     _doToggleTileView() {
         this.props.dispatch(toggleTileView());
     }
-
-
-    _shouldShowButton: (string) => boolean;
-
-    /**
-     * Returns if a button name has been explicitly configured to be displayed.
-     *
-     * @param {string} buttonName - The name of the button, as expected in
-     * {@link interfaceConfig}.
-     * @private
-     * @returns {boolean} True if the button should be displayed.
-     */
-    _shouldShowButton(buttonName) {
-        return this.props._visibleButtons.has(buttonName);
-    }
-
-
 }
 
 
@@ -385,6 +366,7 @@ function _mapStateToProps(state) {
     } = state['features/toolbox'];
 
     const buttons = new Set(interfaceConfig.TOOLBAR_BUTTONS);
+    const participant = getLocalParticipant(state);
 
     return {
         _showParticipantCount: participantCount > 2,
@@ -392,7 +374,9 @@ function _mapStateToProps(state) {
         _fullScreen: fullScreen,
         _subject: getConferenceName(state),
         _visible: isToolboxVisible(state) && participantCount > 1,
-        _visibleButtons: equals(visibleButtons, buttons) ? visibleButtons : buttons
+        _visibleButtons: equals(visibleButtons, buttons) ? visibleButtons : buttons,
+        _isModerator:
+            !interfaceConfig.DISABLE_FOCUS_INDICATOR && participant && participant.role === PARTICIPANT_ROLE.MODERATOR
     };
 }
 

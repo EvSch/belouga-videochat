@@ -11,7 +11,7 @@ import {
     sendAnalytics
 } from '../../../analytics';
 import { translate } from '../../../base/i18n';
-import { Icon, IconChat, IconMenuDown, IconMenuUp } from '../../../base/icons';
+import { Icon, IconChat, IconMenuDown, IconMenuUp, IconClose } from '../../../base/icons';
 import { connect } from '../../../base/redux';
 import { CHAT_SIZE, ChatCounter, toggleChat } from '../../../chat';
 import { dockToolbox } from '../../../toolbox/actions.web';
@@ -413,6 +413,11 @@ class Filmstrip extends Component <Props> {
                     </button>
                 </div>
                 <div className = 'filmstrip__header'>
+                    <div
+                        className = 'filmstrip-close'
+                        onClick = { this._onToolbarToggleFilmstrip }>
+                        <Icon src = { IconClose } />
+                    </div>
                     Current Participants
                 </div>
             </>

@@ -31,7 +31,8 @@ import {
 import {
     getLocalParticipant,
     getParticipants,
-    participantUpdated
+    participantUpdated,
+    PARTICIPANT_ROLE
 } from '../../../base/participants';
 import { connect, equals } from '../../../base/redux';
 import { OverflowMenuItem } from '../../../base/toolbox/components';
@@ -144,6 +145,11 @@ type Props = {
      * Whether or not the current user is logged in through a JWT.
      */
     _isGuest: boolean,
+
+    /**
+     * Whether or not the current user is a moderator
+     */
+    _isModerator: boolean,
 
     /**
      * The ID of the local participant.
@@ -974,7 +980,7 @@ class Toolbox extends Component<Props, State> {
             t
         } = this.props;
 
-        if (!this._isDesktopSharingButtonVisible() || isMobileBrowser()) {
+        if (!this._isDesktopSharingButtonVisible() || isMobileBrowser() || !this.props._isModerator) {
             return null;
         }
 
@@ -992,21 +998,6 @@ class Toolbox extends Component<Props, State> {
                         icon = { faPresentation }
                         size = { '2x' } />
                     <span className = 'btn-text'>Share Your Screen</span>
-                    { /* <OverflowMenuItem
-                        accessibilityLabel
-                            = { t('toolbar.accessibilityLabel.shareYourScreen') }
-                        disabled = { _desktopSharingEnabled }
-                        icon = { IconShareDesktop }
-                        iconId = 'share-desktop'
-                        key = 'desktop'
-                        onClick = { this._onToolbarToggleScreenshare }
-                        text = {
-                            t(`toolbar.${
-                                _screensharing
-                                    ? 'stopScreenSharing' : 'startScreenSharing'}`
-                            )
-                        } />
-                    */ }
                 </div>
  
             );
@@ -1458,9 +1449,13 @@ class Toolbox extends Component<Props, State> {
                 <div className = 'more-features-section'>
                     { this._renderDesktopSharingButton(true) }
 
-                    <LiveStreamButton
-                        key = 'livestreaming'
-                        showLabel = { true } />
+                    {
+                        this._shouldShowButton('livestreaming')
+                        && <LiveStreamButton
+                            key = 'livestreaming'
+                            showLabel = { true } />
+                    }
+
                     {
                         this._shouldShowButton('sharedvideo')
                         && <div
@@ -1503,6 +1498,18 @@ class Toolbox extends Component<Props, State> {
      * @returns {boolean} True if the button should be displayed.
      */
     _shouldShowButton(buttonName) {
+        const moderatorButtons = [
+            'sharedvideo',
+            'mute-everyone',
+            'embedmeeting',
+            'recording',
+            'livestreaming'
+        ];
+
+        if (moderatorButtons.includes(buttonName) && !this.props._isModerator) {
+            return false;
+        }
+
         return this.props._visibleButtons.has(buttonName);
     }
 }
@@ -1577,7 +1584,8 @@ function _mapStateToProps(state) {
             || sharedVideoStatus === 'start'
             || sharedVideoStatus === 'pause',
         _visible: isToolboxVisible(state),
-        _visibleButtons: equals(visibleButtons, buttons) ? visibleButtons : buttons
+        _visibleButtons: equals(visibleButtons, buttons) ? visibleButtons : buttons,
+        _isModerator: localParticipant && localParticipant.role === PARTICIPANT_ROLE.MODERATOR
     };
 }
 

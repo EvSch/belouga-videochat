@@ -1,5 +1,6 @@
 /* @flow */
-
+import { faShieldCheck } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tooltip from '@atlaskit/tooltip';
 import React, { Component } from 'react';
 
@@ -109,11 +110,17 @@ class BaseIndicator extends Component<Props> {
                     <span
                         className = { iconContainerClassName }
                         id = { id }>
-                        <Icon
-                            className = { iconClassName }
-                            id = { iconId }
-                            src = { icon }
-                            style = { style } />
+                        {
+                            icon === 'moderator'
+                                ? (<FontAwesomeIcon
+                                    icon = { faShieldCheck }
+                                    size = { '1x' } />
+                                ) : <Icon
+                                    className = { iconClassName }
+                                    id = { iconId }
+                                    src = { icon }
+                                    style = { style } />
+                        }
                     </span>
                 </Tooltip>
             </div>

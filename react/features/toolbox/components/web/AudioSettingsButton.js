@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 
+import { getAudioOutputDeviceData } from '../../../base/devices';
 import { isMobileBrowser } from '../../../base/environment/utils';
 import { IconArrowDown } from '../../../base/icons';
 import JitsiMeetJS from '../../../base/lib-jitsi-meet/_';
@@ -29,6 +30,11 @@ type Props = {
      * If the button should be disabled.
      */
     isDisabled: boolean,
+    
+    /**
+     * Audio devices for the user
+     */
+    audioDevices: Array,
 
     /**
      * Flag controlling the visibility of the button.
@@ -118,10 +124,12 @@ class AudioSettingsButton extends Component<Props, State> {
      * @inheritdoc
      */
     render() {
-        const { isDisabled, onAudioOptionsClick, visible } = this.props;
+        const { isDisabled, onAudioOptionsClick, visible, audioDevices } = this.props;
         const settingsDisabled = !this.state.hasPermissions
             || isDisabled
-            || !JitsiMeetJS.mediaDevices.isMultipleAudioInputSupported();
+            || !JitsiMeetJS.mediaDevices.isMultipleAudioInputSupported()
+            || audioDevices.length <= 2;
+
 
         return visible ? (
             <AudioSettingsPopup>
@@ -143,10 +151,12 @@ class AudioSettingsButton extends Component<Props, State> {
  * @returns {Object}
  */
 function mapStateToProps(state) {
+
     return {
         isDisabled: isAudioSettingsButtonDisabled(state),
         permissionPromptVisibility: getMediaPermissionPromptVisibility(state),
-        visible: !isMobileBrowser()
+        visible: !isMobileBrowser(),
+        audioDevices: getAudioOutputDeviceData(state)
     };
 }
 

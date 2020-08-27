@@ -544,12 +544,22 @@
                     }
                     .badge-round {
                         right: initial !important;
-                        top: -6px !important;
-                        margin-left: 7px;
+                        top: -13px !important;
+                        margin-left: -17px;
                         position: relative !important;
+                        left: 24px;
+          
                     }
                 }
-
+            }
+            @include respond-to(xsmall) {
+                button .badge-round {
+                    right: initial !important;
+                    top: -6px !important;
+                    margin-left: 7px;
+                    left: initial;
+                    position: relative !important;
+                }
             }
         }
     }
@@ -669,6 +679,9 @@
                 height: 60px;
                 margin: 20px 0 0;
                 align-items: center;
+                .settings-button-small-icon--disabled {
+                    display: none;
+                }
                 .toolbox-button {
                     display: inline-flex;
                     align-items: center;
@@ -1034,7 +1047,9 @@
 
                     pointer-events: none;
                     text-align: left;
-                    bottom: 30px;
+                    bottom: 10px;
+                    height: auto;
+                    box-sizing: border-box;
                     .toolbar-icon {
                         pointer-events: all;
                         width: 100%;
@@ -1049,7 +1064,7 @@
                 .moderator-icon {
                     position: absolute;
                     right: 0;
-                    bottom: 20px;
+                    bottom: 0;
                     .indicator-container {
                     }
 
@@ -1058,6 +1073,8 @@
                         svg {
                             color: #ecffec;
                             fill: none;
+                            height: 20px;
+                            width: 20px;
                         }
                     }
                 }
@@ -1323,7 +1340,7 @@
                     z-index: 1;
                     display: flex;
                     align-items: center;
-                    justify-content: space-between;
+                    justify-content: flex-start;
                     padding: 14px 20px;
                     box-sizing: border-box;
                     font-size: .85rem;
@@ -1332,6 +1349,10 @@
                     margin-bottom: 10px;
                     background: linear-gradient(45deg, #15829a, #56a1d6);
                     border-top-left-radius: 10px;
+                    .filmstrip-close {
+                        margin-right: 8px;
+                        cursor: pointer;
+                    }
                 }
                 #filmstripRemoteVideosContainer {
                     display: block;
