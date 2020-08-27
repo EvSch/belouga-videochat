@@ -315,6 +315,7 @@ class Prejoin extends Component<Props, State> {
                     <div className = 'prejoin-input-area-container'>
                         <div className = 'prejoin-input-area'>
                             <InputField
+                                autoFocus = { true }
                                 onChange = { _setName }
                                 onSubmit = { joinConference }
                                 placeHolder = { t('dialog.enterDisplayName') }
@@ -329,6 +330,7 @@ class Prejoin extends Component<Props, State> {
                                     content = { <div className = 'prejoin-preview-dropdown-btns'>
                                         <div
                                             className = 'prejoin-preview-dropdown-btn'
+                                            data-testid = 'prejoin.joinWithoutAudio'
                                             onClick = { joinConferenceWithoutAudio }>
                                             <Icon
                                                 className = 'prejoin-preview-dropdown-icon'
@@ -341,6 +343,7 @@ class Prejoin extends Component<Props, State> {
                                             onClick = { _showDialog }>
                                             <Icon
                                                 className = 'prejoin-preview-dropdown-icon'
+                                                data-testid = 'prejoin.joinByPhone'
                                                 size = { 24 }
                                                 src = { IconPhone } />
                                             { t('prejoin.joinAudioByPhone') }

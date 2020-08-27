@@ -121,7 +121,8 @@ import { suspendDetected } from './react/features/power-monitor';
 import {
     initPrejoin,
     isPrejoinPageEnabled,
-    isPrejoinPageVisible
+    isPrejoinPageVisible,
+    makePrecallTest
 } from './react/features/prejoin';
 import { createRnnoiseProcessorPromise } from './react/features/rnnoise';
 import { toggleScreenshotCaptureEffect } from './react/features/screenshot-capture';
@@ -766,6 +767,8 @@ export default {
 
                 return c;
             });
+
+            APP.store.dispatch(makePrecallTest(this._getConferenceOptions()));
 
             const { tryCreateLocalTracks, errors } = this.createInitialLocalTracks(initialOptions);
             const tracks = await tryCreateLocalTracks;
@@ -2858,7 +2861,14 @@ export default {
             this._room = undefined;
             room = undefined;
 
-            APP.API.notifyReadyToClose();
+            /**
+             * Don't call {@code notifyReadyToClose} if the promotional page flag is set
+             * and let the page take care of sending the message, since there will be
+             * a redirect to the page regardlessly.
+             */
+            if (!interfaceConfig.SHOW_PROMOTIONAL_CLOSE_PAGE) {
+                APP.API.notifyReadyToClose();
+            }
             APP.store.dispatch(maybeRedirectToWelcomePage(values[0]));
         });
     },
