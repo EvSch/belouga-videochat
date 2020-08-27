@@ -532,19 +532,21 @@ export default class SmallVideo {
             this.$container.addClass('display-avatar-only');
             break;
         }
-        if (this.displayMode === DISPLAY_VIDEO || this.displayMode === DISPLAY_VIDEO_WITH_NAME) {
-            const video = this.selectVideoElement();
-            const state = APP.store.getState();
-            const { clientWidth } = state['features/base/responsive-ui'];
+        // if (this.displayMode === DISPLAY_VIDEO || this.displayMode === DISPLAY_VIDEO_WITH_NAME) {
+        //     const video = this.selectVideoElement();
+        //     const state = APP.store.getState();
+        //     const { clientWidth } = state['features/base/responsive-ui'];
 
-            if (video.length && !this.isCurrentlyOnLargeVideo() && clientWidth <= 992 && !shouldDisplayTileView(state)) {
-                video[0].pause();
-                console.log('video paused');
-            } else {
-                video[0].play();
-                console.log('video played');
-            }
-        }
+        //     if (video.length && !this.isCurrentlyOnLargeVideo() && clientWidth <= 992 && !shouldDisplayTileView(state)) {
+        //         video[0].pause();
+        //         console.log('video paused');
+        //     } else if (video[0].paused || video[0].readyState <= 2) {
+        //         video[0].load();
+        //         console.log('video played');
+        //     } else {
+        //         console.dir({ video[0] });
+        //     }
+        // }
 
         if (this.displayMode !== oldDisplayMode) {
             logger.debug(`Displaying ${displayModeString} for ${this.id}, data: [${JSON.stringify(displayModeInput)}]`);

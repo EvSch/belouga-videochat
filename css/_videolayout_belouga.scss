@@ -1456,39 +1456,72 @@
                     box-sizing: border-box;
                 }
                 .videocontainer {
-                    height: auto;
+                    height: 60px;
                     background: none;
                     box-shadow: none !important;
+                    background: #26a5e4;
+                    display: flex;
+                    align-items: center;
+                    padding: 15px 0 !important;
+                    box-sizing: border-box;
                     video {
-                        display: none !important;
+                        z-index: 5;
+                        width: 80px !important;
+                        height: 80px !important;
+                        border-radius: 50px;
+                        top: 0;
+                        position: relative;
+                        max-width: 80px;
+                        box-shadow: 0 0 20px rgba(0, 0, 0, .26);
+                        margin-left: -10px;
                     }
                     .videocontainer__toolbar {
                         display: none;
                     }
                     .displayNameContainer {
                         opacity: 1;
+                        display: flex;
+                        align-items: center;
+                        flex-grow: 1;
+                        justify-content: flex-start;
+                        text-align: left;
+                        direction: ltr;
 
                         .displayname {
                             padding: 15px;
                             position: relative;
-                            width: 100%;
-                            border-radius:  40px;
-                            box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+                            width: auto;
+                            align-self: center;
+                            display: inline-block;
+                            justify-content: center;
+                            align-items: center;
+                            background: none;
+                            box-shadow: none;
+                            margin: 0;
                         }
                     }
                     .videocontainer__hoverOverlay {
                         display: none;
 
                     }
-                    .avatar-container {
-                        visibility: visible;
-                        position: absolute;
-                        top:6px;
-                        transform: none;
-                        left: 10px;
-                        width: 40px !important;
-                        height: 40px !important;
+                    &.display-avatar-only {
+                        direction: rtl;
+                        justify-content: flex-end;
+                        .avatar-container {
+                            visibility: visible;
+                            position: relative;
+                            top: initial;
+                            transform: none;
+                            left: initial;
+                            max-width: none;
+                            max-height: none;
+                            width: 50px !important;
+                            height: 50px !important;
+                            display: inline-block;
+                            margin: 0 10px;
+                        }
                     }
+
                 }
             }
             #filmstripLocalVideo {
