@@ -6,10 +6,10 @@ var config = {
 
     hosts: {
         // XMPP domain.
-        domain: 'live.staging.belouga.org',
+        domain: 'belouga.live',
 
         // When using authentication, domain for guest users.
-        anonymousdomain: 'guest.live.staging.belouga.org',
+        anonymousdomain: 'guest.belouga.live',
 
         // Domain for authenticated users. Defaults to <domain>.
         // authdomain: 'secure.live.staging.belouga.org',
@@ -24,17 +24,17 @@ var config = {
         // focus: 'focus.live.staging.belouga.org',
 
         // XMPP MUC domain. FIXME: use XEP-0030 to discover it.
-        muc: 'conference.live.staging.belouga.org'
+        muc: 'conference.belouga.live'
     },
 
     // BOSH URL. FIXME: use XEP-0156 to discover it.
-    bosh: '//live.staging.belouga.org/http-bind',
+    bosh: '//bosh.belouga.live/http-bind',
 
     // Websocket URL
-    websocket: 'wss://live.staging.belouga.org/xmpp-websocket',
+    websocket: 'wss://belouga.live/xmpp-websocket',
 
     // The name of client node advertised in XEP-0115 'c' stanza
-    clientNode: 'https://live.staging.belouga.org/',
+    clientNode: 'https://belouga.live/',
 
     // The real JID of focus participant - can be overridden here
     // Do not change username - FIXME: Make focus username configurable
@@ -62,6 +62,10 @@ var config = {
         // Disables the auto-play behavior of *all* newly created video element.
         // This is useful when the client runs on a host with limited resources.
         // noAutoPlayVideo: false
+
+        octo: {
+          probability: 1
+        }
 
         // Enable / disable 500 Kbps bitrate cap on desktop tracks. When enabled,
         // simulcast is turned off for the desktop share. If presenter is turned
@@ -181,9 +185,10 @@ var config = {
     // Try to start calls with screen-sharing instead of camera video.
     // startScreenSharing: false,
 
-    // Recording
 
     etherpad_base: 'https://staging.belouga.org:9001/p/',
+
+    // Recording
 
     // Whether to enable file recording or not.
     fileRecordingsEnabled: true,
@@ -194,7 +199,7 @@ var config = {
     //     // by default uses:
     //     // 'https://jitsi-meet.example.com/static/oauth.html'
         redirectURI:
-             'https://live.staging.belouga.org/static/oauth.html'
+             'https://belouga.live/static/oauth.html'
     },
     // When integrations like dropbox are enabled only that will be shown,
     // by enabling fileRecordingsServiceEnabled, we show both the integrations
@@ -208,13 +213,13 @@ var config = {
 
     // Whether to enable live streaming or not.
     liveStreamingEnabled: true,
-    hiddenDomain: 'recorder.live.staging.belouga.org',
+    hiddenDomain: 'recorder.belouga.live',
     // Transcription (in interface_config,
     // subtitles and buttons can be configured)
     transcribingEnabled: true,
 
     // Enables automatic turning on captions when recording is started
-    // autoCaptionOnRecord: false,
+    autoCaptionOnRecord: false,
 
     // Misc
 
@@ -506,13 +511,14 @@ var config = {
     // Information about the jitsi-meet instance we are connecting to, including
     // the user region as seen by the server.
     deploymentInfo: {
-        // shard: "shard1",
-        // region: "europe",
-        // userRegion: "asia"
+        endpoint: "ohio-videobridge1",
+        shard: "shard1",
+        region: "us-east-2",
+        userRegion: "us-east-2"
     },
 
     // Decides whether the start/stop recording audio notifications should play on record.
-    disableRecordAudioNotification: false,
+    disableRecordAudioNotification: true,
 
     // Information for the chrome extension banner
     // chromeExtensionBanner: {
