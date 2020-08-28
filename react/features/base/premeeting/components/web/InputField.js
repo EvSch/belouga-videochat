@@ -12,6 +12,11 @@ type Props = {
     autoFocus?: boolean,
 
     /**
+     * If the input should be readonly.
+     */
+    readonly?: boolean,
+
+    /**
      * Class name to be appended to the default class list.
      */
     className?: string,
@@ -122,6 +127,7 @@ export default class InputField extends PureComponent<Props, State> {
                 onFocus = { this._onFocus }
                 onKeyDown = { this._onKeyDown }
                 placeholder = { this.props.placeHolder }
+                readOnly = { this.props.readonly }
                 type = { this.props.type }
                 value = { this.state.value } />
         );
