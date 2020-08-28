@@ -1504,7 +1504,7 @@
                         display: none;
 
                     }
-                    &.display-avatar-only {
+                    &.display-avatar-only, &.display-avatar-with-name {
                         direction: rtl;
                         justify-content: flex-end;
                         .avatar-container {
