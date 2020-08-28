@@ -29,6 +29,8 @@ export type Props = {
      * The JitsiLocalTrack to display.
      */
     videoTrack: ?Object,
+
+    participantId?: string
 };
 
 /**
@@ -38,7 +40,7 @@ export type Props = {
  * @returns {ReactElement}
  */
 function Preview(props: Props) {
-    const { name, showAvatar, videoMuted, videoTrack } = props;
+    const { name, showAvatar, videoMuted, videoTrack, participantId } = props;
 
     if (!videoMuted && videoTrack) {
         return (
@@ -55,7 +57,7 @@ function Preview(props: Props) {
             <div
                 className = 'no-video'
                 id = 'preview'>
-                <PreviewAvatar name = { name } />
+                <PreviewAvatar name = { name } participantId = { participantId } />
             </div>
         );
     }

@@ -16,7 +16,9 @@ type Props = {
    /**
     * The name of the participant (if any).
     */
-    name: string
+    name: string,
+
+    participantId?: string
 }
 
 /**
@@ -25,8 +27,9 @@ type Props = {
  * @param {Props} props - The props of the component.
  * @returns {ReactElement}
  */
-function PremeetingAvatar({ height, name }: Props) {
+function PremeetingAvatar({ height, name, participantId }: Props) {
     const { marginTop, size } = calculateAvatarDimensions(height);
+    const finalParticipant = participantId !== undefined ? participantId : 'local';
 
     if (size <= 5) {
         return null;
@@ -38,7 +41,7 @@ function PremeetingAvatar({ height, name }: Props) {
             <Avatar
                 className = 'preview-avatar'
                 displayName = { name }
-                participantId = 'local'
+                participantId = { finalParticipant }
                 size = { size } />
         </div>
     );

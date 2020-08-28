@@ -53,7 +53,9 @@ type Props = {
     /**
      * The video track to render as preview (if omitted, the default local track will be rendered).
      */
-    videoTrack?: Object
+    videoTrack?: Object,
+
+    participantInfo?: string
 }
 
 /**
@@ -77,7 +79,7 @@ export default class PreMeetingScreen extends PureComponent<Props> {
      * @inheritdoc
      */
     render() {
-        const { name, showAvatar, showConferenceInfo, title, videoMuted, videoTrack } = this.props;
+        const { name, showAvatar, showConferenceInfo, title, videoMuted, videoTrack, participantInfo } = this.props;
 
         return (
             <div
@@ -88,7 +90,8 @@ export default class PreMeetingScreen extends PureComponent<Props> {
                     name = { name }
                     showAvatar = { showAvatar }
                     videoMuted = { videoMuted }
-                    videoTrack = { videoTrack } />
+                    videoTrack = { videoTrack }
+                    participantId = { participantInfo }/>
                 {!videoMuted && <div className = 'preview-overlay' />}
                 <div className = 'content'>
                     {showConferenceInfo && (

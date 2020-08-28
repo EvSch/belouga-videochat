@@ -183,7 +183,7 @@ export function startKnocking() {
         const localParticipant = getLocalParticipant(state);
 
         dispatch(conferenceWillJoin(membersOnly));
-        membersOnly.joinLobby(localParticipant.name, localParticipant.email);
+        membersOnly.joinLobby(localParticipant.name, localParticipant.email, localParticipant.loadableAvatarUrl);
         dispatch(setKnockingState(true));
     };
 }
