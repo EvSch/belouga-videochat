@@ -37,6 +37,7 @@ local NOTIFY_JSON_MESSAGE_TYPE = 'lobby-notify';
 local NOTIFY_LOBBY_ENABLED = 'LOBBY-ENABLED';
 local NOTIFY_LOBBY_ACCESS_GRANTED = 'LOBBY-ACCESS-GRANTED';
 local NOTIFY_LOBBY_ACCESS_DENIED = 'LOBBY-ACCESS-DENIED';
+local inspect = require('inspect');
 
 local is_healthcheck_room = module:require 'util'.is_healthcheck_room;
 
@@ -322,6 +323,8 @@ process_host_module(main_muc_component_config, function(host_module, host)
     host_module:hook('muc-occupant-pre-join', function (event)
         local room, stanza = event.room, event.stanza;
 
+        -- module:log('debug', 'Lobby debug %s', inspect(event.origin.jitsi_meet_context_features));
+
         if is_healthcheck_room(room.jid) or not room:get_members_only() then
             return;
         end
@@ -343,6 +346,11 @@ process_host_module(main_muc_component_config, function(host_module, host)
 
         local password = join:get_child_text('password', MUC_NS);
         if password and room:get_password() and password == room:get_password() then
+            whitelistJoin = true;
+        end
+
+        if event.origin.jitsi_meet_context_features ~= nil and event.origin.jitsi_meet_context_features.isSuperUser == "true" then
+            module:log('debug', 'Lobby bypassed!');
             whitelistJoin = true;
         end
 
