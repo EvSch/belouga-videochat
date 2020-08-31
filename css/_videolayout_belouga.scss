@@ -231,7 +231,7 @@
         @include respond-to(med) {
             left: initial;
             direction: ltr;
-            right: -87%;
+            right: 10px;
             top: initial;
             transform: none;
             z-index: 300;
@@ -596,6 +596,9 @@
                 left: 0;
                 margin-left: -25px;
                 margin-right: 12px;
+                @include respond-to(med) {
+                    margin-left: -15px;
+                }
                 >div>div:nth-child(2)>div>div {
                     outline: 0;
                     padding: 0;
@@ -753,20 +756,20 @@
                 list-style: none;
                 @include font-smoothing();
                 background: #009eff;
-                padding: 20px;
+                padding: 16px 30px;
                 display: inline-flex;
                 align-items: center;
                 justify-content: flex-start;
-                border-radius: 6px;
+                border-radius: 50px;
                 color: #FFF;
-                box-shadow: 0 0 10px rgba(0,0,0,.6);
+                box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
                 font-size: .9rem;
                 font-weight: 600;
                 text-align: left;
                 position: relative;
                 width: fit-content;
                 height: auto;
-                margin: 20px 35px 0 0;
+                margin: 20px 15px 0 10px;
                 background-position: left center;
                 background-size: 100%;
                 cursor: pointer;
@@ -1613,24 +1616,24 @@
                     padding: 10px 10px 10px 20px;
                     box-sizing: border-box;
                     .videocontainer {
-                        height: 60px;
+                        height: 70px;
                         background: none;
                         box-shadow: none !important;
                         background: #26a5e4;
                         display: flex;
                         align-items: center;
-                        padding: 15px 0 !important;
+                        padding: 0 !important;
                         box-sizing: border-box;
                         video {
                             z-index: 5;
-                            width: 80px !important;
-                            height: 80px !important;
+                            width: 60px !important;
+                            height: 60px !important;
                             border-radius: 50px;
                             top: 0;
                             position: relative;
-                            max-width: 80px;
+                            max-width: 60px;
                             box-shadow: 0 0 20px rgba(0, 0, 0, .26);
-                            margin-left: -10px;
+                            margin-left: 10px;
                         }
                         .videocontainer__toolbar {
                             display: none;
@@ -1662,8 +1665,7 @@
 
                         }
                         &.display-avatar-only, &.display-avatar-with-name {
-                            direction: rtl;
-                            justify-content: flex-end;
+                        
                             .avatar-container {
                                 visibility: visible;
                                 position: relative;
@@ -1675,9 +1677,10 @@
                                 width: 50px !important;
                                 height: 50px !important;
                                 display: inline-block;
-                                margin: 0 10px 0 -20px;
+                                margin: 0 10px;
                             }
                         }
+
 
                     }
                 }
