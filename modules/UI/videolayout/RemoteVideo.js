@@ -196,7 +196,7 @@ export default class RemoteVideo extends SmallVideo {
         if (currentLayout === LAYOUTS.TILE_VIEW) {
             remoteMenuPosition = 'left top';
         } else if (currentLayout === LAYOUTS.VERTICAL_FILMSTRIP_VIEW) {
-            remoteMenuPosition = 'left bottom';
+            remoteMenuPosition = 'left top';
         } else {
             remoteMenuPosition = 'top center';
         }
@@ -204,7 +204,7 @@ export default class RemoteVideo extends SmallVideo {
         ReactDOM.render(
             <Provider store = { APP.store }>
                 <I18nextProvider i18n = { i18next }>
-                    <AtlasKitThemeProvider mode = 'dark'>
+                    <AtlasKitThemeProvider mode = 'light'>
                         <RemoteVideoMenuTriggerButton
                             initialVolumeValue = { initialVolumeValue }
                             isAudioMuted = { this.isAudioMuted }

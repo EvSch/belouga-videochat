@@ -155,11 +155,12 @@
         #filmstripRemoteVideosContainer {
             @include minHWAutoFix();
             // flex-direction: column-reverse;
-            overflow: visible;
             width: 100%;
             position: relative;
             flex-basis: 100%;
             flex-wrap: wrap;
+            overflow-y: scroll;
+            max-height: 90%;
 
             .videocontainer {
                 height: 0px;

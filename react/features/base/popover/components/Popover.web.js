@@ -182,10 +182,10 @@ class Popover extends Component<Props, State> {
      * @returns {ReactElement}
      */
     _renderContent() {
-        const { content, position } = this.props;
+        const { content, position, className } = this.props;
 
         return (
-            <div className = 'popover'>
+            <div className = { `popover ${className}` }>
                 { content }
                 <div className = 'popover-mouse-padding-top' />
                 <div className = { _mapPositionToPaddingClass(position) } />

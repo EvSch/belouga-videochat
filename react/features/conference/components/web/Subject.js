@@ -13,7 +13,7 @@ import {
 import { getConferenceName } from '../../../base/conference/functions';
 import { openDialog } from '../../../base/dialog';
 import { i18next, translate } from '../../../base/i18n';
-import { IconArrowDown, IconEllipsisV } from '../../../base/icons';
+import { IconArrowDown, IconMenuThumb, IconEllipsisV } from '../../../base/icons';
 import { getLocalParticipant, getParticipantById, PARTICIPANT_ROLE } from '../../../base/participants';
 import { getParticipantCount } from '../../../base/participants/functions';
 import { connect, equals } from '../../../base/redux';
@@ -202,7 +202,7 @@ class Subject extends Component<Props> {
                                     } }
                                     position = 'bottom left'>
                                     <ToolboxButtonWithIcon
-                                        icon = { IconEllipsisV }
+                                        icon = { IconMenuThumb }
                                         iconDisabled = { false }
                                         onIconClick = { this._onToggleModeratorDialog } />
                                 </InlineDialog>
