@@ -39,7 +39,10 @@ export type Props = {
     /**
      * The name of the participant about to knock/join.
      */
-    _participantName: string;
+    _participantName: string,
+
+
+    _participantAvatar?: string,
 
     /**
      * True if a recent attempt to join with password failed.
@@ -74,6 +77,9 @@ type State = {
      */
     password: string,
 
+
+    loadableAvatarUrl?: string,
+
     /**
      * True if a recent attempt to join with password failed.
      */
@@ -101,6 +107,7 @@ export default class AbstractLobbyScreen<P: Props = Props> extends PureComponent
             displayName: props._participantName || '',
             email: props._participantEmail || '',
             password: '',
+            loadableAvatarUrl: props._participantAvatar,
             passwordJoinFailed: false,
             screenState: props._participantName ? SCREEN_STATES.VIEW : SCREEN_STATES.EDIT
         };
@@ -372,6 +379,7 @@ export function _mapStateToProps(state: Object): $Shape<Props> {
         _participantEmail: localParticipant?.email,
         _participantId: participantId,
         _participantName: localParticipant?.name,
+        _participantAvatar: localParticipant?.loadableAvatarUrl,
         _passwordJoinFailed: passwordJoinFailed
     };
 }

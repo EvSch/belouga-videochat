@@ -65,7 +65,7 @@ var config = {
 
         octo: {
           probability: 1
-        }
+        },
 
         // Enable / disable 500 Kbps bitrate cap on desktop tracks. When enabled,
         // simulcast is turned off for the desktop share. If presenter is turned
@@ -127,7 +127,7 @@ var config = {
     // Video
 
     // Sets the preferred resolution (height) for local video. Defaults to 720.
-    // resolution: 720,
+    resolution: 480,
 
     // How many participants while in the tile view mode, before the receiving video quality is reduced from HD to SD.
     // Use -1 to disable.
@@ -279,7 +279,7 @@ var config = {
        // at least 360 pixels tall. If the thumbnail height reaches 720 pixels then the application will switch to
        // the high quality.
        minHeightForQualityLvl: {
-           360: 'standard,
+           360: 'standard',
            720: 'high'
        }
     },

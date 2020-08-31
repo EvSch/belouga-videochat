@@ -21,7 +21,7 @@ class LobbyScreen extends AbstractLobbyScreen {
      */
     render() {
         return (
-            <PreMeetingScreen title = { this.props.t(this._getScreenTitleKey()) }>
+            <PreMeetingScreen participantInfo = {this.props._participantId } title = { this.props.t(this._getScreenTitleKey()) }>
                 { this._renderContent() }
             </PreMeetingScreen>
         );

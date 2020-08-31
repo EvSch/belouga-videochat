@@ -58,6 +58,9 @@ function setupAffiliation(room, origin, stanza)
                                 -- If user is a moderator or an admin, set their affiliation to be an owner
                                 if body["moderator"] == true or is_admin(jid) then
                                         room:set_affiliation("token_plugin", jid, "owner");
+                                        if body["autoLobby"] == true then
+                                          prosody.events.fire_event("create-lobby-room", room);
+                                        end
 --                                elseif body["guest"] == true then
 --                                        room:set_affiliation("token_plugin", jid_bare(stanza.attr.from), "none");
                                 else
