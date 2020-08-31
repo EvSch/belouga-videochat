@@ -1452,6 +1452,19 @@ class Toolbox extends Component<Props, State> {
                         </OverflowMenuButton> }
                 </div>
                 <div className = 'more-features-section'>
+                    {
+                        this._shouldShowButton('security')
+                        && <div className = 'security-btn'><SecurityDialogButton customClass = 'security-toolbar-button' /></div>
+                    }
+                    {/* {
+                        this._shouldShowButton('settings')
+                        && <div className = 'settings'>
+                            <SettingsButton
+                                key = 'settings'
+                                showLabel = { false }
+                                visible = { true } />
+                        </div>
+                    } */}
                     { this._renderDesktopSharingButton(true) }
 
                     {
@@ -1508,7 +1521,9 @@ class Toolbox extends Component<Props, State> {
             'mute-everyone',
             'embedmeeting',
             'recording',
-            'livestreaming'
+            'livestreaming',
+            'settings',
+            'security'
         ];
 
         if (moderatorButtons.includes(buttonName) && !this.props._isModerator) {

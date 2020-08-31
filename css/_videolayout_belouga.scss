@@ -4,6 +4,18 @@
         background: #FFF;
         color: #656565;
         font-size: 15px;
+        .security-dialog {
+            color: #656565;
+            line-height: 1.6;
+            .add-password {
+                font-weight: 600;
+            }
+        }
+        .modal-dialog-form {
+            > .security-dialog {
+                padding: 5px 10px 50px;
+            }
+        }
         #modal-dialog-ok-button {
             height: auto;
             color: #FFF !important;
@@ -38,7 +50,7 @@
                 align-items: center;
             }
         }
-        .recording-switch {
+        .recording-switch, .control-row > div {
             padding: 0 0 0 10px;
             label {
                 > div { // Slide
@@ -231,6 +243,7 @@
         }
 
     }
+
     .header-wrapper {
         position: absolute;
         z-index: 11;
@@ -803,6 +816,42 @@
                 }
              
             }
+            .security-btn {
+                > .toolbox-button {
+                    padding: 0;
+                    position: absolute;
+                    bottom: 20px;
+                    right: 30px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.26);
+                    border-radius: 10px;
+                    background: #00bbf1;
+                    margin: 0;
+                    .toolbox-icon.security-toolbar-button {
+                        align-items: center;
+                        width: 50px;
+                        height: 50px;
+                        svg {
+                            margin: 0;
+                        }
+                    }
+                    @include respond-to(small) {
+                        top: 39px;
+                        bottom: initial;
+                        right: 80px;
+                        border-radius: 50px;
+                        box-shadow: none;
+                        .toolbox-icon.security-toolbar-button {
+                            width: 40px;
+                            height: 40px;
+                            svg {
+                                width: 20px;
+                            }
+                        }
+
+                    }
+                }
+
+            }
         }
 
         .toolbox-content {
@@ -1281,7 +1330,19 @@
        }
     }
     &.tile-view {
-   
+        @include respond-to(med) {
+            .remotevideomenu {
+                top: 40%;
+                transform: translateY(-50%);
+                position: absolute;
+                right: 0;
+                .remote-video-menu-trigger {
+                    padding: 4px 1px;
+                    border-radius: 6px 0 0 6px;
+                }
+            }
+        }
+        
 
         .new-toolbox .toolbox-content {
             left: 0;
@@ -1614,7 +1675,7 @@
                                 width: 50px !important;
                                 height: 50px !important;
                                 display: inline-block;
-                                margin: 0 10px;
+                                margin: 0 10px 0 -20px;
                             }
                         }
 
