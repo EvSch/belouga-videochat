@@ -91,7 +91,7 @@ module:hook("muc-occupant-pre-join", function(event)
 	local origin, room, stanza = event.origin, event.room, event.stanza;
 	log("debug", "pre join: %s %s", tostring(room), tostring(stanza));
 	local room_string = jid.split(stanza.attr.to);
-	local roomaddress = room_string.."@conference.belouga.live";
+	local roomaddress = room_string.. "@" .. host;
 	local room = get_room_from_jid(roomaddress);
 	if room then
 		--log("debug", inspect(room));
