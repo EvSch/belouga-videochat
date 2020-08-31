@@ -415,8 +415,8 @@ function update_session(event)
     end
 end
 
-function handle_create_lobby(event)
-    local room = event.room;
+function handle_create_lobby(room)
+    --local room = event.room;
     room:set_members_only(true);
     module:log("info","Set room jid = %s as members only",room.jid);
     attach_lobby_room(room)
