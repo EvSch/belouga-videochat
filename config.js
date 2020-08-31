@@ -123,7 +123,7 @@ var config = {
     // Video
 
     // Sets the preferred resolution (height) for local video. Defaults to 720.
-    // resolution: 720,
+    resolution: 480,
 
     // How many participants while in the tile view mode, before the receiving video quality is reduced from HD to SD.
     // Use -1 to disable.
@@ -388,6 +388,10 @@ var config = {
     // deemed unsafe (due to the simplicity in the name) and a password is not
     // set or the lobby is not enabled.
     // enableInsecureRoomNameWarning: false,
+
+    // Whether to automatically copy invitation URL after creating a room.
+    // Document should be focused for this option to work
+    // enableAutomaticUrlCopy: false,
 
     // Stats
     //

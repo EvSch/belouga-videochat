@@ -10,6 +10,9 @@ import { isVideoMutedByUser } from '../../base/media';
 import { ActionButton, InputField, PreMeetingScreen, ToggleButton } from '../../base/premeeting';
 import { connect } from '../../base/redux';
 import { getDisplayName, updateSettings } from '../../base/settings';
+import {
+    getLocalParticipant
+} from '../../base/participants';
 import { getLocalJitsiVideoTrack } from '../../base/tracks';
 import { isButtonEnabled } from '../../toolbox/functions.web';
 import {
@@ -43,6 +46,10 @@ type Props = {
      */
     deviceStatusVisible: boolean,
 
+    /**
+     * Flag signaling if name was set automatically from JWT
+     */
+    fromToken: boolean,
     /**
      * If join by phone button should be visible.
      */
@@ -288,6 +295,7 @@ class Prejoin extends Component<Props, State> {
             hasJoinByPhoneButton,
             joinConference,
             joinConferenceWithoutAudio,
+            fromToken,
             name,
             showAvatar,
             showCameraPreview,
@@ -319,6 +327,7 @@ class Prejoin extends Component<Props, State> {
                                 onChange = { _setName }
                                 onSubmit = { joinConference }
                                 placeHolder = { t('dialog.enterDisplayName') }
+                                readonly = { fromToken }
                                 value = { name } />
 
                             {showError && <div
@@ -414,7 +423,15 @@ class Prejoin extends Component<Props, State> {
  * @returns {Object}
  */
 function mapStateToProps(state, ownProps): Object {
-    const name = getDisplayName(state);
+    const participant = getLocalParticipant(state);
+    let name = getDisplayName(state);
+    let fromToken = false;
+    if (participant.userId !== undefined) {
+      name = participant.name;
+      fromToken = true;
+    } else {
+      fromToken = false;
+    }
     const showErrorOnJoin = isDisplayNameRequired(state) && !name;
     const { showJoinActions } = ownProps;
     const isInviteButtonEnabled = isButtonEnabled('invite');
@@ -437,6 +454,7 @@ function mapStateToProps(state, ownProps): Object {
         hasJoinByPhoneButton: isJoinByPhoneButtonVisible(state),
         showCameraPreview: !isVideoMutedByUser(state),
         showConferenceInfo,
+        fromToken,
         videoTrack: getLocalJitsiVideoTrack(state)
     };
 }

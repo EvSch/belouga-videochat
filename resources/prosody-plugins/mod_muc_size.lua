@@ -141,9 +141,9 @@ function handle_get_room (event)
         room_address = "["..subdomain.."]"..room_address;
     end
 
-    if not verify_token(params["token"], room_address) then
-        return { status_code = 403; };
-    end
+    --if not verify_token(params["token"], room_address) then
+    --    return { status_code = 403; };
+    -- end
 
 	local room = get_room_from_jid(room_address);
 	local participant_count = 0;
@@ -173,7 +173,7 @@ function handle_get_room (event)
             "there are %s occupants in room", tostring(participant_count));
 	else
 		log("debug", "no such room exists");
-		return { status_code = 404; };
+		return { status_code = 200; body = json.encode(occupants_json)};
 	end
 
 	if participant_count > 1 then
