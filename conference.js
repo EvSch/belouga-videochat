@@ -19,6 +19,7 @@ import {
     sendAnalytics
 } from './react/features/analytics';
 import {
+    appNavigate,
     maybeRedirectToWelcomePage,
     redirectToStaticPage,
     reloadWithStoredParams
@@ -78,6 +79,7 @@ import {
     getLocalParticipant,
     getNormalizedDisplayName,
     getParticipantById,
+    kickParticipant,
     localParticipantConnectionStatusChanged,
     localParticipantRoleChanged,
     participantConnectionStatusChanged,
@@ -108,6 +110,7 @@ import {
     getBackendSafePath,
     getJitsiMeetGlobalNS
 } from './react/features/base/util';
+import { notifyKickedOut } from './react/features/conference/actions';
 import { showDesktopPicker } from './react/features/desktop-picker';
 import { appendSuffix } from './react/features/display-name';
 import { setE2EEKey } from './react/features/e2ee';
@@ -115,7 +118,7 @@ import {
     maybeOpenFeedbackDialog,
     submitFeedback
 } from './react/features/feedback';
-import { showNotification } from './react/features/notifications';
+import { showNotification, showErrorNotification } from './react/features/notifications';
 import { mediaPermissionPromptVisibilityChanged } from './react/features/overlay';
 import { suspendDetected } from './react/features/power-monitor';
 import {
@@ -133,7 +136,6 @@ import { endpointMessageReceived } from './react/features/subtitles';
 import UIEvents from './service/UI/UIEvents';
 import * as RemoteControlEvents
     from './service/remotecontrol/RemoteControlEvents';
-
 const logger = Logger.getLogger(__filename);
 
 const eventEmitter = new EventEmitter();
@@ -1999,6 +2001,32 @@ export default {
             logger.log(`USER ${id} LEFT:`, user);
 
             APP.UI.onSharedVideoStop(id);
+
+            const localParticipant = getLocalParticipant(APP.store.getState());
+            if (user._role == 'moderator' && localParticipant.role !== 'moderator') {
+              let participants = APP.conference.listMembers();
+              let roles = participants.map(participant => participant._role);
+              if (!roles.includes('moderator')) {
+                /*participants.forEach(participant => {
+                    APP.store.dispatch(kickedOut(room, participant));
+                    //this.leaveRoomAndDisconnect();
+                });*/
+                APP.store.dispatch(notifyKickedOut(
+                    user,
+                    () => {
+                        dispatch(conferenceLeft(APP.conference));
+                        dispatch(appNavigate(undefined));
+                    }
+                ));
+                this.hangup();
+                APP.store.dispatch(showErrorNotification({
+                    titleArguments: { appName: 'Belouga Videochat' },
+                    descriptionKey: 'dialog.forceLeave',
+                    hideErrorSupportLink: true,
+                    titleKey: 'dialog.thankYou'
+                }));
+              }
+            }
         });
 
         room.on(JitsiConferenceEvents.USER_STATUS_CHANGED, (id, status) => {
