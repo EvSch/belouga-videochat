@@ -19,6 +19,7 @@ module:hook("muc-room-created", function(event)
         local room = event.room;
         local _handle_normal_presence = room.handle_normal_presence;
         local _handle_first_presence = room.handle_first_presence;
+        room.lobby_auto_set = false;
         -- Wrap presence handlers to set affiliations from token whenever a user joins
         room.handle_normal_presence = function(thisRoom, origin, stanza)
                 local pres = _handle_normal_presence(thisRoom, origin, stanza);
@@ -58,7 +59,8 @@ function setupAffiliation(room, origin, stanza)
                                 -- If user is a moderator or an admin, set their affiliation to be an owner
                                 if body["moderator"] == true or is_admin(jid) then
                                         room:set_affiliation("token_plugin", jid, "owner");
-                                        if body["autoLobby"] == true then
+                                        if body["autoLobby"] == true and room.lobby_auto_set == false then
+                                          room.lobby_auto_set = true;
                                           prosody.events.fire_event("create-lobby-room", room);
                                         end
 --                                elseif body["guest"] == true then
