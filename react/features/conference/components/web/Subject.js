@@ -146,7 +146,7 @@ class Subject extends Component<Props> {
         const moderatorMenuContent = this._renderModeratorMenuContent();
 
         return (
-            <div className = 'header-wrapper'>
+            <div className = { `header-wrapper ${_visible ? 'visible' : ''}` }>
                 <div className = 'header-left'>
                     <div className = 'subject visible'>
                         <span className = 'subject-text'>
@@ -202,7 +202,7 @@ class Subject extends Component<Props> {
                                     } }
                                     position = 'bottom left'>
                                     <ToolboxButtonWithIcon
-                                        icon = { IconMenuThumb }
+                                        icon = { IconArrowDown }
                                         iconDisabled = { false }
                                         onIconClick = { this._onToggleModeratorDialog } />
                                 </InlineDialog>

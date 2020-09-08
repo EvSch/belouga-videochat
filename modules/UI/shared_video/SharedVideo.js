@@ -289,7 +289,7 @@ export default class SharedVideoManager {
             // prevents pausing participants not sharing the video
             // to pause the video
             if (!APP.conference.isLocalId(self.from)) {
-                $('#sharedVideo').css('pointer-events', 'none');
+                $('#sharedVideo iframe').css('pointer-events', 'none');
             }
 
             VideoLayout.addLargeVideoContainer(

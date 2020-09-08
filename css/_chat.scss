@@ -8,7 +8,7 @@
     left: initial;
     overflow: hidden;
     position: absolute; 
-    width: $sidebarWidth;
+    width: var(--filmstrip-width);
     z-index: $sideToolbarContainerZ;
     top: 85px;
     bottom: 0;
@@ -124,7 +124,7 @@
     border-bottom: 3px solid #a4c3cc;
     margin-bottom: 10px;
     background: linear-gradient(45deg, #15829a, #56a1d6);
-    @include respond-to(med) {
+    @include respond-to(small) {
         justify-content: flex-end;
         direction: rtl;
         .chat-header-title {

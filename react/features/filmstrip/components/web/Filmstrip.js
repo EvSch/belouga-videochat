@@ -13,6 +13,7 @@ import {
 import { translate } from '../../../base/i18n';
 import { Icon, IconChat, IconMenuDown, IconMenuUp, IconClose } from '../../../base/icons';
 import { connect } from '../../../base/redux';
+import { getLocalVideoTrack } from '../../../base/tracks';
 import { CHAT_SIZE, ChatCounter, toggleChat } from '../../../chat';
 import { dockToolbox } from '../../../toolbox/actions.web';
 import { getCurrentLayout, LAYOUTS } from '../../../video-layout';
@@ -80,6 +81,11 @@ type Props = {
      * The number of rows in tile view.
      */
     _rows: number,
+
+    /**
+     * Whether or not user is sharing screen
+     */
+    // _screensharing: boolean,
 
     /**
      * Additional CSS class names to add to the container of all the thumbnails.
@@ -198,7 +204,7 @@ class Filmstrip extends Component <Props> {
         case LAYOUTS.VERTICAL_FILMSTRIP_VIEW:
             // Adding 18px for the 2px margins, 2px borders on the left and right and 5px padding on the left and right.
             // Also adding 7px for the scrollbar.
-            filmstripStyle.maxWidth = (interfaceConfig.FILM_STRIP_MAX_HEIGHT || 120) + 255;
+            // filmstripStyle.maxWidth = (interfaceConfig.FILM_STRIP_MAX_HEIGHT || 120) + 255;
             break;
         case LAYOUTS.TILE_VIEW: {
             // The size of the side margins for each tile as set in CSS.
@@ -213,9 +219,12 @@ class Filmstrip extends Component <Props> {
         }
         }
 
-        let fmWidth = this.props._clientWidth - 100;
-        fmWidth = fmWidth > 375 ? 375 : fmWidth;
-        filmstripStyle['--filmstrip-width'] = `${fmWidth}px`;
+        // let fmWidth = this.props._clientWidth - 100;
+
+        // fmWidth = fmWidth > 375 ? 375 : fmWidth;
+        // fmWidth = this.props._clientWidth > 500 && this.props._clientWidth < 1000 ? 250 : fmWidth;
+        // filmstripStyle.maxWidth = fmWidth;
+        // filmstripStyle['--filmstrip-width'] = `${fmWidth}px`;
 
         let remoteVideosWrapperClassName = 'filmstrip__videos';
 
@@ -238,7 +247,7 @@ class Filmstrip extends Component <Props> {
                     className = { this.props._videosClassName }
                     id = 'remoteVideos'>
                     <div
-                        className = 'filmstrip__videos'
+                        className = { 'filmstrip__videos' }
                         id = 'filmstripLocalVideo'
                         onMouseOut = { this._onMouseOut }
                         onMouseOver = { this._onMouseOver }>
@@ -436,12 +445,16 @@ class Filmstrip extends Component <Props> {
 function _mapStateToProps(state) {
     const { iAmSipGateway } = state['features/base/config'];
     const { hovered, visible } = state['features/filmstrip'];
+    // const sharedVideoStatus = state['features/shared-video'].status;
+    // const localVideo = getLocalVideoTrack(state['features/base/tracks']);
+
+
     const isFilmstripOnly = Boolean(interfaceConfig.filmStripOnly);
     const reduceHeight
         = !isFilmstripOnly && state['features/toolbox'].visible && interfaceConfig.TOOLBAR_BUTTONS.length;
     const remoteVideosVisible = shouldRemoteVideosBeVisible(state);
     const { isOpen: shiftRight } = state['features/chat'];
-    const { clientHeight, clientWidth } = state['features/base/responsive-ui'];
+    const { clientWidth } = state['features/base/responsive-ui'];
 
     const className = `${remoteVideosVisible ? '' : 'hide-videos'} ${
         reduceHeight ? 'reduce-height' : ''
@@ -465,6 +478,7 @@ function _mapStateToProps(state) {
         _videosClassName: videosClassName,
         _visible: visible,
         _clientWidth: clientWidth
+        // _screensharing: localVideo && localVideo.videoType === 'desktop'
     };
 }
 

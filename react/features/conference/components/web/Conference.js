@@ -63,6 +63,11 @@ const LAYOUT_CLASSNAMES = {
 type Props = AbstractProps & {
 
     /**
+     * The client window width
+     */
+    _clientWidth: number,
+
+    /**
      * Whether the local participant is recording the conference.
      */
     _iAmRecorder: boolean,
@@ -193,11 +198,18 @@ class Conference extends AbstractConference<Props, *> {
             _showPrejoin
         } = this.props;
         const hideLabels = filmstripOnly || _iAmRecorder;
+        let filmstripStyle = {};
+        let fmWidth = this.props._clientWidth - 100;
+
+        fmWidth = fmWidth > 375 ? 375 : fmWidth;
+        fmWidth = this.props._clientWidth > 500 && this.props._clientWidth < 1000 ? 320 : fmWidth;
+        filmstripStyle['--filmstrip-width'] = `${fmWidth}px`;
 
         return (
             <div
                 className = { ` ${_layoutClassName} ${ _sidebarOpen ? 'sidebar-open' : ''} ` }
                 id = 'videoconference_page'
+                style = { filmstripStyle }
                 onMouseMove = { this._onShowToolbar }>
 
                 <Notice />
@@ -277,6 +289,8 @@ class Conference extends AbstractConference<Props, *> {
  * @returns {Props}
  */
 function _mapStateToProps(state) {
+    const { clientWidth } = state['features/base/responsive-ui'];
+
     return {
         ...abstractMapStateToProps(state),
         _sidebarOpen: state['features/chat'].isOpen || getCurrentLayout(state) === LAYOUTS.VERTICAL_FILMSTRIP_VIEW,
@@ -284,7 +298,8 @@ function _mapStateToProps(state) {
         _isLobbyScreenVisible: state['features/base/dialog']?.component === LobbyScreen,
         _layoutClassName: LAYOUT_CLASSNAMES[getCurrentLayout(state)],
         _roomName: getConferenceNameForTitle(state),
-        _showPrejoin: isPrejoinPageVisible(state)
+        _showPrejoin: isPrejoinPageVisible(state),
+        _clientWidth: clientWidth
     };
 }
 

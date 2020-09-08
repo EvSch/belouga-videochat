@@ -1415,6 +1415,10 @@ class Toolbox extends Component<Props, State> {
                             Stop YouTube Video
                         </div>
                     }
+                    {
+                        this._shouldShowButton('security')
+                        && <div className = 'security-btn'><SecurityDialogButton customClass = 'security-toolbar-button' /></div>
+                    }
                     <div
                         accessibilityRole = 'button'
                         className = 'btn more-features'
@@ -1452,10 +1456,7 @@ class Toolbox extends Component<Props, State> {
                         </OverflowMenuButton> }
                 </div>
                 <div className = 'more-features-section'>
-                    {
-                        this._shouldShowButton('security')
-                        && <div className = 'security-btn'><SecurityDialogButton customClass = 'security-toolbar-button' /></div>
-                    }
+                
                     {/* {
                         this._shouldShowButton('settings')
                         && <div className = 'settings'>
