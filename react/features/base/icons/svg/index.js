@@ -52,6 +52,7 @@ export { default as IconLiveStreaming } from './youtube-brands.svg';
 export { default as IconMeetingLocked } from './meeting-locked.svg';
 export { default as IconMeetingUnlocked } from './meeting-unlocked.svg';
 export { default as IconMenu } from './menu.svg';
+export { default as IconMenuCog } from './cog-solid.svg';
 export { default as IconMenuDown } from './menu-down.svg';
 export { default as IconMenuThumb } from './thumb-menu.svg';
 export { default as IconMenuUp } from './menu-up.svg';

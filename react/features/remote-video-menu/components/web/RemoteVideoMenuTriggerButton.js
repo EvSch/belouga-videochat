@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { Icon, IconMenuThumb } from '../../../base/icons';
+import { Icon, IconMenuCog, IconMenuThumb } from '../../../base/icons';
 import { getLocalParticipant, PARTICIPANT_ROLE } from '../../../base/participants';
 import { Popover } from '../../../base/popover';
 import { connect } from '../../../base/redux';
@@ -141,7 +141,7 @@ class RemoteVideoMenuTriggerButton extends Component<Props> {
                     className = 'popover-trigger remote-video-menu-trigger'>
                     <Icon
                         size = '1em'
-                        src = { IconMenuThumb }
+                        src = { IconMenuCog }
                         title = 'Remote user controls' />
                 </span>
             </Popover>

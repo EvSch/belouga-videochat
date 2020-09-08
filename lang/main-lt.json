@@ -240,7 +240,7 @@
         "Remove": "Pašalinti",
         "removePassword": "Pašalinti $t(lockRoomPassword)",
         "removeSharedVideoMsg": "Ar jūs esate tikri, kad norite pašalinti pasidalintą video?",
-        "removeSharedVideoTitle": "Remove shared video",
+        "removeSharedVideoTitle": "Stop YouTube video",
         "reservationError": "Rezervavimo sistemos klaida",
         "reservationErrorMsg": "Klaidos kodas: {{code}}, pranešimas: {{msg}}",
         "retry": "Bandyti vėl",

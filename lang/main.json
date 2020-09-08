@@ -265,10 +265,10 @@
         "remoteControlShareScreenWarning": "Note that if you press \"Allow\" you will share your screen!",
         "remoteControlStopMessage": "The remote control session ended!",
         "remoteControlTitle": "Remote desktop control",
-        "Remove": "Remove",
+        "Remove": "Stop",
         "removePassword": "Remove $t(lockRoomPassword)",
-        "removeSharedVideoMsg": "Are you sure you would like to remove your shared video?",
-        "removeSharedVideoTitle": "Remove shared video",
+        "removeSharedVideoMsg": "Are you sure you would like to stop the YouTube video?",
+        "removeSharedVideoTitle": "Stop YouTube video",
         "reservationError": "Reservation system error",
         "reservationErrorMsg": "Error code: {{code}}, message: {{msg}}",
         "retry": "Retry",
@@ -930,6 +930,6 @@
         "passwordField": "Enter conference password",
         "passwordJoinButton": "Join",
         "reject": "Reject",
-        "toggleLabel": "Enable lobby"
+        "toggleLabel": "Enable lobby mode"
     }
 }

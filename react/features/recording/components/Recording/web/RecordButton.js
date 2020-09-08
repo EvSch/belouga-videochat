@@ -31,7 +31,7 @@ declare var interfaceConfig: Object;
  * An implementation of a button for starting and stopping recording.
  */
 class RecordButton extends AbstractRecordButton<Props> {
-    icon = IconRec;
+    icon = IconToggleRecording;
 
     /**
      * Returns the tooltip that should be displayed when the button is disabled.
