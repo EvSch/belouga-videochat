@@ -1042,10 +1042,28 @@
             padding: 8px 0;
             position: absolute;
             left: initial;
-            right: calc(100vw - 340px);
-            width: 300px;
+            right: calc(100vw - 310px);
+            width: 260px;
             bottom: 130px;
             z-index: 200;
+            #filmstripLocalVideoThumbnail {
+                width: 100%;
+                .videocontainer {
+                    height: 0px;
+                    width: 100%;
+                    box-sizing: border-box;
+                    overflow: hidden;
+                    background: #177bad;
+                    margin: 0 auto;
+                    box-sizing: border-box;
+                    transition: .2s ease-in-out;
+                    border: none;
+                    height: 170px;
+                    padding-top: 0 !important;
+                    box-shadow: 0 0 15px rgba(22,43,53,.4) !important;
+                    display: block;
+                }
+            }
         }
 
     
@@ -1488,7 +1506,21 @@
         
     }
 
-
+    @include respond-to(med) {
+        &.vertical-filmstrip .filmstrip {
+            #filmstripLocalVideo {
+                width: 170px;
+                bottom: 130px;
+                right: initial;
+                left: 40px;
+                position: fixed;
+                
+                #filmstripLocalVideoThumbnail .videocontainer {
+                    height: 110px;
+                }
+            }
+        }
+    }
 
     @media screen and (max-width: 769px), screen and (max-height: 600px) {
         .header-wrapper {
@@ -1693,17 +1725,7 @@
                 }
 
             }
-            #filmstripLocalVideo {
-                width: 170px;
-                bottom: 130px;
-                right: initial;
-                left: 40px;
-                position: fixed;
-                
-                #filmstripLocalVideoThumbnail .videocontainer {
-                    height: 110px;
-                }
-            }
+  
 
         }
         &.sidebar-open {
@@ -1758,6 +1780,7 @@
                     height: 100%;
                     margin: 0;
                     width: 100%;
+                    border-radius: 0;
                 }
                 .header-wrapper, .new-toolbox .toolbox-content { // overlay background color
                     background: rgba(255, 255, 255, .95);
@@ -1994,6 +2017,7 @@
             #largeVideoContainer {
                 top: 0;
                 height: 100%;
+                border-radius: 0;
             }
             .filmstrip #filmstripRemoteVideos {
                 margin-top: 20px;
