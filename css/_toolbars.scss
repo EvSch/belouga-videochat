@@ -112,16 +112,16 @@
                     }
 
                     &.toggled {
-                        background: #2a3a4b;
-                        border: 1px solid rgba(255, 255, 255, 0);
+                        // background: #2a3a4b;
+                        // border: 1px solid rgba(255, 255, 255, 0);
 
-                        svg {
-                            fill: red;
-                        }
+                        // svg {
+                        //     fill: red;
+                        // }
 
-                        &:hover {
-                            background-color: #5e6d7a;
-                        }
+                        // &:hover {
+                        //     background-color: #5e6d7a;
+                        // }
                     }
 
                     &.disabled, .disabled & {
