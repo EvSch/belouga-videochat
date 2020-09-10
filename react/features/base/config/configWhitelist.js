@@ -101,6 +101,7 @@ export default [
     'enableInsecureRoomNameWarning',
     'enableLayerSuspension',
     'enableLipSync',
+    'enableOpusRed',
     'enableRemb',
     'enableScreenshotCapture',
     'enableTalkWhileMuted',
@@ -117,6 +118,7 @@ export default [
     'gatherStats',
     'googleApiApplicationClientID',
     'hiddenDomain',
+    'hideLobbyButton',
     'hosts',
     'iAmRecorder',
     'iAmSipGateway',
@@ -150,6 +152,7 @@ export default [
     'testing',
     'useStunTurn',
     'useTurnUdp',
+    'videoQuality.persist',
     'webrtcIceTcpDisable',
     'webrtcIceUdpDisable'
 ].concat(extraConfigWhitelist);
