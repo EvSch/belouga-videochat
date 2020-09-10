@@ -9,7 +9,7 @@
             .spinner {
                 margin: 30px;
             }
-    
+
             .joining-message {
                 margin: 10px;
             }
@@ -57,7 +57,8 @@
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    left: 0;
+    //left: 0;
+    right: 200px;
     margin: 20px;
     position: fixed;
     top: 20;

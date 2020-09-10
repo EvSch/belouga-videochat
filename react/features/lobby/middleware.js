@@ -1,5 +1,6 @@
 // @flow
 
+import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../base/app';
 import { CONFERENCE_FAILED, CONFERENCE_JOINED } from '../base/conference';
 import { JitsiConferenceErrors, JitsiConferenceEvents } from '../base/lib-jitsi-meet';
 import { getFirstLoadableAvatarUrl, getParticipantDisplayName } from '../base/participants';
@@ -17,9 +18,22 @@ import {
     startKnocking,
     setPasswordJoinFailed
 } from './actions';
+import {
+    playSound,
+    registerSound,
+    stopSound,
+    unregisterSound
+} from '../base/sounds';
+import { LOBBY_KNOCK_SOUND_FILE } from './sounds';
 
 MiddlewareRegistry.register(store => next => action => {
     switch (action.type) {
+      case APP_WILL_MOUNT:
+          store.dispatch(registerSound('LOBBY_KNOCK_SOUND', LOBBY_KNOCK_SOUND_FILE));
+          break;
+      case APP_WILL_UNMOUNT:
+          store.dispatch(unregisterSound('LOBBY_KNOCK_SOUND'));
+          break;
     case CONFERENCE_FAILED:
         return _conferenceFailed(store, next, action);
     case CONFERENCE_JOINED:
@@ -27,7 +41,7 @@ MiddlewareRegistry.register(store => next => action => {
     case KNOCKING_PARTICIPANT_ARRIVED_OR_UPDATED: {
         // We need the full update result to be in the store already
         const result = next(action);
-
+        store.dispatch(playSound('LOBBY_KNOCK_SOUND'));
         _findLoadableAvatarForKnockingParticipant(store, action.participant);
 
         return result;
