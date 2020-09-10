@@ -136,7 +136,7 @@
         }
 
         const gaEvent = {
-            'eventCategory': 'jitsi-meet',
+            'eventCategory': 'belouga-live',
             'eventAction': this._extractAction(event),
             'eventLabel': this._extractLabel(event)
         };
