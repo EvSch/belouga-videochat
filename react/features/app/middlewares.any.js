@@ -32,6 +32,7 @@ import '../follow-me/middleware';
 import '../invite/middleware';
 import '../large-video/middleware';
 import '../lobby/middleware';
+import '../network-compatibility/middleware';
 import '../notifications/middleware';
 import '../overlay/middleware';
 import '../recent-list/middleware';

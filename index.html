@@ -7,7 +7,7 @@
     <!--#include virtual="base.html" -->
 
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="stylesheet" href="libs/all.css?v=155">
+    <link rel="stylesheet" href="libs/all.css?v=156">
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (!JitsiMeetJS.app) {
@@ -153,11 +153,46 @@
     </script>
     <script><!--#include virtual="/config.js" --></script><!-- adapt to your needs, i.e. set hosts and bosh path -->
     <!--#include virtual="connection_optimization/connection_optimization.html" -->
-    <script src="libs/do_external_connect.min.js?v=155"></script>
+    <script src="libs/do_external_connect.min.js?v=156"></script>
     <script><!--#include virtual="/interface_config.js" --></script>
+    <script>
+        let paramParts = (window.location.hash && window.location.hash.substr(1).split('&')) || [];
+        let loadAltConfig = false;
+        let persistAltConfig = false;
+        if (window.localStorage && window.localStorage['features/network-compatibility']) {
+          let compatObj = JSON.parse(window.localStorage['features/network-compatibility']);
+          if (compatObj.compatEnabled) {
+            persistAltConfig = true;
+          }
+        }
+
+        for (let part of paramParts) {
+            const param = part.split('=');
+            if (param[0] == 'iAmFirst') {
+              console.log("First participant detected!");
+              config.iAmFirst = true;
+              if (persistAltConfig) {
+                loadAltConfig = true;
+                break;
+              }
+            }
+            if (param[0] == 'altConfig' && param[1] == 'true') {
+              loadAltConfig = true;
+            }
+        };
+        if (loadAltConfig) {
+          console.log("Alt configuration detected and loaded!");
+          config.altConfigLoaded = true;
+          config.disableAudioLevels = true;
+          interfaceConfig.VIDEO_QUALITY_LABEL_DISABLED = true;
+          interfaceConfig.DISABLE_VIDEO_BACKGROUND = true;
+          let vQualKey = interfaceConfig.TOOLBAR_BUTTONS.findIndex(val => val == 'videoquality');
+          interfaceConfig.TOOLBAR_BUTTONS.splice(vQualKey, 1);
+        }
+    </script>
     <script><!--#include virtual="/logging_config.js" --></script>
-    <script src="libs/lib-jitsi-meet.min.js?v=155"></script>
-    <script src="libs/app.bundle.min.js?v=155"></script>
+    <script src="libs/lib-jitsi-meet.min.js?v=156"></script>
+    <script src="libs/app.bundle.min.js?v=156"></script>
     <!--#include virtual="title.html" -->
     <!--#include virtual="plugin.head.html" -->
     <!--#include virtual="static/welcomePageAdditionalContent.html" -->

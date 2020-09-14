@@ -33,6 +33,7 @@ import {
 import { connect, equals } from '../../../base/redux';
 import { OverflowMenuItem } from '../../../base/toolbox/components';
 import { getLocalVideoTrack, toggleScreensharing } from '../../../base/tracks';
+import { NetworkCompatButton } from '../../../network-compatibility';
 import { VideoBlurButton } from '../../../blur';
 import { CHAT_SIZE, ChatCounter, toggleChat } from '../../../chat';
 import { EmbedMeetingDialog } from '../../../embed-meeting';
@@ -1037,6 +1038,10 @@ class Toolbox extends Component<Props, State> {
                 && <OverflowMenuVideoQualityItem
                     key = 'videoquality'
                     onClick = { this._onToolbarOpenVideoQuality } />,
+            <NetworkCompatButton
+                key = 'networkCompat'
+                showLabel = { true }
+                visible = { true } />,
             <SettingsButton
                 key = 'settings'
                 showLabel = { true }

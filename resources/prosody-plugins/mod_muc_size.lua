@@ -161,10 +161,17 @@ function handle_get_room (event)
 				    for _, pr in occupant:each_session() do
 					local nick = pr:get_child_text("nick", "http://jabber.org/protocol/nick") or "";
 					local email = pr:get_child_text("email") or "";
+          local isNetworkEnabled = pr:child_with_name("network-compatibility");
+          if isNetworkEnabled ~= nil and isNetworkEnabled.attr.on == "true" then
+            isNetworkEnabled = "true";
+          else
+            isNetworkEnabled = nil;
+          end
 					occupants_json:push({
 					    jid = tostring(occupant.nick),
 					    email = tostring(email),
-					    display_name = tostring(nick)});
+					    display_name = tostring(nick),
+              network_compat = isNetworkEnabled});
 				    end
 			    end
 			end

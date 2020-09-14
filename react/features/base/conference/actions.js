@@ -45,6 +45,7 @@ import {
     SEND_TONES,
     SET_DESKTOP_SHARING_ENABLED,
     SET_FOLLOW_ME,
+    SET_NETWORK_COMPAT_ACTIVE,
     SET_PASSWORD,
     SET_PASSWORD_FAILED,
     SET_ROOM,
@@ -611,6 +612,13 @@ export function setFollowMe(enabled: boolean) {
         type: SET_FOLLOW_ME,
         enabled
     };
+}
+
+export function setNetworkCompat(enabled: boolean) {
+  return {
+    type: SET_NETWORK_COMPAT_ACTIVE,
+    enabled
+  }
 }
 
 /**

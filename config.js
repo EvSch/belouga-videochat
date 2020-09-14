@@ -118,10 +118,10 @@ var config = {
     // Sets the preferred target bitrate for the Opus audio codec by setting its
     // 'maxaveragebitrate' parameter. Currently not available in p2p mode.
     // Valid values are in the range 6000 to 510000
-    // opusMaxAverageBitrate: 20000,
+    opusMaxAverageBitrate: 50000,
 
     // Enables redundancy for Opus
-    // enableOpusRed: false
+    enableOpusRed: true,
 
     // Video
 
@@ -137,15 +137,15 @@ var config = {
     // util#browser#usesNewGumFlow. The constraints are independent from
     // this config's resolution value. Defaults to requesting an ideal
     // resolution of 720p.
-    // constraints: {
-    //     video: {
-    //         height: {
-    //             ideal: 720,
-    //             max: 720,
-    //             min: 240
-    //         }
-    //     }
-    // },
+    constraints: {
+        video: {
+            height: {
+                ideal: 720,
+                max: 720,
+                min: 240
+            }
+        }
+    },
 
     // Enable / disable simulcast support.
     // disableSimulcast: false,
@@ -277,7 +277,7 @@ var config = {
        // at least 360 pixels tall. If the thumbnail height reaches 720 pixels then the application will switch to
        // the high quality.
        minHeightForQualityLvl: {
-           360: 'standard,
+           360: 'standard',
            720: 'high'
        }
     },

@@ -18,6 +18,7 @@ import logger from './logger';
  * }}
  */
 export function setPreferredVideoQuality(preferredVideoQuality: number) {
+    console.log("We are updating to " + preferredVideoQuality);
     return {
         type: SET_PREFERRED_VIDEO_QUALITY,
         preferredVideoQuality

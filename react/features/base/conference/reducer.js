@@ -18,6 +18,7 @@ import {
     P2P_STATUS_CHANGED,
     SET_DESKTOP_SHARING_ENABLED,
     SET_FOLLOW_ME,
+    SET_NETWORK_COMPAT_ACTIVE,
     SET_PASSWORD,
     SET_PENDING_SUBJECT_CHANGE,
     SET_ROOM,
@@ -81,6 +82,9 @@ ReducerRegistry.register(
 
         case SET_FOLLOW_ME:
             return set(state, 'followMeEnabled', action.enabled);
+
+        case SET_NETWORK_COMPAT_ACTIVE:
+            return set(state, 'networkCompatActive', action.enabled);
 
         case SET_LOCATION_URL:
             return set(state, 'room', undefined);
