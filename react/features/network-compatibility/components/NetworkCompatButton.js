@@ -88,7 +88,7 @@ class NetworkCompatButton extends AbstractButton<Props, *> {
  * }}
  */
 function _mapStateToProps(state): Object {
-    const shouldOverride = (state['features/base/conference'].networkCompatActive !== undefined);
+    const shouldOverride = (state['features/base/config'].iAmFirst !== undefined || state['features/base/conference'].networkCompatActive !== undefined);
     const isModerator = isLocalParticipantModerator(state);
     const participants = getParticipants(state).filter(p => !p.local);
     const anyOtherModerator = participants.filter(p => p.role == "moderator").length;
