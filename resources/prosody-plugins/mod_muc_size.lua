@@ -122,6 +122,10 @@ function handle_get_room_size(event)
 	return { status_code = 200; body = [[{"participants":]]..participant_count..[[}]] };
 end
 
+function string.starts(String,Start)
+   return string.sub(String,1,string.len(Start))==Start
+end
+
 --- Handles request for retrieving the room participants details
 -- @param event the http event, holds the request query
 -- @return GET response, containing a json with participants details
@@ -133,6 +137,11 @@ function handle_get_room (event)
 	local params = parse(event.request.url.query);
 	local room_name = params["room"];
 	local domain_name = params["domain"];
+  if string.starts(domain_name, 'auth') then
+    muc_domain_prefix = "internal"
+  else
+    muc_domain_prefix = "conference"
+  end
     local subdomain = params["subdomain"];
     local room_address
         = jid.join(room_name, muc_domain_prefix.."."..domain_name);

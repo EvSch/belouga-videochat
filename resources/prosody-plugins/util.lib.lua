@@ -1,6 +1,7 @@
 local jid = require "util.jid";
 local timer = require "util.timer";
 local http = require "net.http";
+local json = require "util.json";
 
 local http_timeout = 30;
 local have_async, async = pcall(require, "util.async");
@@ -223,7 +224,7 @@ end
 -- nil there will be no retries
 -- @returns result of the http call or nil if
 -- the external call failed after the last retry
-function http_get_with_retry(url, retry)
+function http_get_with_retry(url, retry, body)
     local content, code;
     local timeout_occurred;
     local wait, done = async.waiter();
@@ -243,11 +244,21 @@ function http_get_with_retry(url, retry)
         end
     end
 
+    local req_props = {
+        headers = http_headers or {},
+        insecure = true
+    };
+
+    if body ~= nil then
+      req_props.headers["Content-Type"] = "application/json";
+      req_props.body = json.encode(body);
+      req_props.method = "POST";
+    else
+      req_props.method = "GET";
+    end
+
     local function call_http()
-        return http.request(url, {
-            headers = http_headers or {},
-            method = "GET"
-        }, cb);
+        return http.request(url, req_props, cb);
     end
 
     local request = call_http();
