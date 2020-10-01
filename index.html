@@ -7,16 +7,43 @@
     <!--#include virtual="base.html" -->
 
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="stylesheet" href="libs/all.css?v=156">
+    <link rel="stylesheet" href="libs/all.css?v=157">
+    <script src="detect_app.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (!JitsiMeetJS.app) {
                 return;
             }
-
-            JitsiMeetJS.app.renderEntryPoint({
+            if (window.location.pathname != '/' && !isElectron() && window.localStorage.useApp !== "false" && window.sessionStorage.appBypass == undefined){
+                  openUriWithTimeoutHack ("belouga-live:/" + window.location.pathname, function(){
+                    console.log('FAIL');
+                    JitsiMeetJS.app.renderEntryPoint({
+                      Component: JitsiMeetJS.app.entryPoints.APP
+                    })
+                  }, function(){
+                    console.log("SUCCESS");
+                    if (window.localStorage.useApp === undefined) {
+                      window.localStorage.useApp = true;
+                    }
+                    document.getElementById("react").innerHTML = `
+                    <div class="overlay__container" id="overlay">
+                      <div class="overlay__content">
+                        <div class="inlay">
+                          <h3 class="inlay__title">We've detected you have the Belouga Live desktop app installed!</h3>
+                          <span class="inlay__text">
+                            <span>Select <b><i>Open</i></b> to open this link in the app.</span>
+                            If you'd rather open this link in your browser, <button class="button-control button-control_overlay button-control_center" onClick="disableAppStorage()" style="margin-left: 3px;">click here</button>.
+                          </span>
+                          <label><input type="checkbox" id="openInApp" name="openInApp">&nbsp;Always open in browser</label>
+                        </div>
+                      </div>
+                    </div>`;
+                  })
+            } else {
+              JitsiMeetJS.app.renderEntryPoint({
                 Component: JitsiMeetJS.app.entryPoints.APP
-            })
+              });
+            }
         })
     </script>
     <script>
@@ -153,7 +180,7 @@
     </script>
     <script><!--#include virtual="/config.js" --></script><!-- adapt to your needs, i.e. set hosts and bosh path -->
     <!--#include virtual="connection_optimization/connection_optimization.html" -->
-    <script src="libs/do_external_connect.min.js?v=156"></script>
+    <script src="libs/do_external_connect.min.js?v=157"></script>
     <script><!--#include virtual="/interface_config.js" --></script>
     <script>
         let paramParts = (window.location.hash && window.location.hash.substr(1).split('&')) || [];
@@ -191,14 +218,15 @@
         }
     </script>
     <script><!--#include virtual="/logging_config.js" --></script>
-    <script src="libs/lib-jitsi-meet.min.js?v=156"></script>
-    <script src="libs/app.bundle.min.js?v=156"></script>
+    <script src="libs/lib-jitsi-meet.min.js?v=157"></script>
+    <script src="libs/app.bundle.min.js?v=157"></script>
     <!--#include virtual="title.html" -->
     <!--#include virtual="plugin.head.html" -->
     <!--#include virtual="static/welcomePageAdditionalContent.html" -->
     <!--#include virtual="static/settingsToolbarAdditionalContent.html" -->
   </head>
   <body>
+    <iframe id="l" width="1" height="1" style="visibility:hidden"></iframe>
     <!--#include virtual="body.html" -->
     <div id="react"></div>
   </body>

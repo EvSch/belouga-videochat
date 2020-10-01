@@ -198,6 +198,7 @@ function _mapStateToProps(state) {
                     currentLanguage: tabState.currentLanguage,
                     followMeEnabled: tabState.followMeEnabled,
                     showPrejoinPage: tabState.showPrejoinPage,
+                    openInApp: tabState.openInApp,
                     startAudioMuted: tabState.startAudioMuted,
                     startVideoMuted: tabState.startVideoMuted
                 };

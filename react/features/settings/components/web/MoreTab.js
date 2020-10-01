@@ -58,6 +58,9 @@ export type Props = {
      */
     showPrejoinPage: boolean,
 
+    showAppOption: boolean,
+    openInApp: boolean,
+
     /**
      * Whether or not the user has selected the Start Audio Muted feature to be
      * enabled.
@@ -261,7 +264,7 @@ class MoreTab extends AbstractDialogTab<Props, State> {
      * @returns {ReactElement}
      */
     _renderPrejoinScreenSettings() {
-        const { t, showPrejoinPage } = this.props;
+        const { t, showPrejoinPage, showAppOption, openInApp } = this.props;
 
         return (
             <div
@@ -279,6 +282,15 @@ class MoreTab extends AbstractDialogTab<Props, State> {
                         ({ target: { checked } }) =>
                             super._onChange({ showPrejoinPage: checked })
                     } />
+                {showAppOption && (<Checkbox
+                    isChecked = { openInApp }
+                    label = 'Open future links in desktop app'
+                    name = 'use-app'
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onChange = {
+                        ({ target: { checked } }) =>
+                            super._onChange({ openInApp: checked })
+                    } />)}
             </div>
         );
     }

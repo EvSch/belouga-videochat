@@ -12,6 +12,7 @@ import {
 } from './actionTypes';
 import { SettingsDialog } from './components';
 import { getMoreTabProps, getProfileTabProps } from './functions';
+import { jitsiLocalStorage } from '@jitsi/js-utils';
 
 declare var APP: Object;
 
@@ -77,6 +78,10 @@ export function submitMoreTab(newState: Object): Function {
             dispatch(updateSettings({
                 userSelectedSkipPrejoin: !showPrejoinPage
             }));
+        }
+
+        if (currentState.showAppOption && newState.openInApp !== currentState.openInApp) {
+          jitsiLocalStorage.setItem('useApp', newState.openInApp);
         }
 
         if (newState.startAudioMuted !== currentState.startAudioMuted

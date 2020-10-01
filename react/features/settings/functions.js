@@ -10,6 +10,7 @@ import {
 import { toState } from '../base/redux';
 import { parseStandardURIString } from '../base/util';
 import { isFollowMeActive } from '../follow-me';
+import { jitsiLocalStorage } from '@jitsi/js-utils';
 
 declare var interfaceConfig: Object;
 
@@ -104,6 +105,8 @@ export function getMoreTabProps(stateful: Object | Function) {
     } = state['features/base/conference'];
     const followMeActive = isFollowMeActive(state);
     const configuredTabs = interfaceConfig.SETTINGS_SECTIONS || [];
+    const useApp = jitsiLocalStorage.getItem('useApp');
+    console.log(Boolean(useApp == 'true'));
 
     // The settings sections to display.
     const showModeratorSettings = Boolean(
@@ -118,6 +121,8 @@ export function getMoreTabProps(stateful: Object | Function) {
         languages: LANGUAGES,
         showLanguageSettings: configuredTabs.includes('language'),
         showModeratorSettings,
+        showAppOption: Boolean(useApp !== null),
+        openInApp: Boolean(useApp == 'true'),
         showPrejoinSettings: state['features/base/config'].prejoinPageEnabled,
         showPrejoinPage: !state['features/base/settings'].userSelectedSkipPrejoin,
         startAudioMuted: Boolean(conference && startAudioMutedPolicy),
