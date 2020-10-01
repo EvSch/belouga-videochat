@@ -14,9 +14,6 @@ var config = {
         // Domain for authenticated users. Defaults to <domain>.
         // authdomain: 'secure.live.staging.belouga.org',
 
-        // Jirecon recording component domain.
-        // jirecon: 'jirecon.live.staging.belouga.org',
-
         // Call control component (Jigasi).
         // call_control: 'callcontrol.live.staging.belouga.org',
 
@@ -69,6 +66,11 @@ var config = {
         // adjusted to 2.5 Mbps. This takes a value between 0 and 1 which determines
         // the probability for this to be enabled.
         capScreenshareBitrate: 1 // 0 to disable
+
+        // Enable callstats only for a percentage of users.
+        // This takes a value between 0 and 100 which determines the probability for
+        // the callstats to be enabled.
+        // callStatsThreshold: 5 // enable callstats for 5% of the users.
     },
 
     // Disables ICE/UDP by filtering out local and remote UDP candidates in
@@ -513,6 +515,9 @@ var config = {
         // ],
     },
 
+    // Logs that should go be passed through the 'log' event if a handler is defined for it
+    // apiLogLevels: ['warn', 'log', 'error', 'info', 'debug'],
+
     // Information about the jitsi-meet instance we are connecting to, including
     // the user region as seen by the server.
     deploymentInfo: {
@@ -635,8 +640,6 @@ var config = {
     // List of undocumented settings used in jitsi-meet
     /**
      _immediateReloadThreshold
-     autoRecord
-     autoRecordToken
      debug
      debugAudioLevels
      deploymentInfo
