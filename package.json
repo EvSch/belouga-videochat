@@ -1,10 +1,10 @@
 {
-  "name": "jitsi-meet",
+  "name": "belouga-live",
   "version": "0.0.0",
-  "description": "A sample app for the Jitsi Videobridge",
+  "description": "A nativef app for Belouga Live",
   "repository": {
     "type": "git",
-    "url": "git://github.com/jitsi/jitsi-meet"
+    "url": "git://github.com/EvSch/belouga-videochat"
   },
   "keywords": [
     "jingle",
