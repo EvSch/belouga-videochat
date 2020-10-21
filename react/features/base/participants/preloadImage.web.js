@@ -15,7 +15,7 @@ export function preloadImage(src: string | Object): Promise<string> {
     }
 
     return new Promise((resolve, reject) => {
-        fetch(src, { referrer: '', mode: 'no-cors' })
+        fetch(src, { referrer: '' })
             .then(response => {
                 if (response.ok) {
                     resolve(src);
