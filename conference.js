@@ -25,7 +25,6 @@ import {
     reloadWithStoredParams
 } from './react/features/app/actions';
 import {
-    AVATAR_ID_COMMAND,
     AVATAR_URL_COMMAND,
     EMAIL_COMMAND,
     authStatusChanged,
@@ -106,12 +105,9 @@ import {
     trackAdded,
     trackRemoved
 } from './react/features/base/tracks';
-import {
-    getBackendSafePath,
-    getJitsiMeetGlobalNS
-} from './react/features/base/util';
 import { notifyKickedOut } from './react/features/conference/actions';
 import { downloadJSON } from './react/features/base/util/downloadJSON';
+import { getConferenceOptions } from './react/features/conference/functions';
 import { showDesktopPicker } from './react/features/desktop-picker';
 import { appendSuffix } from './react/features/display-name';
 import {
@@ -127,7 +123,6 @@ import {
     isPrejoinPageVisible,
     makePrecallTest
 } from './react/features/prejoin';
-import { createRnnoiseProcessorPromise } from './react/features/rnnoise';
 import { toggleScreenshotCaptureEffect } from './react/features/screenshot-capture';
 import { setSharedVideoStatus } from './react/features/shared-video';
 import { AudioMixerEffect } from './react/features/stream-effects/audio-mixer/AudioMixerEffect';
@@ -175,7 +170,6 @@ window.JitsiMeetScreenObtainer = {
  * Known custom conference commands.
  */
 const commands = {
-    AVATAR_ID: AVATAR_ID_COMMAND,
     AVATAR_URL: AVATAR_URL_COMMAND,
     CUSTOM_ROLE: 'custom-role',
     EMAIL: EMAIL_COMMAND,
@@ -1321,53 +1315,7 @@ export default {
     },
 
     _getConferenceOptions() {
-        const options = config;
-        const { email, name: nick } = getLocalParticipant(APP.store.getState());
-
-        const state = APP.store.getState();
-        const { locationURL } = state['features/base/connection'];
-        const { tenant } = state['features/base/jwt'];
-
-        if (tenant) {
-            options.siteID = tenant;
-        }
-
-        if (options.enableDisplayNameInStats && nick) {
-            options.statisticsDisplayName = nick;
-        }
-
-        if (options.enableEmailInStats && email) {
-            options.statisticsId = email;
-        }
-
-        options.applicationName = interfaceConfig.APP_NAME;
-        options.getWiFiStatsMethod = this._getWiFiStatsMethod;
-        options.confID = `${locationURL.host}${getBackendSafePath(locationURL.pathname)}`;
-        options.createVADProcessor = createRnnoiseProcessorPromise;
-
-        // Disable CallStats, if requessted.
-        if (options.disableThirdPartyRequests) {
-            delete options.callStatsID;
-            delete options.callStatsSecret;
-            delete options.getWiFiStatsMethod;
-        }
-
-        return options;
-    },
-
-    /**
-     * Returns the result of getWiFiStats from the global NS or does nothing
-     * (returns empty result).
-     * Fixes a concurrency problem where we need to pass a function when creating
-     * JitsiConference, but that method is added to the context later.
-     *
-     * @returns {Promise}
-     * @private
-     */
-    _getWiFiStatsMethod() {
-        const gloabalNS = getJitsiMeetGlobalNS();
-
-        return gloabalNS.getWiFiStats ? gloabalNS.getWiFiStats() : Promise.resolve('{}');
+        return getConferenceOptions(APP.store.getState());
     },
 
     /**
@@ -2211,16 +2159,6 @@ export default {
                         conference: room,
                         id: from,
                         avatarURL: data.value
-                    }));
-            });
-
-        room.addCommandListener(this.commands.defaults.AVATAR_ID,
-            (data, from) => {
-                APP.store.dispatch(
-                    participantUpdated({
-                        conference: room,
-                        id: from,
-                        avatarID: data.value
                     }));
             });
 
