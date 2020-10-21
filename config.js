@@ -65,7 +65,7 @@ var config = {
         // on while screensharing is in progress, the max bitrate is automatically
         // adjusted to 2.5 Mbps. This takes a value between 0 and 1 which determines
         // the probability for this to be enabled.
-        capScreenshareBitrate: 1 // 0 to disable
+        //capScreenshareBitrate: 1 // 0 to disable
 
         // Enable callstats only for a percentage of users.
         // This takes a value between 0 and 100 which determines the probability for

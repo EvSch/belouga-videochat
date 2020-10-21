@@ -518,7 +518,7 @@ var config = {
     },
 
     // Decides whether the start/stop recording audio notifications should play on record.
-    disableRecordAudioNotification: true,
+    disableRecordAudioNotification: false,
 
     // Information for the chrome extension banner
     // chromeExtensionBanner: {
