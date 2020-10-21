@@ -53,7 +53,7 @@ function _mapStateToProps(state: Object) {
     let version;
     let platformString = '';
     let downloadAppsUrl = 'https://github.com/EvSch/belouga-videochat-electron/releases/latest/download/belouga-live';
-    if (jitsiLocalStorage.getItem('useApp') == null) {
+    if (jitsiLocalStorage.getItem('useApp') == null && !navigator.userAgent.includes('Electron')) {
       if (Platform.OS == 'macos') {
         visible = true;
         try {
