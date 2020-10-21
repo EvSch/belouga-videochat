@@ -48,7 +48,7 @@ function openUriWithTimeoutHack (uri, failCb, successCb) {
 
 }
 
-function isElectron() {
+function checkElectron() {
 // Renderer process
 if (typeof window !== 'undefined' && typeof window.process === 'object' && window.process.type === 'renderer') {
     return true;

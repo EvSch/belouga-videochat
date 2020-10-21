@@ -16,7 +16,7 @@
             if (!JitsiMeetJS.app) {
                 return;
             }
-            if (window.location.pathname != '/' && !isElectron() && window.localStorage.useApp !== "false" && window.sessionStorage.appBypass == undefined){
+            if (window.location.pathname != '/' && !checkElectron() && window.localStorage.useApp !== "false" && window.sessionStorage.appBypass == undefined){
                   openUriWithTimeoutHack ("belouga-live:/" + window.location.pathname, function(){
                     console.log('FAIL');
                     JitsiMeetJS.app.renderEntryPoint({
