@@ -123,7 +123,7 @@ var config = {
     opusMaxAverageBitrate: 50000,
 
     // Enables redundancy for Opus
-    enableOpusRed: true,
+    //enableOpusRed: true,
 
     // Video
 
@@ -235,8 +235,8 @@ var config = {
     // will be used as default until the first threshold is reached.
     //
     lastNLimits: {
-        5: 20,
-        30: 15,
+        5: 25,
+        30: 20,
         50: 10,
         70: 5,
         90: 2
