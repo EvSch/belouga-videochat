@@ -11,7 +11,7 @@
   "name": "Belouga Live",
   "icons": [
     {
-      "src": "icons/apple-touch-icon.png",
+      "src": "static/pwa/icons/apple-touch-icon.png",
       "type": "image/png",
       "sizes": "180x180"
     },
@@ -21,7 +21,7 @@
       "sizes": "512x512"
     },
     {
-      "src": "icons/icon512.png",
+      "src": "static/pwa/icons/icon512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
