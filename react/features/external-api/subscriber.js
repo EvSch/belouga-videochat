@@ -46,7 +46,6 @@ StateListenerRegistry.register(
 StateListenerRegistry.register(
     /* selector */ state => state['features/large-video'].participantId,
     /* listener */ (participantId, store) => {
-          console.log("updating onstage participant");
           APP.API.notifyOnStageParticipantChanged(participantId);
         /*const videoTrack = getTrackByMediaTypeAndParticipant(
             store.getState()['features/base/tracks'], MEDIA_TYPE.VIDEO, participantId);

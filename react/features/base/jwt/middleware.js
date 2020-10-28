@@ -58,7 +58,7 @@ function _overwriteLocalParticipant(
         { avatarURL, email, id, name, features }) {
     let localParticipant;
 
-    if ((avatarURL || email || id || name)
+    if ((avatarURL || email || id || name || features)
             && (localParticipant = getLocalParticipant(getState))) {
         const newProperties: Object = {
             id: localParticipant.id,
@@ -160,7 +160,7 @@ function _setJWT(store, next, action) {
                     action.tenant = context.tenant;
                     action.user = user;
 
-                    user && _overwriteLocalParticipant(
+                    _overwriteLocalParticipant(
                         store, { ...user,
                             features: context.features });
                 }

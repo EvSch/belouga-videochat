@@ -106,7 +106,7 @@ export function getMoreTabProps(stateful: Object | Function) {
     const followMeActive = isFollowMeActive(state);
     const configuredTabs = interfaceConfig.SETTINGS_SECTIONS || [];
     const useApp = jitsiLocalStorage.getItem('useApp');
-    console.log(Boolean(useApp == 'true'));
+    //console.log(Boolean(useApp == 'true'));
 
     // The settings sections to display.
     const showModeratorSettings = Boolean(
