@@ -173,11 +173,9 @@ const VideoLayout = {
         remoteVideo.addRemoteStreamElement(stream);
 
         // Make sure track's muted state is reflected
-        if (stream.getType() === 'audio') {
-            this.onAudioMute(id, stream.isMuted());
-        } else {
+        if (stream.getType() !== 'audio') {
             this.onVideoMute(id);
-            remoteVideo.setScreenSharing(stream.videoType === 'desktop');
+            remoteVideo.updateView();
         }
     },
 
@@ -189,7 +187,7 @@ const VideoLayout = {
 
         if (remoteVideo) {
             remoteVideo.removeRemoteStreamElement(stream);
-            remoteVideo.setScreenSharing(false);
+            remoteVideo.updateView();
         }
 
         this.updateMutedForNoTracks(id, stream.getType());
@@ -327,24 +325,6 @@ const VideoLayout = {
             $(videoElement).show();
         }
         this._updateLargeVideoIfDisplayed(resourceJid, true);
-    },
-
-    /**
-     * On audio muted event.
-     */
-    onAudioMute(id, isMuted) {
-        if (APP.conference.isLocalId(id)) {
-            localVideoThumbnail.showAudioIndicator(isMuted);
-        } else {
-            const remoteVideo = remoteVideos[id];
-
-            if (!remoteVideo) {
-                return;
-            }
-
-            remoteVideo.showAudioIndicator(isMuted);
-            remoteVideo.updateRemoteVideoMenu();
-        }
     },
 
     /**
@@ -494,7 +474,7 @@ const VideoLayout = {
         }
 
         logger.info('Peer video type changed: ', id, newVideoType);
-        remoteVideo.setScreenSharing(newVideoType === 'desktop');
+        remoteVideo.updateView();
     },
 
     /**
