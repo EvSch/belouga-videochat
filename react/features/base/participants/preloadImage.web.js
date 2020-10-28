@@ -15,7 +15,9 @@ export function preloadImage(src: string | Object): Promise<string> {
     }
 
     return new Promise((resolve, reject) => {
-        fetch(src, { referrer: '' })
+        fetch(src, { referrer: '', headers: {
+      'Cache-Control': 'no-cache'
+    }})
             .then(response => {
                 if (response.ok) {
                     resolve(src);

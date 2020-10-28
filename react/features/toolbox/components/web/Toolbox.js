@@ -1434,10 +1434,11 @@ function _mapStateToProps(state) {
     if (enableFeaturesBasedOnToken) {
         // we enable desktop sharing if any participant already have this
         // feature enabled
-        desktopSharingEnabled = getParticipants(state)
+        /*desktopSharingEnabled = getParticipants(state)
             .find(({ features = {} }) =>
-                String(features['screen-sharing']) === 'true') !== undefined;
+                String(features['screen-sharing']) === 'true') !== undefined;*/
 
+        desktopSharingEnabled = String(features['screen-sharing']) === 'true';
         youtubeEnabled = String(features.youtube) === 'true';
 
         // we want to show button and tooltip

@@ -46,11 +46,13 @@ StateListenerRegistry.register(
 StateListenerRegistry.register(
     /* selector */ state => state['features/large-video'].participantId,
     /* listener */ (participantId, store) => {
-        const videoTrack = getTrackByMediaTypeAndParticipant(
+          console.log("updating onstage participant");
+          APP.API.notifyOnStageParticipantChanged(participantId);
+        /*const videoTrack = getTrackByMediaTypeAndParticipant(
             store.getState()['features/base/tracks'], MEDIA_TYPE.VIDEO, participantId);
 
         if (videoTrack && videoTrack.videoType === VIDEO_TYPE.CAMERA) {
             APP.API.notifyOnStageParticipantChanged(participantId);
-        }
+        }*/
     }
 );
