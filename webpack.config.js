@@ -37,6 +37,7 @@ const config = {
     devServer: {
         https: true,
         inline: true,
+        writeToDisk: true,
         proxy: {
             '/': {
                 bypass: devServerProxyBypass,

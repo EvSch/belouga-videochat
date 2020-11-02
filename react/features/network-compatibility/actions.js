@@ -17,7 +17,7 @@ export function toggleCompatMode(enabled: boolean) {
         enabled ? dispatch(compatEnabled()) : dispatch(compatDisabled());
         enabled ? dispatch(setPreferredVideoQuality(360)) : dispatch(setPreferredVideoQuality(720));
         enabled ? dispatch(setMaxReceiverVideoQuality(360)) :dispatch(setMaxReceiverVideoQuality(720));
-        dispatch(setNetworkCompat(enabled));
+        //dispatch(setNetworkCompat(enabled));
         const conference = getCurrentConference(state);
         if (conference.room.membersOnlyEnabled) {
           conference.disableLobby();

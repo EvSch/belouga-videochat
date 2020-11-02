@@ -20,7 +20,7 @@ MiddlewareRegistry.register(store => next => action => {
         }
         if (store.getState()['features/base/config'].iAmFirst !== undefined && networkCompatibility.hasOwnProperty('compatEnabled')){
           const enabled = APP.store.getState()['features/network-compatibility'].compatEnabled;
-          store.dispatch(setNetworkCompat(enabled));
+          //store.dispatch(setNetworkCompat(enabled));
           if (conference.room.membersOnlyEnabled) {
             conference.disableLobby();
           }
@@ -81,7 +81,7 @@ function _onNetworkCompatibilityCommand(attributes = {}, id, store) {
     const jwt = state['features/base/jwt'];
 
     if (enabled == "true" && !state['features/base/config'].altConfigLoaded) {
-      if (!url.includes('#altConfig')) {
+      if (!url.includes('altConfig')) {
         window.location.replace(url + "?jwt=" + jwt.jwt + "#altConfig=true&config.prejoinPageEnabled=false");
       }
     } else if (enabled == "false" && state['features/base/config'].altConfigLoaded) {

@@ -103,7 +103,7 @@ class RemoteControlButton extends Component<Props> {
 
         return (
             <RemoteVideoMenuButton
-                buttonText = { t('videothumbnail.remoteControl') }
+                buttonText = { remoteControlState == REMOTE_CONTROL_MENU_STATES.STARTED ? t('videothumbnail.remoteControlStop') : t('videothumbnail.remoteControlStart') }
                 displayClass = { className }
                 icon = { icon }
                 id = { `remoteControl_${participantID}` }
