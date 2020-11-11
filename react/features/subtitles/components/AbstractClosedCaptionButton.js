@@ -88,7 +88,8 @@ export class AbstractClosedCaptionButton
 export function _abstractMapStateToProps(state: Object, ownProps: Object) {
     const { _requestingSubtitles } = state['features/subtitles'];
     const { transcribingEnabled } = state['features/base/config'];
-    let { visible = Boolean(transcribingEnabled) } = ownProps;
+    const { isTranscribing } = state['features/transcribing'];
+    let { visible = Boolean(transcribingEnabled && (isLocalParticipantModerator(state) || isTranscribing)) } = ownProps;
 
     let disabledByFeatures = false;
 
@@ -98,9 +99,12 @@ export function _abstractMapStateToProps(state: Object, ownProps: Object) {
       } = state['features/base/config'];
       const { features = {} } = getLocalParticipant(state);
       if (enableFeaturesBasedOnToken) {
-          //visible = String(features.closedcaptions) === 'true';
+        disabledByFeatures = String(features.closedcaptions) === 'disabled';
+        if (isTranscribing || disabledByFeatures) {
           visible = true;
-          disabledByFeatures = String(features.closedcaptions) === 'disabled';
+        } else {
+          visible = String(features.closedcaptions) === 'true';
+        }
       }
     }
 
