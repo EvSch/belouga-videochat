@@ -104,7 +104,7 @@ const config = {
             // dependencies including lib-jitsi-meet.
 
             loader: 'expose-loader?$!expose-loader?jQuery',
-            test: /\/node_modules\/jquery\/.*\.js$/
+            test: /[/\\]node_modules[/\\]jquery[/\\].*\.js$/
         }, {
             test: /\.(png|jpe?g|gif|ttf|woff|woff2|eot)$/i,
             use: [
