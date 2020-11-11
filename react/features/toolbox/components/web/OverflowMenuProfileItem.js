@@ -120,7 +120,7 @@ class OverflowMenuProfileItem extends Component<Props> {
 function _mapStateToProps(state) {
     return {
         _localParticipant: getLocalParticipant(state),
-        _unclickable: state['features/base/config'].disableProfile
+        _unclickable: (!state['features/base/jwt'].isGuest || state['features/base/config'].disableProfile)
             || !interfaceConfig.SETTINGS_SECTIONS.includes('profile')
     };
 }

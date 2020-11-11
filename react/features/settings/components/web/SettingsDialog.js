@@ -133,7 +133,7 @@ function _mapStateToProps(state) {
     const moreTabProps = getMoreTabProps(state);
     const { showModeratorSettings, showLanguageSettings, showPrejoinSettings } = moreTabProps;
     const showProfileSettings
-        = configuredTabs.includes('profile') && jwt.isGuest;
+        = configuredTabs.includes('profile') && (jwt.isGuest || !state['features/base/config'].disableProfile);
     const showCalendarSettings
         = configuredTabs.includes('calendar') && isCalendarEnabled(state);
     const tabs = [];
